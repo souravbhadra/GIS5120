@@ -1,0 +1,27 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: syllabus
+- file: lectures/lectures
+  sections:
+    - file: lectures/lec-1
+    - file: lectures/lec-2
+    - file: lectures/lec-3
+    - file: lectures/lec-4
+    - file: lectures/lec-5
+    - file: lectures/lec-6
+    - file: lectures/lec-7
+    - file: lectures/lec-8
+- file: labs/labs
+  sections:
+    - file: labs/lab-1
+    - file: labs/lab-2
+    - file: labs/lab-3
+    - file: labs/lab-4
+    - file: labs/lab-5
+    - file: labs/lab-6
+    - file: labs/lab-7
+    - file: labs/lab-8
