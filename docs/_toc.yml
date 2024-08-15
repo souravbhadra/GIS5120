@@ -4,7 +4,7 @@
 format: jb-book
 root: intro
 chapters:
-- file: syllabus
+- file: schedule
 - file: lectures/lectures
   sections:
     - file: lectures/lec-1
@@ -25,3 +25,4 @@ chapters:
     - file: labs/lab-6
     - file: labs/lab-7
     - file: labs/lab-8
+- file: project
