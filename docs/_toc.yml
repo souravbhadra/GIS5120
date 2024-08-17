@@ -17,12 +17,12 @@ chapters:
     - file: lectures/lec-8
 - file: labs/labs
   sections:
-    - file: labs/lab-1
-    - file: labs/lab-2
-    - file: labs/lab-3
-    - file: labs/lab-4
-    - file: labs/lab-5
-    - file: labs/lab-6
-    - file: labs/lab-7
-    - file: labs/lab-8
+    - file: labs/lab-1/lab-1
+    - file: labs/lab-2/lab-2
+    - file: labs/lab-3/lab-3
+    - file: labs/lab-4/lab-4
+    - file: labs/lab-5/lab-5
+    - file: labs/lab-6/lab-6
+    - file: labs/lab-7/lab-7
+    - file: labs/lab-8/lab-8
 - file: project
