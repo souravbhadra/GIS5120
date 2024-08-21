@@ -1,1 +1,1 @@
-# Lecture 6: Climate data analysis
+# Lecture 6: Big data in Geospatial Analytics

@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -186,9 +186,9 @@
 <li class="toctree-l2"><a class="reference internal" href="lectures/lec-2.html">Lecture 2: Spatial analysis as a process</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lectures/lec-3.html">Lecture 3: Data exploration and spatial statistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lectures/lec-4.html">Lecture 4: Surface and field analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lectures/lec-5.html">Lecture 5: Geospatial analysis using python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lectures/lec-6.html">Lecture 6: Climate data analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lectures/lec-7.html">Lecture 7: Big data in Geospatial Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-5.html">Climate data analysis (Guest Lecture)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-6.html">Lecture 6: Big data in Geospatial Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-7.html">Lecture 7: Geocomputational methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lectures/lec-8.html">Lecture 8: Geocomputational methods</a></li>
 </ul>
 </details></li>
@@ -461,7 +461,7 @@ document.write(`
 <tr class="row-odd"><td><p>6</p></td>
 <td><p>Sep 24</p></td>
 <td><p><a class="reference internal" href="lectures/lec-4.html"><span class="std std-doc">Lec 4: Surface and field analysis</span></a></p></td>
-<td><p><a class="reference internal" href="labs/lab-2/lab-2.html"><span class="std std-doc">Lab 2: Suitability analysis</span></a></p></td>
+<td><p><a class="reference internal" href="labs/lab-2/lab-2.html"><span class="std std-doc">Lab 2: Exploratory data analysis</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>6</p></td>
 <td><p>Sep 26</p></td>
@@ -496,21 +496,21 @@ document.write(`
 <tr class="row-even"><td><p>9</p></td>
 <td><p>Oct 17</p></td>
 <td><p><strong>Midterm Exam</strong></p></td>
-<td><p>-</p></td>
+<td><p><strong>Class project abstract</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>10</p></td>
 <td><p>Oct 22</p></td>
-<td><p><a class="reference internal" href="lectures/lec-5.html"><span class="std std-doc">Lec 5: Geospatial analysis using python</span></a></p></td>
-<td><p>-</p></td>
-</tr>
-<tr class="row-even"><td><p>10</p></td>
-<td><p>Oct 24</p></td>
 <td><p><a class="reference internal" href="labs/lab-6/lab-6.html"><span class="std std-doc">Lab 6: Geospatial analysis using python</span></a></p></td>
 <td><p><a class="reference internal" href="labs/lab-5/lab-5.html"><span class="std std-doc">Lab 5: Spatial interpolation</span></a></p></td>
 </tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>Oct 24</p></td>
+<td><p><strong>No Class (Fall Break)</strong></p></td>
+<td><p>-</p></td>
+</tr>
 <tr class="row-odd"><td><p>11</p></td>
 <td><p>Oct 29</p></td>
-<td><p><a class="reference internal" href="lectures/lec-6.html"><span class="std std-doc">Lec 6: Climate data analysis (Guest Lecture)</span></a></p></td>
+<td><p><a class="reference internal" href="lectures/lec-5.html"><span class="std std-doc">Lec 5: Climate data analysis (Guest Lecture)</span></a></p></td>
 <td><p><a class="reference internal" href="labs/lab-6/lab-6.html"><span class="std std-doc">Lab 6: Geospatial analysis using python</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>11</p></td>
@@ -520,7 +520,7 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p>12</p></td>
 <td><p>Nov 5</p></td>
-<td><p><a class="reference internal" href="lectures/lec-7.html"><span class="std std-doc">Lec 7: Big data in Geospatial Analytics</span></a></p></td>
+<td><p><a class="reference internal" href="lectures/lec-6.html"><span class="std std-doc">Lec 6: Big data in Geospatial Analytics</span></a></p></td>
 <td><p>-</p></td>
 </tr>
 <tr class="row-even"><td><p>12</p></td>
@@ -540,7 +540,7 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p>14</p></td>
 <td><p>Nov 19</p></td>
-<td><p>Project Q&amp;A</p></td>
+<td><p><strong>Project Q&amp;A</strong></p></td>
 <td><p>-</p></td>
 </tr>
 <tr class="row-even"><td><p>14</p></td>
@@ -550,7 +550,7 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p>15</p></td>
 <td><p>Nov 26</p></td>
-<td><p><a class="reference internal" href="lectures/lec-8.html"><span class="std std-doc">Lec 8: Geocomputational methods</span></a></p></td>
+<td><p><a class="reference internal" href="lectures/lec-7.html"><span class="std std-doc">Lec 7: Geocomputational methods</span></a></p></td>
 <td><p><a class="reference internal" href="labs/lab-8/lab-8.html"><span class="std std-doc">Lab 8: Google earth engine</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>15</p></td>
@@ -561,7 +561,7 @@ document.write(`
 <tr class="row-odd"><td><p>16</p></td>
 <td><p>Dec 3</p></td>
 <td><p><strong>Project presentation</strong></p></td>
-<td><p>Submit presentation by 8 AM</p></td>
+<td><p><strong>Submit presentation by 8 AM</strong></p></td>
 </tr>
 <tr class="row-even"><td><p>16</p></td>
 <td><p>Dec 5</p></td>
@@ -570,13 +570,13 @@ document.write(`
 </tr>
 <tr class="row-odd"><td><p>17</p></td>
 <td><p>Dec 10</p></td>
-<td><p><strong>Short report</strong></p></td>
+<td><p><strong>Work on short report</strong></p></td>
 <td><p>-</p></td>
 </tr>
 <tr class="row-even"><td><p>17</p></td>
 <td><p>Dec 12</p></td>
-<td><p><strong>Short report</strong></p></td>
-<td><p>Submit short report</p></td>
+<td><p><strong>Work on short report</strong></p></td>
+<td><p><strong>Submit short report</strong></p></td>
 </tr>
 </tbody>
 </table>
