@@ -95,6 +95,8 @@ The class project is a significant component of your learning experience, contri
 
 The class project is your chance to demonstrate your mastery of geospatial analytics, so take this opportunity to showcase your skills and insights.
 
+**For undergraduate students who registered for GIS4120:** *for the class project, you can choose any lab assignment, use a different dataset to complete the tasks as mentioned in the lab and present. You are NOT required to submit a report. I will make sure you have the right sets of goals specified for the class project.*
+
 ## Academic Integrity
 
 Academic integrity is the commitment to and demonstration of honest and moral behavior in an academic setting. Since the mission of the University is "the pursuit of truth for the greater glory of God and for the service of humanity," acts of integrity are essential to its very reason for existence. Thus, the University regards academic integrity as a matter of serious importance. Academic integrity is the foundation of the academic assessment process, which in turn sustains the ability of the University to certify to the outside world the skills and attainments of its graduates. Adhering to the standards of academic integrity allows all members of the University to contribute to a just and equitable learning environment that cultivates moral character and self-respect. The full University-level Academic Integrity Policy can be found on the Provost's Office website at:
