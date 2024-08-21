@@ -17,6 +17,7 @@ chapters:
     - file: lectures/lec-8
 - file: labs/labs
   sections:
+    - file: labs/lab-0/lab-0
     - file: labs/lab-1/lab-1
     - file: labs/lab-2/lab-2
     - file: labs/lab-3/lab-3
