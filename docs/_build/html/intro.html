@@ -1,0 +1,765 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Home &#8212; Geospatial Analytics (GIS4120/5120)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Schedule" href="schedule.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Geospatial Analytics (GIS4120/5120) - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Geospatial Analytics (GIS4120/5120) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Home
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="lectures/lectures.html">Lectures</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-1.html">Lecture 1: Conceptual frameworks of spatial analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-2.html">Lecture 2: Spatial analysis as a process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-3.html">Lecture 3: Data exploration and spatial statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-4.html">Lecture 4: Surface and field analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-5.html">Climate data analysis (Guest Lecture)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-6.html">Lecture 6: Big data in Geospatial Analytics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-7.html">Lecture 7: Geocomputational methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lectures/lec-8.html">Lecture 8: Geocomputational methods</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="labs/labs.html">Labs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-0/lab-0.html">Make a Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-1/lab-1.html">Lab 1: Suitability Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-2/lab-2.html">Lab 2: Exploratory Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-3/lab-3.html">Lab 3: Surface geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-4/lab-4.html">Lab 4: Drainage delineation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-5/lab-5.html">Lab 5: Spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-6/lab-6.html">Lab 6: Geospatial analysis using python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-7/lab-7.html">Lab 7: Multidimensional climate data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-8/lab-8.html">Lab 8: Google earth engine</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="project.html">Project</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/intro.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Home</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-information">Course Information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-description">Course Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructor-information">Instructor Information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning Outcomes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-materials">Required Materials</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#textbook">Textbook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-and-grading">Evaluation and Grading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-weight">Grading Weight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grade-distribution">Grade Distribution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-from-students">Expectations from Students</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-assignments">Lab Assignments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mid-term-exam">Mid-term Exam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-projects">Class Projects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#major-expectations">Major Expectations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#academic-integrity">Academic Integrity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disability-accommodations">Disability Accommodations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#title-ix">Title IX</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-of-generative-ai">Use of Generative AI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teams-channel-for-communication">Teams Channel for Communication</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="home">
+<h1>Home<a class="headerlink" href="#home" title="Link to this heading">#</a></h1>
+<p>Welcome to GIS4120/5120 Geospatial Analytics for Fall 2024 at Saint Louis University! This website is your go-to resource for all course-related information, including links to labs, lectures, datasets, and other essential materials. I’m excited to guide you through the world of geospatial analytics as we explore powerful tools and techniques together.</p>
+<section id="course-information">
+<h2>Course Information<a class="headerlink" href="#course-information" title="Link to this heading">#</a></h2>
+<p><strong>Course Number:</strong> GIS4120/5120<br />
+<strong>Meeting Times:</strong> Tuesday and Thursdays 8:00 AM to 9:15 AM<br />
+<strong>Location:</strong> Room 103, Des Peres Hall, 3694 W Pine Mall, St. Louis, MO 63108<br />
+<strong>Pre-requisites:</strong> Introduction to GIS (GIS4050/5050), Introduction to Remote Sensing (GIS4040/5040), Programming for GIS and Remote Sensing (GIS4090/5090)</p>
+</section>
+<section id="course-description">
+<h2>Course Description<a class="headerlink" href="#course-description" title="Link to this heading">#</a></h2>
+<p>This course introduces students to the fundamental concepts and frameworks of spatial analysis, emphasizing the role of geospatial technology in addressing grand societal challenges. Students will explore a range of topics, including spatial analysis processes, data exploration, surface and field analysis, and the application of Python and big data in geospatial contexts. At the end of the course, students will be able to tackle a geospatial analytics project including data collection, data processing, analysis and making inference like a geospatial scientist.</p>
+</section>
+<section id="instructor-information">
+<h2>Instructor Information<a class="headerlink" href="#instructor-information" title="Link to this heading">#</a></h2>
+<p><strong>Instructor:</strong> Sourav Bhadra, <em>Ph.D.</em><br />
+<strong>Email:</strong> <a class="reference external" href="mailto:sourav&#46;bhadra&#37;&#52;&#48;slu&#46;edu">sourav<span>&#46;</span>bhadra<span>&#64;</span>slu<span>&#46;</span>edu</a><br />
+<strong>Teaching Assistant:</strong> Md. Ahasan Habib (<a class="reference external" href="mailto:mdahasan&#46;habib&#37;&#52;&#48;slu&#46;edu">mdahasan<span>&#46;</span>habib<span>&#64;</span>slu<span>&#46;</span>edu</a>)<br />
+<strong>Office Hours:</strong> By Appointment</p>
+</section>
+<section id="learning-outcomes">
+<h2>Learning Outcomes<a class="headerlink" href="#learning-outcomes" title="Link to this heading">#</a></h2>
+<p>By the end of the course, students should be able to:</p>
+<ul class="simple">
+<li><p>Explain and apply fundamental concepts of spatial analysis.</p></li>
+<li><p>Explore and analyze spatial data using statistical methods.</p></li>
+<li><p>Conduct surface and field analyses, including geometry and interpolation.</p></li>
+<li><p>Use Python and geospatial tools for complex analyses.</p></li>
+<li><p>Analyze and interpret multidimensional climate data.</p></li>
+<li><p>Design, execute, and present a geospatial analysis project.</p></li>
+</ul>
+</section>
+<section id="required-materials">
+<h2>Required Materials<a class="headerlink" href="#required-materials" title="Link to this heading">#</a></h2>
+<section id="textbook">
+<h3>Textbook<a class="headerlink" href="#textbook" title="Link to this heading">#</a></h3>
+<p>De Smith, M.J., Goodchild, M.F. and Longley, P. (2007) Geospatial Analysis: A Comprehensive Guide to Principles, Techniques and Software Tools (6th Edition). Troubador Publishing Ltd., Leicester.</p>
+</section>
+<section id="software">
+<h3>Software<a class="headerlink" href="#software" title="Link to this heading">#</a></h3>
+<p>ArcGIS Pro, Anaconda3</p>
+</section>
+</section>
+<section id="evaluation-and-grading">
+<h2>Evaluation and Grading<a class="headerlink" href="#evaluation-and-grading" title="Link to this heading">#</a></h2>
+<section id="grading-weight">
+<h3>Grading Weight<a class="headerlink" href="#grading-weight" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Attendance (5%)</p></li>
+<li><p>Lab Assignments (45%)</p></li>
+<li><p>Midterm Exam (25%)</p></li>
+<li><p>Final Project (25%)</p></li>
+</ul>
+</section>
+<section id="grade-distribution">
+<h3>Grade Distribution<a class="headerlink" href="#grade-distribution" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Quality of Performance</p></th>
+<th class="head"><p>Letter Grade</p></th>
+<th class="head"><p>Range %</p></th>
+<th class="head"><p>GPA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Excellent - work is of exceptional quality</p></td>
+<td><p>A</p></td>
+<td><p>93 - 100</p></td>
+<td><p>4.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>Excellent</p></td>
+<td><p>A-</p></td>
+<td><p>90 - 92.9</p></td>
+<td><p>3.70</p></td>
+</tr>
+<tr class="row-even"><td><p>Good - work is above average</p></td>
+<td><p>B+</p></td>
+<td><p>87 - 89.9</p></td>
+<td><p>3.30</p></td>
+</tr>
+<tr class="row-odd"><td><p>Satisfactory</p></td>
+<td><p>B</p></td>
+<td><p>83 - 86.9</p></td>
+<td><p>3.00</p></td>
+</tr>
+<tr class="row-even"><td><p>Below Average</p></td>
+<td><p>B-</p></td>
+<td><p>80 - 82.9</p></td>
+<td><p>2.70</p></td>
+</tr>
+<tr class="row-odd"><td><p>Poor</p></td>
+<td><p>C+</p></td>
+<td><p>77 - 79.9</p></td>
+<td><p>2.30</p></td>
+</tr>
+<tr class="row-even"><td><p>Poor</p></td>
+<td><p>C</p></td>
+<td><p>70 - 76.9</p></td>
+<td><p>2.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>Failure</p></td>
+<td><p>F</p></td>
+<td><p>&lt; 70&gt;</p></td>
+<td><p>0.00</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="expectations-from-students">
+<h2>Expectations from Students<a class="headerlink" href="#expectations-from-students" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Attend every class session, as each lecture builds on the previous one. If you anticipate missing a class, please inform me in advance.</p></li>
+<li><p>Arrive on time to ensure you don’t miss any crucial information.</p></li>
+<li><p>You are responsible for catching up on any material or announcements, including changes in assignments, meeting times, or due dates, if you miss a class.</p></li>
+<li><p>Participation isn’t just about speaking; active listening and thoughtful contributions that advance the discussion are equally important.</p></li>
+<li><p>Submit all assignments at the beginning of class on the due date. Late submissions will impact your grade.</p></li>
+<li><p>To maintain a focused learning environment, refrain from non-academic activities on electronic devices during class.</p></li>
+<li><p>If you anticipate any disruptions, such as an emergency phone call or appointment, please notify me ahead of time.</p></li>
+</ul>
+</section>
+<section id="lab-assignments">
+<h2>Lab Assignments<a class="headerlink" href="#lab-assignments" title="Link to this heading">#</a></h2>
+<p>There will be a total of 8 labs (tentatively) in this course. Students are expected to follow the instructions provided in the lab manual and answer all the questions thoroughly. The lab assignments make up 45% of your overall grade, so please ensure you submit them on time to maintain a strong academic standing.</p>
+</section>
+<section id="mid-term-exam">
+<h2>Mid-term Exam<a class="headerlink" href="#mid-term-exam" title="Link to this heading">#</a></h2>
+<p>The mid-term exam is scheduled for October 17 during our regular class time. The exam will primarily consist of open-ended questions based on our lectures. It’s designed not to test your memorization of concepts, but to assess your reasoning skills and your ability to apply geospatial concepts to real-world scenarios. We will go over the exam details together in our upcoming meetings.</p>
+</section>
+<section id="class-projects">
+<h2>Class Projects<a class="headerlink" href="#class-projects" title="Link to this heading">#</a></h2>
+<p>The class project is a significant component of your learning experience, contributing 25% to your final grade. This project is an opportunity for you to apply the geospatial analytics concepts and techniques we’ve explored throughout the course to a real-world problem. You are expected to work individually to develop an original project that showcases your analytical skills, creativity, and understanding of geospatial data.</p>
+<section id="major-expectations">
+<h3>Major Expectations<a class="headerlink" href="#major-expectations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Originality: Your project must be original, demonstrating your approach to solving a geospatial problem. It should reflect your ability to think critically and innovatively within the field of geospatial analytics.</p></li>
+<li><p>PowerPoint Presentation: You will present your project to the class in a concise PowerPoint presentation. This presentation should clearly communicate your project’s objectives, methodology, results, and conclusions. More details will follow.</p></li>
+<li><p>Short Report: Along with your presentation, you will submit a short report (3-4 pages) summarizing your project. The report should include an introduction, a detailed explanation of your methods, your findings, and your conclusions. It should be clear, well-organized, and professionally written. More details will follow.</p></li>
+</ul>
+<p>The class project is your chance to demonstrate your mastery of geospatial analytics, so take this opportunity to showcase your skills and insights.</p>
+<p><strong>For undergraduate students who registered for GIS4120:</strong> <em>for the class project, you can choose any lab assignment, use a different dataset to complete the tasks as mentioned in the lab and present. You are NOT required to submit a report. I will make sure you have the right sets of goals specified for the class project.</em></p>
+</section>
+</section>
+<section id="academic-integrity">
+<h2>Academic Integrity<a class="headerlink" href="#academic-integrity" title="Link to this heading">#</a></h2>
+<p>Academic integrity is the commitment to and demonstration of honest and moral behavior in an academic setting. Since the mission of the University is “the pursuit of truth for the greater glory of God and for the service of humanity,” acts of integrity are essential to its very reason for existence. Thus, the University regards academic integrity as a matter of serious importance. Academic integrity is the foundation of the academic assessment process, which in turn sustains the ability of the University to certify to the outside world the skills and attainments of its graduates. Adhering to the standards of academic integrity allows all members of the University to contribute to a just and equitable learning environment that cultivates moral character and self-respect. The full University-level Academic Integrity Policy can be found on the Provost’s Office website at:
+<a class="reference external" href="https://www.slu.edu/provost/policies/academic-and-course/academic-integrity-policy.pdf">https://www.slu.edu/provost/policies/academic-and-course/academic-integrity-policy.pdf</a>.</p>
+</section>
+<section id="disability-accommodations">
+<h2>Disability Accommodations<a class="headerlink" href="#disability-accommodations" title="Link to this heading">#</a></h2>
+<p>Students with a documented disability who wish to request academic accommodations must formally register their disability with the University. Once successfully registered, students also must notify their course instructor that they wish to use their approved accommodations in the course.</p>
+<p>Please contact the Center for Accessibility and Disability Resources (CADR) to schedule an appointment to discuss accommodation requests and eligibility requirements. Most students on the St. Louis campus will contact CADR, located in the Student Success Center and available by email at <a class="reference external" href="mailto:accessibility_disability&#37;&#52;&#48;slu&#46;edu">accessibility_disability<span>&#64;</span>slu<span>&#46;</span>edu</a> or by phone at 314.977.3484. Once approved, information about a student’s eligibility for academic accommodations will be shared with course instructors by email from CADR and within the instructor’s official course roster. Students who do not have a documented disability but who think they may have one also are encouraged to contact to CADR. Confidentiality will be observed in all inquiries.</p>
+<p><em>Note: due to accreditation requirements, regulatory differences, and/or location-specific resources, the School of Law, the School of Medicine, and SLU Madrid have their own standard language for syllabus statements related to disability accommodations. Faculty in those units should seek guidance for syllabus requirements from their dean’s office.</em></p>
+</section>
+<section id="title-ix">
+<h2>Title IX<a class="headerlink" href="#title-ix" title="Link to this heading">#</a></h2>
+<p>Saint Louis University and its faculty are committed to supporting our students and seeking an environment that is free of bias, discrimination, and harassment. If you have encountered any form of discrimination on the basis of sex, including sexual harassment, sexual assault, stalking, domestic or dating violence, we encourage you to report this to the University. Discrimination on the basis of sex includes discrimination on the basis of assigned sex at birth, sex characteristics, pregnancy and pregnancy related conditions, sexual orientation and gender identity. If you speak with a faculty member about an incident that involves a Title IX matter, that faculty member must notify SLU’s Title IX Coordinator that you shared an experience relating to Title IX.  This is true even if you ask the faculty member not to disclose the incident. The Title IX Coordinator will then be available to assist you in understanding all of your options and in connecting you with all possible resources on and off campus.</p>
+<p>If you are pregnant or experiencing a pregnancy related condition, the Title IX Coordinator can assist you in understanding your rights and options as well as provide supportive measures.</p>
+<p>Anna Kratky is the Title IX Coordinator at Saint Louis University (DuBourg Hall, room 36; <a class="reference external" href="mailto:anna&#46;kratky&#37;&#52;&#48;slu&#46;edu">anna<span>&#46;</span>kratky<span>&#64;</span>slu<span>&#46;</span>edu</a>; 314-977-3886). If you wish to speak with a confidential source, you may contact the counselors at the University Counseling Center at 314-977-TALK or make an anonymous report through SLU’s Integrity Hotline by calling 1-877-525-5669 or online at <a class="reference external" href="http://www.lighthouse-services.com/slu">http://www.lighthouse-services.com/slu</a>. To view SLU’s policies, and for resources, please visit the following web addresses: <a class="reference external" href="https://www.slu.edu/about/safety/sexual-assault-resources/index.php">https://www.slu.edu/about/safety/sexual-assault-resources/index.php</a>.</p>
+<p><em>Note: due to accreditation requirements, regulatory differences, and/or location-specific resources, the School of Law, the School of Medicine, and SLU Madrid have their own standard language for syllabus statements related to Title IX. Faculty in those units should seek guidance for syllabus requirements from their dean’s office.</em></p>
+</section>
+<section id="use-of-generative-ai">
+<h2>Use of Generative AI<a class="headerlink" href="#use-of-generative-ai" title="Link to this heading">#</a></h2>
+<p>You are allowed to use generative AI in a <strong>limited capacity</strong> in this course. Tools such as [ChatGPT, Microsoft Copilot, Gemini, Midjourney, DALL-E or GitHub Copilot] can be used for specific assignments as directed in the assignment. You <strong>CANNOT</strong> use Generative AI to directly generate open-ended question answers in the assignments but you can use it to understand Python codes (if available). Please note the assignments for which generative AI is allowed come after you have been introduced to foundational skills and concepts geospatial analytics. Tools that perform readability analysis, detect tone and provide editing suggestions as well as those that paraphrase, summarize and outline are allowed for general use on any assignment.</p>
+<p>Using a generative AI tool may assist your learning by simplifying texts, helping you brainstorm, providing choices of theses when writing, assisting you with forming arguments, providing grammar checks or feedback for structure, debugging code or creating works of art. However, becoming dependent on generative AI could undermine your learning by eroding your ability to ideate independently, participate fully and intentionally in the writing process, or critically problem solve by debugging your code. The use of generative AI can strip a writer of her/his voice diminishing a creative work. Generative AI still produces inaccurate information and hallucinations are still common which if left unchecked can harm your grade on the assignment. Any work generated with AI should be fact checked to ensure accuracy. You are responsible for the content of your work.</p>
+</section>
+<section id="teams-channel-for-communication">
+<h2>Teams Channel for Communication<a class="headerlink" href="#teams-channel-for-communication" title="Link to this heading">#</a></h2>
+<p>Join the course’s Teams channel here: <a class="reference external" href="https://teams.microsoft.com/l/team/19%3APEqzaWkqB1w0uGwgcW1pEgWZqXuazXhdMWkBH7HOOzY1%40thread.tacv2/conversations?groupId=28a4b78b-6926-4ce3-bd21-00f4d220cb5e&amp;amp;tenantId=6711039e-c265-432c-b680-a3af66790e06">Teams Channel</a></p>
+<p>If you have questions or need help with lab assignments or lectures, I encourage you to post your inquiries in Teams. This way, everyone can benefit from the discussion and learn together.</p>
+</section>
+<section id="github">
+<h2>GitHub<a class="headerlink" href="#github" title="Link to this heading">#</a></h2>
+<p>The lab materials will be shared through the course’s <a class="reference external" href="https://github.com/souravbhadra/GIS5120">GitHub</a> repository.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lectures/lectures.html">Lectures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="labs/labs.html">Labs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project.html">Project</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="schedule.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Schedule</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-information">Course Information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#course-description">Course Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instructor-information">Instructor Information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-outcomes">Learning Outcomes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-materials">Required Materials</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#textbook">Textbook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-and-grading">Evaluation and Grading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-weight">Grading Weight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grade-distribution">Grade Distribution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#expectations-from-students">Expectations from Students</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lab-assignments">Lab Assignments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mid-term-exam">Mid-term Exam</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class-projects">Class Projects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#major-expectations">Major Expectations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#academic-integrity">Academic Integrity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disability-accommodations">Disability Accommodations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#title-ix">Title IX</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-of-generative-ai">Use of Generative AI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teams-channel-for-communication">Teams Channel for Communication</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github">GitHub</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sourav Bhadra
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
