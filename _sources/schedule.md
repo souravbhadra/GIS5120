@@ -31,7 +31,7 @@ Week | Date | Topics | Due
 14    | Nov 21 | [Lab 8: Google earth engine (contd.)](labs/lab-8/lab-8.md) | -
 15    | Nov 26 | [Lec 8: Geocomputational methods](lectures/lec-8.md) | [Lab 8: Google earth engine](labs/lab-8/lab-8.md)
 15    | Nov 28 | **No Class (Happy Thanksgiving!)** | -
-16    | Dec 3 | **Project presentation** | Submit presenstation by 8 AM
+16    | Dec 3 | **Project presentation** | Submit presentation by 8 AM
 16    | Dec 5 | **Project presentation** | -
 17    | Dec 10 | **Short report** | -
 17    | Dec 12 | **Short report** | Submit short report
