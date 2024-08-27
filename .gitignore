@@ -1,4 +1,5 @@
-lectures/*
+lectures/lectures-pptx/*
+lectures/refs/*
 
 # project specific
 *.pptx
