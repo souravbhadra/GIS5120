@@ -1,6 +1,8 @@
 lectures/lectures-pptx/*
 lectures/refs/*
 
+.DS_Store
+
 # project specific
 *.pptx
 
