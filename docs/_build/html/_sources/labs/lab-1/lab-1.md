@@ -2,6 +2,7 @@
 
 ## Read before proceeding
 
+- Due in September 10, 2024 (10:00 PM CDT)
 - The questions for this lab are embedded within the instructions.
 - Each question carries specific points, clearly indicated alongside it.
 - The questions have subsections within them.
