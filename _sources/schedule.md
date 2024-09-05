@@ -7,7 +7,7 @@ Week | Date | Topics | Due
 2    | Aug 29 | [Lec 1: Conceptual frameworks of spatial analysis (contd.)](lectures/lec-1.md) | -
 3    | Sep 3 | [Lec 2: Spatial analysis as a process](lectures/lec-2.md) | [Make a map](labs/lab-0/lab-0.md)
 3    | Sep 5 | [Lab 1: Fire station suitability analysis](labs/lab-1/lab-1.md) | -
-4    | Sep 10 | [Lec 3: Data exploration and spatial statistics (contd.)](lectures/lec-3.md) | [Lab 1: Suitability analysis](labs/lab-1/lab-1.md)
+4    | Sep 10 | [Lec 3: Data exploration and spatial statistics (contd.)](lectures/lec-3.md) | [Lab 1: Fire station suitability analysis](labs/lab-1/lab-1.md)
 4    | Sep 12 | [Lab 2: Exploratory data analysis](labs/lab-2/lab-2.md) | -
 5    | Sep 17 | [Lec 3: Data exploration and spatial statistics (contd.)](lectures/lec-3.md) | -
 5    | Sep 19 | [Lab 2: Exploratory data analysis (contd.)](labs/lab-2/lab-2.md) | -
