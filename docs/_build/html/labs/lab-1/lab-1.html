@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 1: Suitability analysis &#8212; Geospatial Analytics (GIS4120/5120)</title>
+    <title>Lab 1: Fire station suitability analysis (10 pts) &#8212; Geospatial Analytics (GIS4120/5120)</title>
   
   
   
@@ -194,7 +194,7 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../labs.html">Labs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../lab-0/lab-0.html">Make a Map</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 1: Suitability analysis</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 1: Fire station suitability analysis (10 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-2/lab-2.html">Lab 2: Exploratory Data Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-3/lab-3.html">Lab 3: Surface geometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-4/lab-4.html">Lab 4: Drainage delineation</a></li>
@@ -377,7 +377,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -388,11 +390,37 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 1: Suitability analysis</h1>
+    <h1>Lab 1: Fire station suitability analysis (10 pts)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anticipating-the-need">Anticipating the need</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-makes-a-suitable-site">What makes a suitable site?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-search">Initial search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reality-check">Reality check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-phase-finding-the-optimum-site">Next phase: Finding the optimum site</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-sites-that-meet-the-attribute-and-location-criteria">Select the sites that meet the attribute and location criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-unique-id-to-the-potential-sites">Add a unique ID to the potential sites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-sites-that-have-average-slope-less-than-10-percent">Find the sites that have average slope less than 10 percent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-sites-within-1-500-feet-of-a-major-road-over-streets">Find the sites within 1,500 feet of a major road over streets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#credits">Credits</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -402,9 +430,457 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-suitability-analysis">
-<h1>Lab 1: Suitability analysis<a class="headerlink" href="#lab-1-suitability-analysis" title="Link to this heading">#</a></h1>
-<p>Coming soon.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-fire-station-suitability-analysis-10-pts">
+<h1>Lab 1: Fire station suitability analysis (10 pts)<a class="headerlink" href="#lab-1-fire-station-suitability-analysis-10-pts" title="Link to this heading">#</a></h1>
+<section id="read-before-proceeding">
+<h2>Read before proceeding<a class="headerlink" href="#read-before-proceeding" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The questions for this lab are embedded within the instructions.</p></li>
+<li><p>Each question carries specific points, clearly indicated alongside it.</p></li>
+<li><p>The questions have subsections within them.</p></li>
+<li><p>The total score for this assignment is 10 points. Your final grade will be scaled from the total points you earn out of the maximum possible score to fit within a 0 to 10 scale.</p></li>
+<li><p>When working on a lab, always create a dedicated folder for it and store all related files within that specific folder. For instance, avoid saving intermediate files in the <code class="docutils literal notranslate"><span class="pre">C:/Documents</span></code> directory; keep all materials organized and together.</p></li>
+<li><p>Create a word document and name it as <code class="docutils literal notranslate"><span class="pre">Lab-1-answers-YOURLASTNAME.docx</span></code>. Insert each questions provided in this document and write down your answers for each questions. Upload the <code class="docutils literal notranslate"><span class="pre">.docx</span></code> file in Canvas. Do NOT upload a <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> of the document.</p></li>
+<li><p>Upload any additional file(s) required by this instructions in Canvas. You will find specific list of deliverables at the end of this page.</p></li>
+</ul>
+</section>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://www.arcgis.com/sharing/rest/content/items/48e4f363fedc494ab046b015b16c19e1/data">Download the data from this link</a></p>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<section id="anticipating-the-need">
+<h3>Anticipating the need<a class="headerlink" href="#anticipating-the-need" title="Link to this heading">#</a></h3>
+<p>After a local article on fire response times, the Director of Public Safety briefed the City Council on ways to improve. The Planning Director pushed for a new fire station and, sensing support despite cost concerns, directed her team to start searching for potential sites. This is the first phase of the project, with spatial analysis to be used later to find the best location.</p>
+<figure class="align-default" id="figure-1-1">
+<img alt="../../_images/figure-1-1.png" src="../../_images/figure-1-1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">There are currently three fire stations in the city—two in the southwest corner and one in the north.</span><a class="headerlink" href="#figure-1-1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="what-makes-a-suitable-site">
+<h3>What makes a suitable site?<a class="headerlink" href="#what-makes-a-suitable-site" title="Link to this heading">#</a></h3>
+<p>During the City Council meeting, members suggested using vacant city-owned parcels to cut costs for the new station. The Planning Director instructed her staff to start searching these areas and talk to the Public Works Department about any site requirements.</p>
+<p>After meeting with Public Works, the Planning Department staff compiled site criteria. They created a table outlining each criterion, its purpose, specific values, and the GIS layers needed for analysis.</p>
+<figure class="align-default" id="figure-1-2">
+<img alt="../../_images/figure-1-2.png" src="../../_images/figure-1-2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Table showing goals, criteria and associated layer.</span><a class="headerlink" href="#figure-1-2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="initial-search">
+<h3>Initial search<a class="headerlink" href="#initial-search" title="Link to this heading">#</a></h3>
+<p>The planners start with the characteristics of the parcels. They need to find vacant, city-owned parcels that are at least two acres in size. They first check the attributes in the layer of parcels within the City, originally obtained from the county tax assessor. They see that the OWNER field does in fact indicate which parcels are owned by the City, and the ASR_LANDUSfield (the assessor’s land-use codes) indicates which parcels are vacant (those with a value of 0, indicating no specified land use). They also see that there is a field for acreage, but for many of the parcels, the value is 0—clearly the data layer is incomplete for this attribute. So the planners will need to use GIS to calculate the acreage for each parcel. To maintain the original parcel layer in its current form, they make a copy of the parcels (calling the new layer Sites1), add a new field named ACRES_GIS, and calculate the values. One of the planners notes that there may be adjacent city-owned parcels that are less than two acres, but if combined, might create a valid site. After some discussion, the planners decide that, given the time and paperwork involved in having the Assessor’s Office merge any such parcels, they will only include existing two-acre (or larger) parcels in this initial search. If they come up empty-handed, they will look into including any parcels with the potential to be merged into larger sites.</p>
+<p>With the attributes in place, the planners select the parcels that meet the three criteria. The search is quickly narrowed from over 15,000 parcels to 113.</p>
+<figure class="align-default" id="figure-1-3">
+<img alt="../../_images/figure-1-3.png" src="../../_images/figure-1-3.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Parcels within the city limits. Those that are owned by the City, are vacant, and are at least two acres in size are outlined in cyan.</span><a class="headerlink" href="#figure-1-3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Now the planners will reduce the number of parcels further based on location. Given their knowledge of city planning, they know that in similar communities, fire stations are usually placed a mile or two apart. So, using selection based on location, they eliminate parcels that are within a mile of an existing fire station. They perform additional selections to eliminate parcels that are within 1,000 feet of a library or school. That narrows the candidates to 78.</p>
+<figure class="align-default" id="figure-1-4">
+<img alt="../../_images/figure-1-4.png" src="../../_images/figure-1-4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">The 78 remaining parcels are more than a mile from a fire station and more than 1,000 feet from a school or library.</span><a class="headerlink" href="#figure-1-4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The next step is to remove parcels that are in excluded areas, such as floodplains, dam inundation zones, or environmentally sensitive lands. To speed up the process, they combine these three layers into a single layer, so they will need to do only one selection. This will save even more time if they need to rerun the analysis or use this criterion in the future for other site-selection analyses. After removing the parcels within these areas, they are down to 68 parcels.</p>
+<figure class="align-default" id="figure-1-5">
+<img alt="../../_images/figure-1-5.png" src="../../_images/figure-1-5.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Ten more parcels are removed from consideration because they fall at least partially within a flood zone, dam inundation area, or environmentally sensitive area.</span><a class="headerlink" href="#figure-1-5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In reviewing the results, the planners notice that there may be some parcels that are only partially within excluded areas or partially within the specified distances around existing fire stations, libraries, and schools. These parcels could be potential sites. However, they decide that, for now, they will continue with the results. For one thing, the distances from fire stations, libraries, and schools they specified are minimums, so parcels that are completely outside the distance are preferable. Similarly, parcels that are completely outside the excluded areas are also preferable. As they did with the small, adjacent parcels they discussed earlier, they decide that if their search does not result in any viable candidate sites, they can reconsider any parcels that may be partially within these areas.</p>
+<p>Next, the planners turn their attention to the minimum site construction requirements. While the final site will need to undergo soil and other engineering tests, at this early stage of the process, the planners want to make sure any potential sites can be accessed from existing roads without the need for more than a long driveway and are not too steep to build on. From the currently selected parcels, they select those that are within 100 feet of an existing road, reducing the number of potential sites to 30.</p>
+<figure class="align-default" id="figure-1-6">
+<img alt="../../_images/figure-1-6.png" src="../../_images/figure-1-6.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Selecting parcels within 100 feet of an existing street eliminates another 38 potential sites, including most of the large parcels along the rural eastern edge of the City.</span><a class="headerlink" href="#figure-1-6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The final step is to select parcels with an average slope of less than 10 percent. That will identify sites that require less grading to create a level building pad and parking area as well as driveways that are not too steep for trucks to navigate.</p>
+<p>Up to this point, the planners have been doing a series of attribute and spatial selections on a single layer, Sites1. The next step involves a GIS tool that will calculate the average slope for each parcel. The tool does not operate on a selected set of features, so the planners export the selected parcels to a new dataset, which they call Sites2.</p>
+<p>At this point, they also decide to add a two-digit ID to each of the parcels to make it easier to refer to the final candidates. While the parcels have several unique IDs (including two versions of the assessor’s parcel number as well as another parcel ID), these are all between 6 and 10 digits and would be unwieldy for display on maps and in tables as well as for discussion among decision makers.</p>
+<p>Using an existing raster slope layer from the City’s GIS database, the planners calculate the average slope for the parcels and select those with a value less than 10 percent.</p>
+<figure class="align-default" id="figure-1-7">
+<img alt="../../_images/figure-1-7.png" src="../../_images/figure-1-7.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Slopes in the city range from 36 percent (dark red areas) to 0 percent, or flat (dark green areas). The 25 selected parcels have an average slope of less than 10 percent. The parcels on steeper slopes are outlined in dark gray.</span><a class="headerlink" href="#figure-1-7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The planners now have 25 suitable sites. They make a web map for the Planning Director to review. She is impressed but decides that before sharing the map with too many other officials, she should run the potential sites by the Assistant Fire Chief in charge of Facilities.</p>
+<figure class="align-default" id="figure-1-8">
+<img alt="../../_images/figure-1-8.png" src="../../_images/figure-1-8.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">The web map displays the existing fire stations and candidate sites and allows the Planning Director to also display schools, the library, and excluded areas.</span><a class="headerlink" href="#figure-1-8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="reality-check">
+<h3>Reality check<a class="headerlink" href="#reality-check" title="Link to this heading">#</a></h3>
+<p>The Assistant Chief pulls up the map on his tablet and quickly spots an issue: some of the identified sites are too far from major roads. He explains to the Planning Director that the new fire station, like the existing ones, needs to be within 1,500 feet of a major road. This proximity is crucial because it reduces the time fire trucks spend navigating residential neighborhoods, allowing them to respond faster by using major roads where they can drive at higher speeds.</p>
+<p>The Planning Director, aware that they are still early in the analysis process, knows her team can refine their search to focus on more suitable sites.</p>
+<p>The planners review the identified parcels along with the major roads and streets. They realize that while they could select parcels within 1,500 feet of a major road using a straight-line distance, this method might not be accurate enough. Previously, straight-line distances worked well for tasks like avoiding sites near existing fire stations, minimizing noise near libraries and schools, and identifying parcels close to streets for potential driveways. However, for this situation, they need a more precise approach that considers actual driving distance over existing streets, as fire trucks would.</p>
+<p>After considering a few options, the planners decide on an efficient method. They will use GIS to trace routes along streets that are 1,500 feet from each site. Then, they will select the traces that intersect with a major road and identify which sites these traces belong to—these will be the sites within 1,500 feet of a major road when driving.</p>
+<figure class="align-default" id="figure-1-9">
+<img alt="../../_images/figure-1-9.png" src="../../_images/figure-1-9.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">In this diagram, the blue dot represents a candidate site, the thin gray lines are local streets, and the thick gray line a major road. The GIS traces along streets outward from the site up to 1,500 feet (the yellow highlight). In this case, the trace line does intersect the major road, so this site meets the criterion.</span><a class="headerlink" href="#figure-1-9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The planners run their analysis. It works! From the 25 parcels, they have identified eight that are within 1,500 feet of a major road.</p>
+<figure class="align-default" id="figure-1-10">
+<img alt="../../_images/figure-1-10.png" src="../../_images/figure-1-10.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">These eight sites meet all the criteria for a fire station location.</span><a class="headerlink" href="#figure-1-10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>They are confident this final set of candidate sites will hold up to the scrutiny of the Planning Director, the Public Works Department, and the Fire Department officials. Even though the final site will be selected using additional spatial analysis in the next phase of the project, the planners know that the council members will want to understand how the candidate sites were selected so they can explain the process to their constituents. They create a <a class="reference external" href="https://www.arcgis.com/apps/MapJournal/index.html?appid=c9e949facf884069bdb3dee8e3477c7f">story map</a> explaining the selection process and the results.</p>
+<figure class="align-default" id="figure-1-11">
+<img alt="../../_images/figure-1-11.png" src="../../_images/figure-1-11.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">The <a class="reference external" href="https://www.arcgis.com/apps/MapJournal/index.html?appid=c9e949facf884069bdb3dee8e3477c7f">story map</a> contains maps of the criteria as well as images for each of the potential sites.</span><a class="headerlink" href="#figure-1-11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="next-phase-finding-the-optimum-site">
+<h3>Next phase: Finding the optimum site<a class="headerlink" href="#next-phase-finding-the-optimum-site" title="Link to this heading">#</a></h3>
+<p>As it happens, the city council is scheduled to meet the following day to take up the issue of the new fire station. The chatter around City Hall is that the members are likely to approve funding for the new station. The Planning Director’s foresight paid off—she will be ready to present the potential sites to the city council at the end of their meeting, using the story map. Once the project is approved, the department will be ready to move ahead with the next phase—identifying the optimum site for the new station from the eight candidates.</p>
+<p>Read the case study about how the Planning Department identified the optimum site using <a class="reference external" href="https://desktop.arcgis.com/en/analytics/case-studies/which-site-for-the-new-station-maximizes-fire-protection-coverage.htm">Location-Allocation analysis</a>.</p>
+</section>
+</section>
+<section id="workflow-using-arcgis-pro">
+<h2>Workflow using ArcGIS Pro<a class="headerlink" href="#workflow-using-arcgis-pro" title="Link to this heading">#</a></h2>
+<section id="select-the-sites-that-meet-the-attribute-and-location-criteria">
+<h3>Select the sites that meet the attribute and location criteria<a class="headerlink" href="#select-the-sites-that-meet-the-attribute-and-location-criteria" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Before starting the analysis, you will want to make a copy of the parcels data in the <strong>Project</strong> pane or export it to a new dataset in ArcGIS Pro. Then calculate a <code class="docutils literal notranslate"><span class="pre">POLY_AREA</span></code> field using <strong>Add Geometry Attributes</strong> (use <code class="docutils literal notranslate"><span class="pre">Acres</span></code> as the Area Unit.)</p>
+<div class="note admonition">
+<p class="admonition-title">Question 1</p>
+<p>a. What is the name and EPSG code of the coordinate system for the <code class="docutils literal notranslate"><span class="pre">parcels</span></code> shape? (Hint: You can google it. However, there are two answers to the code as it has been changed. I will accept either one.) <em><strong>&lt;1 pt&gt;</strong></em><br />
+b. What is the unit of measurement for this coordinate system? <em><strong>&lt;1 pt&gt;</strong></em><br />
+c. There is an <code class="docutils literal notranslate"><span class="pre">ACREAGE</span></code> column in the attribute table, but why we are recalculating it? Did you see any difference? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Use <strong>Select Layer By Attribute</strong> to select the parcels that are owned by the City (<code class="docutils literal notranslate"><span class="pre">OWNER</span> <span class="pre">=</span> <span class="pre">'CITY'</span></code>), are vacant (<code class="docutils literal notranslate"><span class="pre">ASR_LANDUS</span> <span class="pre">=</span> <span class="pre">0</span></code>), and are at least two acres in size (<code class="docutils literal notranslate"><span class="pre">POLY_AREA</span> <span class="pre">&gt;=</span> <span class="pre">2</span></code>) . Use the default selection method (<strong>New Selection</strong>).</p>
+<figure class="align-default" id="figure-1-12">
+<img alt="../../_images/figure-1-12.png" src="../../_images/figure-1-12.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Dialog box to select layer by attribute.</span><a class="headerlink" href="#figure-1-12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 2</p>
+<p>a. How many number of parcel features are there? <em><strong>&lt;1 pt&gt;</strong></em><br />
+b. What is the smallest parcel area in acres? <em><strong>&lt;1 pt&gt;</strong></em><br />
+c. What is the largest parcel area in acres? <em><strong>&lt;1 pt&gt;</strong></em><br />
+d. How many parcels you found after using the Query? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Use <strong>Select Layer By Location</strong> to identify the parcels that are more than a mile from existing fire stations and more than 1,000 feet from schools and libraries. In fact, you will be eliminating the parcels that fall within these distances, so make sure the <strong>Selection Type</strong> is set to remove from the current selection. You will do three separate selections in quick succession. The <strong>Input Features Layer</strong> (<code class="docutils literal notranslate"><span class="pre">parcels</span></code>) remains the same for each selection, as does the Relationship (Within a distance); you will change the <strong>Selecting Features</strong> and distance as needed.</p>
+<figure class="align-default" id="figure-1-13">
+<img alt="../../_images/figure-1-13.png" src="../../_images/figure-1-13.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Input parameters for select layer by location.</span><a class="headerlink" href="#figure-1-13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 3</p>
+<p>a. How many parcels are selected after these filtering? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Use the <strong>Union</strong> tool to combine the floodplain, dam inundation, and environmentally sensitive areas to create a layer of excluded areas.</p>
+<figure class="align-default" id="figure-1-14">
+<img alt="../../_images/figure-1-14.png" src="../../_images/figure-1-14.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Union dialogue box.</span><a class="headerlink" href="#figure-1-14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Use <strong>Select Layer By Location</strong> to identify the parcels that are outside the excluded areas. Remove the parcels that fall within these areas; keep the Selection type set to remove from the current selection. Set the <strong>Selecting Features</strong> to the <code class="docutils literal notranslate"><span class="pre">excluded_areas</span></code> layer you just created and the <strong>Relationship</strong> to <code class="docutils literal notranslate"><span class="pre">Intersect</span></code>.</p>
+<figure class="align-default" id="figure-1-15">
+<img alt="../../_images/figure-1-15.png" src="../../_images/figure-1-15.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Parameters to select parcels outside the excluded areas.</span><a class="headerlink" href="#figure-1-15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 4</p>
+<p>a. How many parcels are selected after filtering the excluded areas? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Use <strong>Select Layer By Location</strong> to select the parcels that are within 100 feet of a street. Set the <strong>Selection type</strong> to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">subset</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">selection</span></code>. Set the <strong>Selecting Features</strong> to the streets layer, set the <strong>Relationship</strong> <code class="docutils literal notranslate"><span class="pre">to</span> <span class="pre">within</span> <span class="pre">a</span> <span class="pre">distance</span></code>, and apply a search distance of 100 feet.</p>
+<div class="note admonition">
+<p class="admonition-title">Question 5</p>
+<p>a. How many parcels are selected after filtering the streets? (Hint: if your answer is not 30. go back and double check everything you did.) <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+</ol>
+</section>
+<section id="add-a-unique-id-to-the-potential-sites">
+<h3>Add a unique ID to the potential sites<a class="headerlink" href="#add-a-unique-id-to-the-potential-sites" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Copy the selected features to a layer named Sites2. Use <strong>Add Field</strong> to add the <code class="docutils literal notranslate"><span class="pre">Site_ID</span></code> field as a short integer type.</p>
+<figure class="align-default" id="figure-1-16">
+<img alt="../../_images/figure-1-16.png" src="../../_images/figure-1-16.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Add Field dialog box.</span><a class="headerlink" href="#figure-1-16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Calculate the IDs. To do this, in the Calculate Field dialog box enter the Python code below into the <strong>Code Block</strong> area (you can also cut and paste the code).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rec</span><span class="o">=</span><span class="mi">0</span> 
+<span class="k">def</span> <span class="nf">autoIncrement</span><span class="p">():</span> 
+    <span class="k">global</span> <span class="n">rec</span> 
+    <span class="n">pStart</span> <span class="o">=</span> <span class="mi">1</span>  
+    <span class="n">pInterval</span> <span class="o">=</span> <span class="mi">1</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="n">rec</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>  
+        <span class="n">rec</span> <span class="o">=</span> <span class="n">pStart</span>
+    <span class="k">else</span><span class="p">:</span>  
+        <span class="n">rec</span> <span class="o">+=</span> <span class="n">pInterval</span>  
+    <span class="k">return</span> <span class="n">rec</span>
+</pre></div>
+</div>
+</li>
+<li><p>In the smaller box, below the Pre-Logic Script Code, type the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">autoIncrement</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-default" id="figure-1-17">
+<img alt="../../_images/figure-1-17.png" src="../../_images/figure-1-17.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Adding the code block to the Calculate Field dialog box.</span><a class="headerlink" href="#figure-1-17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 6</p>
+<p>a. What could be an alternative (but easier) way to calculate Site_ID instead of this Python solution? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+</ol>
+</section>
+<section id="find-the-sites-that-have-average-slope-less-than-10-percent">
+<h3>Find the sites that have average slope less than 10 percent<a class="headerlink" href="#find-the-sites-that-have-average-slope-less-than-10-percent" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Add a field to hold the average slope values (which will be calculated in the next step). Create it as a float type and name it <code class="docutils literal notranslate"><span class="pre">Avg_Slope</span></code>.</p>
+<figure class="align-default" id="figure-1-18">
+<img alt="../../_images/figure-1-18.png" src="../../_images/figure-1-18.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">Add Field dialog box to store the slope values.</span><a class="headerlink" href="#figure-1-18" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Use the <strong>Zonal Statistics as Table</strong> tool to calculate the average slope for each potential site. This tool, which is available with ArcGIS Spatial Analyst extension, calculates statistics such as the mean, sum, minimum, or maximum for each zone from the values in a raster layer. In this analysis, the zones are the potential site polygons in <code class="docutils literal notranslate"><span class="pre">Sites2</span></code> and the raster layer is <code class="docutils literal notranslate"><span class="pre">Slope</span></code>. The result is a table with a row for each zone (potential site) with a field for the calculated statistic, mean slope. Specify <code class="docutils literal notranslate"><span class="pre">Site_ID</span></code> as the <strong>Zone field</strong> and <strong>Mean</strong> as the statistic to calculate.</p>
+<figure class="align-default" id="figure-1-19">
+<img alt="../../_images/figure-1-19.png" src="../../_images/figure-1-19.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">Dialog box used to calculate zonal statistics as a table.</span><a class="headerlink" href="#figure-1-19" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Join the zonal statistics table to the <code class="docutils literal notranslate"><span class="pre">Sites2</span></code> attribute table, using <code class="docutils literal notranslate"><span class="pre">Site_ID</span></code> as the field to join.</p>
+<figure class="align-default" id="figure-1-20">
+<img alt="../../_images/figure-1-20.png" src="../../_images/figure-1-20.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">Add Join dialog box used to join the data back to the sites.</span><a class="headerlink" href="#figure-1-20" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Calculate the <code class="docutils literal notranslate"><span class="pre">Avg_Slope</span></code> field you added earlier to be equal to the <code class="docutils literal notranslate"><span class="pre">MEAN</span></code> field from the zonal statistics table, which will add the average slope value to the table of potential sites without having to maintain the join. Then remove the join.</p>
+<figure class="align-default" id="figure-1-21">
+<img alt="../../_images/figure-1-21.png" src="../../_images/figure-1-21.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Calculating the average slope.</span><a class="headerlink" href="#figure-1-21" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Use <strong>Select Layer By Attribute</strong> to select the parcels that have an average slope less than 10 percent. Use the default selection method (<code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">selection</span></code>).</p>
+<figure class="align-default" id="figure-1-22">
+<img alt="../../_images/figure-1-22.png" src="../../_images/figure-1-22.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">Select By Attributes dialog box used to select areas of slope less that 10 percent.</span><a class="headerlink" href="#figure-1-22" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 7</p>
+<p>a. How many parcels are selected after filtering for average slope? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+</ol>
+</section>
+<section id="find-the-sites-within-1-500-feet-of-a-major-road-over-streets">
+<h3>Find the sites within 1,500 feet of a major road over streets<a class="headerlink" href="#find-the-sites-within-1-500-feet-of-a-major-road-over-streets" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>For this analysis you will use ArcGIS Network Analyst extension. Network Analyst requires the sites be represented as point locations. First, use the Feature To Point tool to create a layer of points from the <code class="docutils literal notranslate"><span class="pre">Sites2</span></code> polygons (only the currently selected sites will be converted). Specify that the points be located inside the original parcel features.</p>
+<figure class="align-default" id="figure-1-23">
+<img alt="../../_images/figure-1-23.png" src="../../_images/figure-1-23.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">Feature To Point dialog box.</span><a class="headerlink" href="#figure-1-23" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>The Network Analyst service area solver will find streets within a given distance of a location. In the <strong>Analysis</strong> tab, create a new <strong>Service Area</strong> from the <strong>Network Analysis</strong> drop down. Go to the <strong>Network Analyst</strong> tab.</p>
+<figure class="align-default" id="figure-1-24">
+<img alt="../../_images/figure-1-24.png" src="../../_images/figure-1-24.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">Create a New Service Area in Network Analyst.</span><a class="headerlink" href="#figure-1-24" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 8</p>
+<p>a. What is the difference between creating a buffer around a point and creating a service area aroung a point? To learn more, visit this <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/help/analysis/networks/network-analyst-solver-types.htm#ESRI_SECTION1_B826A1BEEC9142DD860980BC99B71000">link</a> and navigate to service area. <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Click <strong>Import Facilities</strong> from the <strong>Service Area Layer</strong> tab. Load the site point locations using <code class="docutils literal notranslate"><span class="pre">Site_ID</span></code> as the <strong>Field Name</strong>.</p>
+<figure class="align-default" id="figure-1-25">
+<img alt="../../_images/figure-1-25.png" src="../../_images/figure-1-25.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">Loading locations using Network Analyst.</span><a class="headerlink" href="#figure-1-25" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>In the <strong>Service Area</strong> tab, set the <strong>Mode</strong> to <code class="docutils literal notranslate"><span class="pre">Distance</span> <span class="pre">in</span> <span class="pre">Feet</span></code> and the <strong>Cutoff</strong> to <code class="docutils literal notranslate"><span class="pre">1500</span></code>. Change the <strong>Output Geometry</strong> to <strong>Lines</strong>. The lines will include the network source fields by default, which will allow you to link the generate service area lines - representing streets within 1,500 feet of a site - back to the original streets layer to find out which lines are coincident with major streets.</p>
+<figure class="align-default" id="figure-1-26">
+<img alt="../../_images/figure-1-26.png" src="../../_images/figure-1-26.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">Generating services areas using Network Analyst.</span><a class="headerlink" href="#figure-1-26" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 9</p>
+<p>a. Why the <code class="docutils literal notranslate"><span class="pre">Cutoffs</span></code> is selected as <code class="docutils literal notranslate"><span class="pre">1500</span> <span class="pre">Feet</span></code>? Why we could not use a simple buffer in this case? (Hint: Read the background of this lab) <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Click <strong>Run</strong> on the <strong>Service Area</strong> tab to calculate and display the service area <code class="docutils literal notranslate"><span class="pre">Lines</span></code> sublayer (located under <strong>Service Area</strong> in the <strong>Contents</strong> pane). The attribute table for the lines contains the ID of the site each line is associated with (<code class="docutils literal notranslate"><span class="pre">FacilityID</span></code>) as well as the ID of the underlying street (<code class="docutils literal notranslate"><span class="pre">SourceOID</span></code>).</p>
+<figure class="align-default" id="figure-1-27">
+<img alt="../../_images/figure-1-27.png" src="../../_images/figure-1-27.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">Using Run on the Service Area tab.</span><a class="headerlink" href="#figure-1-27" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>To find out which of the service area lines correspond to major roads, join the streets layer (using <code class="docutils literal notranslate"><span class="pre">ObjectID</span></code> as the join field) to the service area lines (using <code class="docutils literal notranslate"><span class="pre">SourceOID</span></code> as the join field). Uncheck <strong>Keep All Target Features</strong>.</p>
+<figure class="align-default" id="figure-1-28">
+<img alt="../../_images/figure-1-28.png" src="../../_images/figure-1-28.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">Using Add Join to link the service area lines to the streets.</span><a class="headerlink" href="#figure-1-28" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>The attribute table for the service area lines now contains the road class field (<code class="docutils literal notranslate"><span class="pre">ROADCLASS</span></code>), along with all the other fields from the streets layer. Select the lines with <code class="docutils literal notranslate"><span class="pre">ROADCLASS</span> <span class="pre">=</span> <span class="pre">3</span></code> (these are the major roads). Remove the join and export the selected service area lines to a new dataset. Name it <code class="docutils literal notranslate"><span class="pre">sa_lines_major</span></code>.</p>
+<figure class="align-default" id="figure-1-29">
+<img alt="../../_images/figure-1-29.png" src="../../_images/figure-1-29.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">Parameters to select the major roads.</span><a class="headerlink" href="#figure-1-29" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 10</p>
+<p>a. How many streets you got? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>To find out which sites (facilities) are associated with one (or more) of the lines representing major roads, join <code class="docutils literal notranslate"><span class="pre">sa_lines_major</span></code> (using <code class="docutils literal notranslate"><span class="pre">FacilityID</span></code> as the join field) to the <code class="docutils literal notranslate"><span class="pre">Facilities</span></code> sublayer (using <code class="docutils literal notranslate"><span class="pre">ObjectID</span></code> as the join field). Uncheck <strong>Keep All Target Features</strong>. This will identify the sites for which at least one of the roads within 1,500 feet is a major road.</p>
+<figure class="align-default" id="figure-1-30">
+<img alt="../../_images/figure-1-30.png" src="../../_images/figure-1-30.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">Add Join dialog box to join the facilities to the roads.</span><a class="headerlink" href="#figure-1-30" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>While all the facilities listed in the output table have at least one major road within 1,500 feet, some have more than one (as you can see from the <code class="docutils literal notranslate"><span class="pre">Facilities.Name</span></code> field). When using ArcGIS Pro, Add Join keeps all the features from the <code class="docutils literal notranslate"><span class="pre">sa_lines_major</span></code> layer that have a match in the <code class="docutils literal notranslate"><span class="pre">Facilities</span></code> layer—there are 34, as it turns out. This is unlike performing the join in ArcMap, where—for a given facility—only the first matching feature from the <code class="docutils literal notranslate"><span class="pre">sa_lines_major</span></code> layer is kept. To extract the individual candidate features you’ll need to create a table containing one record for each facility.</p>
+</li>
+<li><p>Export the joined table to a standalone table.</p>
+<figure class="align-default" id="figure-1-31">
+<img alt="../../_images/figure-1-31.png" src="../../_images/figure-1-31.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">The Copy Rows tool.</span><a class="headerlink" href="#figure-1-31" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Remove the join from the <code class="docutils literal notranslate"><span class="pre">Facilities</span></code> layer using <strong>Remove All Joins</strong>.</p>
+<figure class="align-default" id="figure-1-32">
+<img alt="../../_images/figure-1-32.png" src="../../_images/figure-1-32.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Remove all joins from Facilities.</span><a class="headerlink" href="#figure-1-32" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Now use the <strong>Frequency</strong> tool with the standalone table to create a table listing the individual facilities using <code class="docutils literal notranslate"><span class="pre">FacilityID</span></code> as the <strong>Frequency Field</strong>.</p>
+<figure class="align-default" id="figure-1-33">
+<img alt="../../_images/figure-1-33.png" src="../../_images/figure-1-33.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">The Frequency tool.</span><a class="headerlink" href="#figure-1-33" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="figure-1-34">
+<img alt="../../_images/figure-1-34.png" src="../../_images/figure-1-34.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">The facilites_sa_lines_major_frequency attribute table.</span><a class="headerlink" href="#figure-1-34" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>The frequency table lists the eight suitable candidate sites. Join this table to the <code class="docutils literal notranslate"><span class="pre">Facilities</span></code> layer to identify the corresponding <code class="docutils literal notranslate"><span class="pre">Facility</span></code> point features. Again, make sure to uncheck <strong>Keep All Target Features</strong>.</p>
+<figure class="align-default" id="figure-1-35">
+<img alt="../../_images/figure-1-35.png" src="../../_images/figure-1-35.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">The Add Join tool.</span><a class="headerlink" href="#figure-1-35" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 11</p>
+<p>a. What could happen if you did NOT uncheck the  <strong>Keep All Target Features</strong>? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Export the facilities to a new dataset named <code class="docutils literal notranslate"><span class="pre">site_candidates_point</span></code> and remove the join.</p>
+<figure class="align-default" id="figure-1-36">
+<img alt="../../_images/figure-1-36.png" src="../../_images/figure-1-36.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Map showing the candidate sites.</span><a class="headerlink" href="#figure-1-36" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>The layer of candidate sites contains points, which can be used in the Location-Allocation analysis to select the optimum site. To create a layer of the suitable sites with their original parcel boundaries, for display purposes, use Select Layer By Location with the <code class="docutils literal notranslate"><span class="pre">Sites2</span></code> layer. Set the <strong>Selection type</strong> to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">subset</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">selection</span></code>, the <strong>Selecting Features</strong> as <code class="docutils literal notranslate"><span class="pre">site_candidates_point</span></code>, and the <strong>Relationship</strong> to <code class="docutils literal notranslate"><span class="pre">Intersect</span></code>.</p>
+<figure class="align-default" id="figure-1-37">
+<img alt="../../_images/figure-1-37.png" src="../../_images/figure-1-37.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">Select the points with the site polygons.</span><a class="headerlink" href="#figure-1-37" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Export the selected sites to a new dataset, <code class="docutils literal notranslate"><span class="pre">site_candidates_poly</span></code>, and clear any remaining selections.</p>
+<figure class="align-default" id="figure-1-38">
+<img alt="../../_images/figure-1-38.png" src="../../_images/figure-1-38.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">Map showing the candidate polygons.</span><a class="headerlink" href="#figure-1-38" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 12</p>
+<p>a. Submit a map with the candidate site locations as you see fit. Be sure to create a visually pleasing map with other layers, necessary labels, basemap so that your stakeholders understand the message you want to give. Use your best judgements on creating a good map. Submit a pdf version of the map. <em><strong>&lt;5 pt&gt;</strong></em><br />
+b. Did you learn any new geoprocessing tool today? If yes, what was that and give one sentence explanation of that geoprocessing tool. If not, then specify in what capacity you used the Network Analyst before? <em><strong>&lt;2 pt&gt;</strong></em><br />
+c. Give me at least one other criteria that could be used in this preliminary analysis. (Hint: it does not have to be perfect) <em><strong>&lt;2 pt&gt;</strong></em></p>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="deliverables">
+<h2>Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
+<p>Upload the following(s) in Canvas.</p>
+<ol class="arabic simple">
+<li><p>Your completed <code class="docutils literal notranslate"><span class="pre">Lab-1-answers-YOURLASTNAME.docx</span></code> file.</p></li>
+<li><p>The map you generated in Question 12a.</p></li>
+<li><p>The ArcGIS Pro Project file(s) compressed as <code class="docutils literal notranslate"><span class="pre">.zip</span></code>.</p></li>
+</ol>
+</section>
+<section id="credits">
+<h2>Credits<a class="headerlink" href="#credits" title="Link to this heading">#</a></h2>
+<p>ESRI, Mike Price of Entrada/San Juan Inc. and Elise Fisher of EF Geographic.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -461,6 +937,39 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anticipating-the-need">Anticipating the need</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-makes-a-suitable-site">What makes a suitable site?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-search">Initial search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reality-check">Reality check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#next-phase-finding-the-optimum-site">Next phase: Finding the optimum site</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select-the-sites-that-meet-the-attribute-and-location-criteria">Select the sites that meet the attribute and location criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-a-unique-id-to-the-potential-sites">Add a unique ID to the potential sites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-sites-that-have-average-slope-less-than-10-percent">Find the sites that have average slope less than 10 percent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-sites-within-1-500-feet-of-a-major-road-over-streets">Find the sites within 1,500 feet of a major road over streets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#credits">Credits</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
