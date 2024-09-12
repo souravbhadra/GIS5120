@@ -509,7 +509,7 @@ The data you will need for this portion is already processed as `.shp` files:
 2. [Liquor Stores](../../../labs/lab-2/data/shapes/liquors.zip)
 3. [Median household income](../../../labs/lab-2/data/shapes/income.zip)
 
-The details about where I collected the data and how I processed it, are well documented in the [notebook](../../../labs/lab-2/data-cleaning.ipynb).
+The details about where I collected the data and how I processed it, are well documented in the [notebook](https://github.com/souravbhadra/GIS5120/blob/main/labs/lab-2/data-cleaning.ipynb).
 
 Follow the steps to [Create a hot spot map of violent crime densities](#create-a-hot-spot-map-of-violent-crime-densities) using the [Saint Louis crime data](../../../labs/lab-2/data/shapes/crime_data.zip). Do similar tasks for [Liquor Stores](../../../labs/lab-2/data/shapes/liquors.zip) to [Create a hot spot map of liquor vendor densities](#create-a-hot-spot-map-of-liquor-vendor-densities) and [Median household income](../../../labs/lab-2/data/shapes/income.zip) to [Create a hot spot map of poverty](#create-a-hot-spot-map-of-poverty). **Note that for poverty we are using median household income, not the poverty data. So if you take `income` as your variable, hot spots would represent income hot spots. So for representing poverty hot spots, you would want the cold spots of income.** Finally, [Overlay the hot spot maps to determine areas of overlap](#overlay-the-hot-spot-maps-to-determine-areas-of-overlap) and create a map.
 
