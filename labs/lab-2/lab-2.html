@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 2: Exploratory Data Analysis &#8212; Geospatial Analytics (GIS4120/5120)</title>
+    <title>Lab 2: Analyzing violent crime (20 pts) &#8212; Geospatial Analytics (GIS4120/5120)</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Lab 3: Surface geometry" href="../lab-3/lab-3.html" />
-    <link rel="prev" title="Lab 1: Suitability Analysis" href="../lab-1/lab-1.html" />
+    <link rel="prev" title="Lab 1: Fire station suitability analysis (10 pts)" href="../lab-1/lab-1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -194,8 +194,8 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../labs.html">Labs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../lab-0/lab-0.html">Make a Map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lab-1/lab-1.html">Lab 1: Suitability Analysis</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 2: Exploratory Data Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lab-1/lab-1.html">Lab 1: Fire station suitability analysis (10 pts)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 2: Analyzing violent crime (20 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-3/lab-3.html">Lab 3: Surface geometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-4/lab-4.html">Lab 4: Drainage delineation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-5/lab-5.html">Lab 5: Spatial interpolation</a></li>
@@ -377,7 +377,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -388,11 +390,50 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 2: Exploratory Data Analysis</h1>
+    <h1>Lab 2: Analyzing violent crime (20 pts)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#broken-bottles">Broken Bottles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-data-will-you-need">What data will you need?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-are-the-violent-crime-hot-spots-where-are-the-hot-spots-for-businesses-selling-or-serving-alcohol-do-they-overlap">Where are the violent crime hot spots? Where are the hot spots for businesses selling or serving alcohol? Do they overlap?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-are-the-city-s-most-vulnerable-neighborhoods">Where are the City’s most vulnerable neighborhoods?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-areas-should-be-included-in-a-moratorium-on-new-liquor-licenses">Which areas should be included in a moratorium on new liquor licenses?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#has-violent-crime-been-increasing-in-the-city-if-so-where">Has violent crime been increasing in the City? If so, where?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-else-might-be-contributing-to-violent-crime">What else might be contributing to violent crime?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-persistent-intensifying-and-consecutive-hot-spots-overlap-with-unemployment-hot-spots">Where do persistent, intensifying, and consecutive hot spots overlap with unemployment hot spots?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-specific-high-schools-should-be-targeted-for-an-expanded-summer-jobs-program">Which specific high schools should be targeted for an expanded summer jobs program?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-recommendations">Final recommendations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-some-exploratory-data-analysis">Do some exploratory data analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hot-spot-map-of-violent-crime-densities">Create a hot spot map of violent crime densities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hot-spot-map-of-liquor-vendor-densities">Create a hot spot map of liquor vendor densities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hot-spot-map-of-poverty">Create a hot spot map of poverty</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-the-hot-spot-maps-to-determine-areas-of-overlap">Overlay the hot spot maps to determine areas of overlap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-space-time-cube-and-analyze-the-crime-trends-within-it">Create a space-time cube and analyze the crime trends within it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hot-spot-map-of-unemployment-rates">Create a hot spot map of unemployment rates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-the-violent-crime-trend-map-with-the-unemployment-rate-hot-spot-map-to-determine-areas-of-overlap">Overlay the violent crime trend map with the unemployment rate hot spot map to determine areas of overlap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finally-select-the-public-high-schools-within-a-quarter-mile-of-the-overlapping-areas">Finally, select the public high schools within a quarter mile of the overlapping areas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-crime-patterns-in-saint-louis">Analyze Crime Patterns in Saint Louis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-for-saint-louis">Data for Saint Louis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -402,9 +443,545 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-2-exploratory-data-analysis">
-<h1>Lab 2: Exploratory Data Analysis<a class="headerlink" href="#lab-2-exploratory-data-analysis" title="Link to this heading">#</a></h1>
-<p>Coming soon.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-2-analyzing-violent-crime-20-pts">
+<h1>Lab 2: Analyzing violent crime (20 pts)<a class="headerlink" href="#lab-2-analyzing-violent-crime-20-pts" title="Link to this heading">#</a></h1>
+<section id="read-before-proceeding">
+<h2>Read before proceeding<a class="headerlink" href="#read-before-proceeding" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The questions for this lab are embedded within the instructions.</p></li>
+<li><p>Each question carries specific points, clearly indicated alongside it.</p></li>
+<li><p>The questions have subsections within them.</p></li>
+<li><p>The total score for this assignment is 20 points. Your final grade will be scaled from the total points you earn out of the maximum possible score to fit within a 0 to 20 scale.</p></li>
+<li><p>When working on a lab, always create a dedicated folder for it and store all related files within that specific folder. For instance, avoid saving intermediate files in the <code class="docutils literal notranslate"><span class="pre">C:/Documents</span></code> directory; keep all materials organized and together.</p></li>
+<li><p>Create a word document and name it as <code class="docutils literal notranslate"><span class="pre">Lab-2-answers-YOURLASTNAME.docx</span></code>. Insert each questions provided in this document and write down your answers for each questions. Upload the <code class="docutils literal notranslate"><span class="pre">.docx</span></code> file in Canvas. Do NOT upload a <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> of the document.</p></li>
+<li><p>Upload any additional file(s) required by this instructions in Canvas. You will find specific list of deliverables at the end of this page.</p></li>
+</ul>
+</section>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://www.arcgis.com/sharing/rest/content/items/653c890653244e72b122d8bbbf2c0f11/data">Download the data from this link</a></p>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<section id="broken-bottles">
+<h3>Broken Bottles<a class="headerlink" href="#broken-bottles" title="Link to this heading">#</a></h3>
+<p>Despite an overall decline in crime, the bloodshed and violence continues in many of the City’s poorest neighborhoods. Frustrated and distressed, community and religious leaders are calling for immediate action. Citing studies linking alcohol to gang violence and to other violent crime, they are putting pressure on city and state officials to close liquor establishments, to decline new liquor license requests, and to reduce access to alcohol in the most violent neighborhoods. Meanwhile, local business owners are banding together, rallying to block the proposed restrictions. They cite violations of the fifth and fourteenth U.S. Constitutional Amendments and claim the proposed restrictions would negatively impact the social fabric and tourism of the City.</p>
+<p>The Chief of Police is asking you, the Crime Analyst, to determine if there is indeed a relationship between violent crime and liquor establishments in your City. She wants your recommendations for an effective solution.</p>
+<p>You know that this issue has surfaced for different cities around the country and that a number of <a class="reference external" href="https://isr.unm.edu/reports/2011/place-and-neighborhood-crime--schools-churches-alcohol.pdf">research studies</a> have demonstrated <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3412911/">a correlation between liquor establishments and violent crime</a>. There are also theoretical explanations supporting this relationship such as <a class="reference external" href="https://onlinelibrary.wiley.com/doi/full/10.1002/9781118517390.wbetc198">routine activity theory</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Social_disorganization_theory">social disorganization theory</a>.</p>
+<p>Your workflow is summarized below.</p>
+<figure class="align-default" id="fig-1">
+<img alt="../../_images/fig-1.png" src="../../_images/fig-1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Broken Bottles</span><a class="headerlink" href="#fig-1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="what-data-will-you-need">
+<h3>What data will you need?<a class="headerlink" href="#what-data-will-you-need" title="Link to this heading">#</a></h3>
+<p>Since you are interested in violent crime, you collect data for the homicides, rape, robbery, aggravated assault, and aggravated battery incidents over the past year. Next, using <a class="reference external" href="https://www.esri.com/en-us/arcgis/products/arcgis-business-analyst/overview">ArcGIS Business Analyst</a>, you obtain a dataset of businesses that either sell or serve alcohol (this includes bars, nightclubs, lounges, taverns, liquor stores, and so on). If you need additional data, you will use the <a class="reference external" href="https://resources.arcgis.com/en/communities/sharepoint/01t800000007000000.htm">data enrichment</a> tools in ArcGIS to get it. Your point data is shown below.</p>
+<figure class="align-default" id="fig-2">
+<img alt="../../_images/fig-2.png" src="../../_images/fig-2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">Liquor vendors in blue; Violent crime incidents in brown. It is difficult to discern spatial patterns with so many points on the map.</span><a class="headerlink" href="#fig-2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="where-are-the-violent-crime-hot-spots-where-are-the-hot-spots-for-businesses-selling-or-serving-alcohol-do-they-overlap">
+<h3>Where are the violent crime hot spots? Where are the hot spots for businesses selling or serving alcohol? Do they overlap?<a class="headerlink" href="#where-are-the-violent-crime-hot-spots-where-are-the-hot-spots-for-businesses-selling-or-serving-alcohol-do-they-overlap" title="Link to this heading">#</a></h3>
+<p>To make sense of the more than 22,000 crime points, and over 1,500 business points, you map them using hot spot analysis. These maps show you the statistically significant hot spots (red) and cold spots (blue) for violent crime and for liquor establishments. If violent crime is linked to liquor establishments, you expect to see spatial correspondence between their activity spaces.</p>
+<figure class="align-default" id="fig-3">
+<img alt="../../_images/fig-3.png" src="../../_images/fig-3.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">Compare the violent crime and liquor vendor hot spot mapsv. The violent crime and liquor vendor hot spot maps look very different.</span><a class="headerlink" href="#fig-3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>You notice some overlap in the downtown area. To ensure that the remediation efforts you propose focus on your city’s most vulnerable neighborhoods, while avoiding areas that could impact tourism, you will need a better understanding of neighborhood poverty patterns within those overlap areas.</p>
+</section>
+<section id="where-are-the-city-s-most-vulnerable-neighborhoods">
+<h3>Where are the City’s most vulnerable neighborhoods?<a class="headerlink" href="#where-are-the-city-s-most-vulnerable-neighborhoods" title="Link to this heading">#</a></h3>
+<p>You obtain the data needed to create a hot spot map of poverty.</p>
+<figure class="align-default" id="fig-4">
+<img alt="../../_images/fig-4.png" src="../../_images/fig-4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 42 </span><span class="caption-text">Poverty hot spots. The red areas are statistically significant hot spots for poverty.</span><a class="headerlink" href="#fig-4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="which-areas-should-be-included-in-a-moratorium-on-new-liquor-licenses">
+<h3>Which areas should be included in a moratorium on new liquor licenses?<a class="headerlink" href="#which-areas-should-be-included-in-a-moratorium-on-new-liquor-licenses" title="Link to this heading">#</a></h3>
+<p>You will recommend remediation measures for statistically significant hot spots (99 percent confidence) across all three variables: violent crime, existing liquor establishments, and poverty. To find these areas, you overlay all three maps, keeping only the hot spot locations that overlap.</p>
+<figure class="align-default" id="fig-5">
+<img alt="../../_images/fig-5.png" src="../../_images/fig-5.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 43 </span><span class="caption-text">Violent crime, liquor vendor, poverty hotspots and their overlaps.</span><a class="headerlink" href="#fig-5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>With the exception of the small overlapping areas identified above, you didn’t find a strong spatial correlation between violent crime and businesses that sell or serve alcohol.</p>
+<p>Still, the community representatives have indicated that the problem is serious. While you work with numbers every day, you know that there are real faces—real people—behind your data. You decide to dig deeper.</p>
+</section>
+<section id="has-violent-crime-been-increasing-in-the-city-if-so-where">
+<h3>Has violent crime been increasing in the City? If so, where?<a class="headerlink" href="#has-violent-crime-been-increasing-in-the-city-if-so-where" title="Link to this heading">#</a></h3>
+<p>Space-time pattern mining will show you if violent crime has been increasing or not. The maps below show the results of this analysis. You notice several locations with intensifying violent crime hot spots and a number of persistent hot spots as well. Consecutive hot spots are also worrisome; these represent hot spot locations that have been statistically significant for several of the most recent time periods.</p>
+<figure class="align-default" id="fig-6">
+<img alt="../../_images/fig-6.png" src="../../_images/fig-6.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 44 </span><span class="caption-text">Violent Crime Trends. There are several concerning trends including new, intensifying, and persistent hot spot areas.</span><a class="headerlink" href="#fig-6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The 3D map below is zoomed in to the area of both sporadic and consecutive violent crime hot spot trends in the downtown area. The green squares at the base of the map delineate one of the liquor moratorium remediation areas you identified above. Each bin in the 3D stack represents a four-week time period, with the most recent time period at the top. The darkest red bins reflect locations and time periods with intense violent crime activity.</p>
+<figure class="align-default" id="fig-7">
+<img alt="../../_images/fig-7.png" src="../../_images/fig-7.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 45 </span><span class="caption-text">3D view of violent crime trends downtown.</span><a class="headerlink" href="#fig-7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>There are definitely locations around the City where violent crime is persistent and even intensifying; most of these do not correspond to high densities of businesses serving or selling alcohol, however.</p>
+</section>
+<section id="what-else-might-be-contributing-to-violent-crime">
+<h3>What else might be contributing to violent crime?<a class="headerlink" href="#what-else-might-be-contributing-to-violent-crime" title="Link to this heading">#</a></h3>
+<p>Two years ago the City implemented a <a class="reference external" href="https://www.chicagomag.com/city-life/December-2014/How-a-Chicago-Summer-Job-Program-Reduced-Violent-Crime/">Summer Jobs Program</a> that has proven tremendously effective at reducing violent crime. You obtain unemployment data and repeat your hot spot analysis to see if you find a stronger spatial correlation between unemployment and violent crime than you did between liquor establishments and violent crime. Interestingly, you do.</p>
+<figure class="align-default" id="fig-8">
+<img alt="../../_images/fig-8.png" src="../../_images/fig-8.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 46 </span><span class="caption-text">Compare the violent crime and unemployment hot spot maps. There are a number of locations where the violent crime and unemployment hot spots overlap.</span><a class="headerlink" href="#fig-8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="where-do-persistent-intensifying-and-consecutive-hot-spots-overlap-with-unemployment-hot-spots">
+<h3>Where do persistent, intensifying, and consecutive hot spots overlap with unemployment hot spots?<a class="headerlink" href="#where-do-persistent-intensifying-and-consecutive-hot-spots-overlap-with-unemployment-hot-spots" title="Link to this heading">#</a></h3>
+<p>You will recommend remediation measures for the areas where persistent, intensifying, and consecutive hot spot trends overlap with the statistically significant unemployment hot spots (99 percent confidence).</p>
+<figure class="align-default" id="fig-9">
+<img alt="../../_images/fig-9.png" src="../../_images/fig-9.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 47 </span><span class="caption-text">Overlap between violent crime trends and unemployment hot spots. The blue areas are the locations where intensifying, persistent, and consecutive hot spot trends overlap with the most intense unemployment hot spots.</span><a class="headerlink" href="#fig-9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="which-specific-high-schools-should-be-targeted-for-an-expanded-summer-jobs-program">
+<h3>Which specific high schools should be targeted for an expanded summer jobs program?<a class="headerlink" href="#which-specific-high-schools-should-be-targeted-for-an-expanded-summer-jobs-program" title="Link to this heading">#</a></h3>
+<p>You identify high schools within a quarter mile of the remediation areas where high violent crime and high unemployment overlap.</p>
+<figure class="align-default" id="fig-10">
+<img alt="../../_images/fig-10.png" src="../../_images/fig-10.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 48 </span><span class="caption-text">Selected schools. You will recommend that several schools be included in an expanded summer jobs program.</span><a class="headerlink" href="#fig-10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Your analyses have gone well! You have several recommendations to propose to the Chief of Police.</p>
+</section>
+<section id="final-recommendations">
+<h3>Final recommendations<a class="headerlink" href="#final-recommendations" title="Link to this heading">#</a></h3>
+<figure class="align-default" id="fig-11">
+<img alt="../../_images/fig-11.png" src="../../_images/fig-11.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 49 </span><span class="caption-text">Final recommendations.</span><a class="headerlink" href="#fig-11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Your final report will include the map above showing your recommendations below.</p>
+<ul>
+<li><p>Areas with high densities of violent crime, businesses selling or serving alcohol, and poverty. Suggested remediation: Review the existing liquor licenses for violations. Impose a moratorium on new liquor licenses.</p>
+<figure class="align-default" id="fig-12">
+<img alt="../../_images/fig-12.png" src="../../_images/fig-12.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 50 </span><span class="caption-text">legend1</span><a class="headerlink" href="#fig-12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Areas with intensifying or persistent violent crime and high unemployment rates. Suggested remediation: Add the public high schools within 0.25 miles of these areas to the existing summer jobs program. Consider a PR campaign to make people aware of the tremendous success this program has had on reducing violent crime over the past two years.</p>
+<figure class="align-default" id="fig-13">
+<img alt="../../_images/fig-13.png" src="../../_images/fig-13.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 51 </span><span class="caption-text">legend2</span><a class="headerlink" href="#fig-13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>New violent crime hot spots. Suggested remediation: Assign officers to work with residents and community advocates in these areas to understand what’s behind the sudden increase in violent crime and hopefully keep violent crime in these areas from becoming endemic.</p>
+<figure class="align-default" id="fig-14">
+<img alt="../../_images/fig-14.png" src="../../_images/fig-14.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 52 </span><span class="caption-text">legend3</span><a class="headerlink" href="#fig-14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+</ul>
+<p>In addition, it will be important to evaluate the space-time violent crime patterns monthly to assess the effectiveness of these remediation measures.</p>
+</section>
+</section>
+<section id="workflow-using-arcgis-pro">
+<h2>Workflow using ArcGIS Pro<a class="headerlink" href="#workflow-using-arcgis-pro" title="Link to this heading">#</a></h2>
+<section id="do-some-exploratory-data-analysis">
+<h3>Do some exploratory data analysis<a class="headerlink" href="#do-some-exploratory-data-analysis" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>If you haven’t done so already, download and unzip the data package provided at the top of this workflow.</p></li>
+<li><p>Open ArcGIS Pro and browse to the <code class="docutils literal notranslate"><span class="pre">BrokenBottlesPkg.ppkx</span></code> project package.</p></li>
+<li><p>Open the <strong>Attribute Table</strong> of <code class="docutils literal notranslate"><span class="pre">Violent</span> <span class="pre">Crime</span> <span class="pre">2014</span></code> layer and explore the data.</p>
+<div class="note admonition">
+<p class="admonition-title">Question 1</p>
+<p>a. What Primary Type crimes have been reported in the data? (Note that I am not asking for the total number of crime, I am asking how many classes of primary types crime has been reported in this dataset?) <em><strong>&lt;1 pt&gt;</strong></em><br />
+b. Which primary type of crime is the most frequent in the area and what is the number? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Download the <a class="reference external" href="https://data.cityofchicago.org/Facilities-Geographic-Boundaries/Boundaries-Neighborhoods/bbvz-uum9">neighborhood boundary data of Chicago</a> and bring the layer into the Project. (Click the <code class="docutils literal notranslate"><span class="pre">Export</span></code> and select <code class="docutils literal notranslate"><span class="pre">Shapefile</span></code>)</p>
+<div class="note admonition">
+<p class="admonition-title">Question 2</p>
+<p>a. Which neighborhood had the highest number of robberies and what was the number? <em><strong>&lt;1 pt&gt;</strong></em><br />
+b. Which primary type of crime is the most frequent in the area and what is the number? <em><strong>&lt;1 pt&gt;</strong></em><br />
+c. How did you get these information? Please explain in few sentences about the approach you took. (There are multiple ways to do it, you just need to explain the one you did.) <em><strong>&lt;3 pt&gt;</strong></em></p>
+</div>
+</li>
+</ol>
+</section>
+<section id="create-a-hot-spot-map-of-violent-crime-densities">
+<h3>Create a hot spot map of violent crime densities<a class="headerlink" href="#create-a-hot-spot-map-of-violent-crime-densities" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Once the project opens, find and open the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/optimized-hot-spot-analysis.htm">Optimized Hot Spot Analysis</a> tool. If the Geoprocessing pane isn’t open, click the <strong>Analysis</strong> menu tab, then click the <strong>Tools</strong> button. (Tips: Whenever possible and appropriate, create your workflow output in a geodatabase rather than as a shapefile. Field names in shapefile output may be truncated, and there are other advantages to using a geodatabase to store your data.)</p></li>
+<li><p>Run the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/optimized-hot-spot-analysis.htm">Optimized Hot Spot Analysis</a> tool with the following parameters. The <strong>Analysis Boundary</strong> layer defines the study area.</p>
+<ul class="simple">
+<li><p>Input Features : <code class="docutils literal notranslate"><span class="pre">Violent</span> <span class="pre">Crime</span> <span class="pre">2014</span></code></p></li>
+<li><p>Output Features : the name of your output feature class such as <code class="docutils literal notranslate"><span class="pre">ViolentCrimeHotSpots</span></code></p></li>
+<li><p>Incident Data Aggregation Method : Count incidents within fishnet grid</p></li>
+<li><p>Bounding Polygons Defining Where Incidents Are Possible : <code class="docutils literal notranslate"><span class="pre">Analysis</span> <span class="pre">Boundary</span></code></p></li>
+</ul>
+<figure class="align-default" id="fig-15">
+<img alt="../../_images/fig-15.png" src="../../_images/fig-15.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 53 </span><span class="caption-text">Optimized Hot Spot Analysis tool parameters for Violent Crime 2014.</span><a class="headerlink" href="#fig-15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+</ol>
+<p>While the tool runs, it reports the cell size it used for aggregation and the distance it used for analysis (the scale of the analysis). To see this information, hover over the progress bar below the Geoprocessing pane and click the icon to pop out the progress messages. You may resize the message pane by pulling on the lower right corner of the pop out window.</p>
+<figure class="align-default" id="fig-16">
+<img alt="../../_images/fig-16.png" src="../../_images/fig-16.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">View tool messages.</span><a class="headerlink" href="#fig-16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Notice that for this analysis the cell size is 1,375 feet and the scale of analysis is 4,563 feet (4,554 Feet with the most current software).f you are comparing multiple hot spot maps, you will want to make sure that the study area, cell size, and scale of analysis all match.</p>
+<figure class="align-default" id="fig-17">
+<img alt="../../_images/fig-17.png" src="../../_images/fig-17.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">Optimized Hot Spot Analysis message output.</span><a class="headerlink" href="#fig-17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The output map created by <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/optimized-hot-spot-analysis.htm">Optimized Hot Spot Analysis</a> is shown below:</p>
+<figure class="align-default" id="fig-18">
+<img alt="../../_images/fig-18.png" src="../../_images/fig-18.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 56 </span><span class="caption-text">Violent crime hot spot map.</span><a class="headerlink" href="#fig-18" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 3</p>
+<p>a. You used <code class="docutils literal notranslate"><span class="pre">Count</span> <span class="pre">incidents</span> <span class="pre">within</span> <span class="pre">fishnet</span> <span class="pre">grid</span></code> as the <strong>Incident Data Aggregation Model</strong>. What is fishnet? <em><strong>&lt;1 pt&gt;</strong></em><br />
+b. Similarly there is another option called <code class="docutils literal notranslate"><span class="pre">Count</span> <span class="pre">incidents</span> <span class="pre">within</span> <span class="pre">hexagon</span> <span class="pre">grid</span></code>. Create another Hot Spot map using hexagon grids and look at the differences. In your words, explain when Hexagons can be useful. (Hint: Explore <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/h-whyhexagons.htm">here</a> to find out more.) (Note: For the rest of the analysis, do not use the hot spot results from hexagon, use it from the fishnet.) <em><strong>&lt;2 pt&gt;</strong></em></p>
+</div>
+</section>
+<section id="create-a-hot-spot-map-of-liquor-vendor-densities">
+<h3>Create a hot spot map of liquor vendor densities<a class="headerlink" href="#create-a-hot-spot-map-of-liquor-vendor-densities" title="Link to this heading">#</a></h3>
+<p>Use the Optimized Hot Spot Analysis tool again with the following parameter settings. You will use the output from the violent crime hot spot analysis to define the study area and cell size.</p>
+<ul class="simple">
+<li><p>Input Features : <code class="docutils literal notranslate"><span class="pre">Liquor</span> <span class="pre">Vendors</span></code></p></li>
+<li><p>Output Features : the name of your output feature class such as <code class="docutils literal notranslate"><span class="pre">LiquorVendorHotSpots</span></code></p></li>
+<li><p>Incident Data Aggregation Method : Count incidents within aggregation polygons</p></li>
+<li><p>Polygons For Aggregating Incidents Into Counts : <code class="docutils literal notranslate"><span class="pre">ViolentCrimeHotSpots</span></code></p></li>
+</ul>
+<figure class="align-default" id="fig-19">
+<img alt="../../_images/fig-19.png" src="../../_images/fig-19.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 57 </span><span class="caption-text">Optimized Hot Spot Analysis of liquor vendors, tool parameters.</span><a class="headerlink" href="#fig-19" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Note: Because you used the exact same study area for both analyses, the scale of analysis should match exactly. Be sure to check it, though. Sometimes, when the distributions of points are vastly different, there will be a mismatch. If you do see a mismatch, run Hot Spot Analysis on the output from Optimized Hot Spot Analysis, setting the Distance Band or Threshold Distance parameter explicitly to match the hot spot map you want to compare.</p>
+<p>Now you can compare the hot spot maps to see where their activity spaces overlap.</p>
+<figure class="align-default" id="fig-20">
+<img alt="../../_images/fig-20.png" src="../../_images/fig-20.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 58 </span><span class="caption-text">Violent crime and liquor vendor hot spot maps.</span><a class="headerlink" href="#fig-20" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 4</p>
+<p>a. Why did you use <code class="docutils literal notranslate"><span class="pre">Count</span> <span class="pre">incidents</span> <span class="pre">within</span> <span class="pre">aggregation</span> <span class="pre">polygons</span></code> in this case? What would have been happened if you created the hot spot map the same way you did for the Violent Crime layer? <em><strong>&lt;2 pt&gt;</strong></em></p>
+</div>
+</section>
+<section id="create-a-hot-spot-map-of-poverty">
+<h3>Create a hot spot map of poverty<a class="headerlink" href="#create-a-hot-spot-map-of-poverty" title="Link to this heading">#</a></h3>
+<p>While you may use the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/enrich-layer.htm">Enrich Layer</a> tool to get poverty data, to ensure your results match those below and to avoid consuming credits, use the data provided in the data package you downloaded. The <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/enrich-layer.htm">Enrich Layer</a> tool always gives you the most current data available. When this workflow was created, the ACS poverty data was for 2009-2013.</p>
+<ol class="arabic simple">
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">Poverty.lpk</span></code> included with the data package you downloaded. Drag it on the map.</p></li>
+<li><p>Find and open the Optimized Hot Spot Analysis tool a third time.</p></li>
+<li><p>Set the parameters as follows and run the analysis.</p>
+<ul class="simple">
+<li><p>Input Features: <code class="docutils literal notranslate"><span class="pre">Poverty</span></code></p></li>
+<li><p>Output Features: the name of your output feature class such as <code class="docutils literal notranslate"><span class="pre">PovertyHotSpots</span></code></p></li>
+<li><p>Analysis Field: <code class="docutils literal notranslate"><span class="pre">2009-2013</span> <span class="pre">ACS</span> <span class="pre">Households</span> <span class="pre">with</span> <span class="pre">Income</span> <span class="pre">Below</span> <span class="pre">Poverty</span> <span class="pre">Level</span></code></p></li>
+</ul>
+</li>
+</ol>
+<figure class="align-default" id="fig-21">
+<img alt="../../_images/fig-21.png" src="../../_images/fig-21.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 59 </span><span class="caption-text">Violent crime and liquor vendor hot spot maps.</span><a class="headerlink" href="#fig-21" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="overlay-the-hot-spot-maps-to-determine-areas-of-overlap">
+<h3>Overlay the hot spot maps to determine areas of overlap<a class="headerlink" href="#overlay-the-hot-spot-maps-to-determine-areas-of-overlap" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Find and open the Select Layer By Attribute tool. You will run the tool on all three hot spot maps, each time selecting records where the Gi_Bin field is equal to 3 (a three for this field indicates a statistically significant hot spot at the 99 percent confidence level). The Gi_Bin field name will reflect the scale of analysis (4554 for the most current version of the software).</p>
+<figure class="align-default" id="fig-22">
+<img alt="../../_images/fig-22.png" src="../../_images/fig-22.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 60 </span><span class="caption-text">Select the most intense violent crime, liquor vendor, and poverty hot spots.</span><a class="headerlink" href="#fig-22" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Next, find and open the Intersect tool. Add all three layers as Input Features, provide a name for the output, such as iCrimeLiquorPoverty, and run the analysis.</p>
+<figure class="align-default" id="fig-23">
+<img alt="../../_images/fig-23.png" src="../../_images/fig-23.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 61 </span><span class="caption-text">Find the intersection between the violent crime, liquor vendor, and poverty 99 percent confidence level hot spots.</span><a class="headerlink" href="#fig-23" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Clear the selections, and turn off all other layers in order to see the output showing the overlapping locations. These locations will be your proposed areas for a liquor moratorium.</p>
+<figure class="align-default" id="fig-24">
+<img alt="../../_images/fig-24.png" src="../../_images/fig-24.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 62 </span><span class="caption-text">Areas where the violent crime, liquor vendor, and poverty hot spots overlap.</span><a class="headerlink" href="#fig-24" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+</ol>
+</section>
+<section id="create-a-space-time-cube-and-analyze-the-crime-trends-within-it">
+<h3>Create a space-time cube and analyze the crime trends within it<a class="headerlink" href="#create-a-space-time-cube-and-analyze-the-crime-trends-within-it" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Find and open the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/space-time-pattern-mining/create-space-time-cube.htm">Create Space Time Cube By Aggregating Points</a> tool.</p></li>
+<li><p>For version 1.4 or later of ArcGIS Pro, to ensure the cube output aligns with the hot spot output, you must set the <strong>Processing Extent</strong> to match the <strong>Analysis Boundary</strong> layer. Click the <strong>Environments</strong> tab and change the <strong>Extent</strong> to <strong>Analysis Boundary</strong>.</p>
+<figure class="align-default" id="fig-25">
+<img alt="../../_images/fig-25.png" src="../../_images/fig-25.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 63 </span><span class="caption-text">Setting the processing Extent.</span><a class="headerlink" href="#fig-25" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Set the Create Space Time Cube <strong>Parameters</strong> as follows and run the analysis. The cube is a <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/help/data/multidimensional/what-is-netcdf-data.htm">netCDF file</a>, so it must be created in a folder rather than inside a <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/help/data/geodatabases/overview/what-is-a-geodatabase-.htm">file geodatabase</a>. Setting the <strong>Distance Interval</strong> to match the hot spot map cell size will allow you to overlay the crime trends with hot spot maps later. For version 1.4 of ArcGIS Pro only, you must convert 1375 US Feet to 1375 International Feet (1375.00275).</p>
+<ul class="simple">
+<li><p>Input Features: <code class="docutils literal notranslate"><span class="pre">Violent</span> <span class="pre">Crime</span> <span class="pre">2014</span></code></p></li>
+<li><p>Output Space Time Cube: the name of your output cube such as <code class="docutils literal notranslate"><span class="pre">ViolentCrimeCube.nc</span></code></p></li>
+<li><p>Time Field: <code class="docutils literal notranslate"><span class="pre">Date</span></code></p></li>
+<li><p>Time Step Interval: <code class="docutils literal notranslate"><span class="pre">4</span> <span class="pre">Weeks</span></code></p></li>
+<li><p>Time Step Alignment: <code class="docutils literal notranslate"><span class="pre">End</span> <span class="pre">time</span></code></p></li>
+<li><p>Distance Interval: <code class="docutils literal notranslate"><span class="pre">1375</span> <span class="pre">Feet</span></code>; for version 1.4 and 2.0 of ArcGIS Pro only, use 1375.00275 instead (see note below).</p></li>
+</ul>
+<p>Note:
+With version 1.4 and 2.0 of ArcGIS Pro, the space time cube will not align with the output from Optimized Hot Spot Analysis unless the cell size is entered in US Feet. US Feet are slightly larger and have more precision that International Feet. With later versions of the software, <strong>Feet</strong> parameters will automatically be interpreted as US Feet.</p>
+<p>Caution:
+If you want a valid space-time analysis of incident data (like crime events), make sure each bin in the space-time cube is exactly the same size. Selecting <strong>Months</strong> for the <strong>Time Step Interval</strong>, for example, will result in some bins having more days than others (31 days for March, but only 30 days for April). This will bias your analysis because months with more days will likely have more incidents. Use <code class="docutils literal notranslate"><span class="pre">Days</span></code>, <code class="docutils literal notranslate"><span class="pre">Weeks</span></code>, or <code class="docutils literal notranslate"><span class="pre">Years</span></code> instead of <code class="docutils literal notranslate"><span class="pre">Months</span></code>.</p>
+<p>Tip:
+Use the <code class="docutils literal notranslate"><span class="pre">End</span> <span class="pre">time</span></code> <strong>Time Step Alignment</strong>. If the incident range of dates doesn’t divide evenly into your <strong>Time Step Intervals</strong>, you want the bias to be associated with the first (oldest) time period rather than the last (most recent) time period. For example, suppose your data covers fifteen and a half weeks and you select <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">week</span></code> for your <strong>Time Step Interval</strong>. If you select <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">time</span></code> for the <strong>Time Step Alignment</strong>, all of the bins will have a full week, except the bins for the last (most recent) time period; it will only have half a week.</p>
+<figure class="align-default" id="fig-26">
+<img alt="../../_images/fig-26.png" src="../../_images/fig-26.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 64 </span><span class="caption-text">Create Space Time Cube tool parameter settings.</span><a class="headerlink" href="#fig-26" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The tool will report it completed successfully but will not add new layers to the map.</p>
+<div class="note admonition">
+<p class="admonition-title">Question 5</p>
+<p>a. In a few sentence, explain NetCDF files and when it is useful? (Hint: google it and try to learn more about NetCDF data.) <em><strong>&lt;2 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Find and open the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/space-time-pattern-mining/emerginghotspots.htm">Emerging Hot Spot Analysis</a> tool.</p></li>
+<li><p>Set the following parameters and run the analysis.</p>
+<ul class="simple">
+<li><p>Input Space Time Cube: <code class="docutils literal notranslate"><span class="pre">ViolentCrimeCube.nc</span></code></p></li>
+<li><p>Analysis Variable: <code class="docutils literal notranslate"><span class="pre">COUNT</span></code></p></li>
+<li><p>Output Features: the name of your output feature class such as <code class="docutils literal notranslate"><span class="pre">ViolentCrimeTrends</span></code></p></li>
+<li><p>Neighborhood Distance: <code class="docutils literal notranslate"><span class="pre">0.5</span> <span class="pre">Miles</span></code></p></li>
+<li><p>Neighborhood Time Step: <code class="docutils literal notranslate"><span class="pre">1</span></code></p></li>
+<li><p>Polygon Analysis Mask: <code class="docutils literal notranslate"><span class="pre">Analysis</span> <span class="pre">Boundary</span></code></p></li>
+</ul>
+<figure class="align-default" id="fig-27">
+<img alt="../../_images/fig-27.png" src="../../_images/fig-27.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 65 </span><span class="caption-text">Emerging Hot Spot Analysis tool parameter settings.</span><a class="headerlink" href="#fig-27" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Examine the results. The trend categories are defined as follows.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pattern Type</p></th>
+<th class="head"><p>Definition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>New Hot Spot</p></td>
+<td><p>A location that is a statistically significant hot spot for the final time step and has never been a statistically significant hot spot before.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Consecutive Hot Spot</p></td>
+<td><p>A location with a single uninterrupted run of statistically significant hot spot bins in the final time-step intervals. The location has never been a statistically significant hot spot prior to the final hot spot run and less than ninety percent of all bins are statistically significant hot spots.</p></td>
+</tr>
+<tr class="row-even"><td><p>Intensifying Hot Spot</p></td>
+<td><p>A location that has been a statistically significant hot spot for ninety percent of the time-step intervals, including the final time step. In addition, the intensity of clustering of high counts in each time step is increasing overall and that increase is statistically significant.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Persistent Hot Spot</p></td>
+<td><p>A location that has been a statistically significant hot spot for ninety percent of the time-step intervals with no discernible trend indicating an increase or decrease in the intensity of clustering over time.</p></td>
+</tr>
+<tr class="row-even"><td><p>Diminishing Hot Spot</p></td>
+<td><p>A location that has been a statistically significant hot spot for ninety percent of the time-step intervals, including the final time step. In addition, the intensity of clustering in each time step is decreasing overall and that decrease is statistically significant.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sporadic Hot Spot</p></td>
+<td><p>A location that is an on-again-off-again hot spot. Less than ninety percent of the time-step intervals have been statistically significant hot spots and none of the time-step intervals have been statistically significant cold spots.</p></td>
+</tr>
+<tr class="row-even"><td><p>Oscillating Hot Spot</p></td>
+<td><p>A statistically significant hot spot for the final time-step interval that has a history of also being a statistically significant cold spot during a prior time step. Less than ninety percent of the time-step intervals have been statistically significant hot spots.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Historical Hot Spot</p></td>
+<td><p>The most recent time period is not hot, but at least ninety percent of the time-step intervals have been statistically significant hot spots.</p></td>
+</tr>
+<tr class="row-even"><td><p>New Cold Spot</p></td>
+<td><p>A location that is a statistically significant cold spot for the final time step and has never been a statistically significant cold spot before.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Consecutive Cold Spot</p></td>
+<td><p>A location with a single uninterrupted run of statistically significant cold spot bins in the final time-step intervals. The location has never been a statistically significant cold spot prior to the final cold spot run and less than ninety percent of all bins are statistically significant cold spots.</p></td>
+</tr>
+<tr class="row-even"><td><p>Intensifying Cold Spot</p></td>
+<td><p>A location that has been a statistically significant cold spot for ninety percent of the time-step intervals, including the final time step. In addition, the intensity of clustering of low counts in each time step is increasing overall and that increase is statistically significant.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Persistent Cold Spot</p></td>
+<td><p>A location that has been a statistically significant cold spot for ninety percent of the time-step intervals with no discernible trend, indicating an increase or decrease in the intensity of clustering of counts over time.</p></td>
+</tr>
+<tr class="row-even"><td><p>Diminishing Cold Spot</p></td>
+<td><p>A location that has been a statistically significant cold spot for ninety percent of the time-step intervals, including the final time step. In addition, the intensity of clustering of low counts in each time step is decreasing overall and that decrease is statistically significant.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sporadic Cold Spot</p></td>
+<td><p>A location that is an on-again-off-again cold spot. Less than ninety percent of the time-step intervals have been statistically significant cold spots and none of the time-step intervals have been statistically significant hot spots.</p></td>
+</tr>
+<tr class="row-even"><td><p>Oscillating Cold Spot</p></td>
+<td><p>A statistically significant cold spot for the final time-step interval that has a history of also being a statistically significant hot spot during a prior time step. Less than ninety percent of the time-step intervals have been statistically significant cold spots.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Historical Cold Spot</p></td>
+<td><p>The most recent time period is not cold, but at least ninety percent of the time-step intervals have been statistically significant cold spots.</p></td>
+</tr>
+<tr class="row-even"><td><p>No Trend Detected</p></td>
+<td><p>Does not fall into any of the hot or cold spot patterns defined above.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For your analysis there are no cold spots.</p>
+<figure class="align-default" id="fig-28">
+<img alt="../../_images/fig-28.png" src="../../_images/fig-28.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 66 </span><span class="caption-text">Violent crime trends.</span><a class="headerlink" href="#fig-28" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+</ol>
+</section>
+<section id="create-a-hot-spot-map-of-unemployment-rates">
+<h3>Create a hot spot map of unemployment rates<a class="headerlink" href="#create-a-hot-spot-map-of-unemployment-rates" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">Unemployment.lpk</span></code> included with the data package you downloaded. Drag it onto the map.
+Note: The <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/enrich-layer.htm">Enrich Layer</a> tool always gives you the most current data available. When this workflow was created, the unemployment rate data was for 2015.</p></li>
+<li><p>Open the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/optimized-hot-spot-analysis.htm">Optimized Hot Spot Analysis</a> tool.</p></li>
+<li><p>Set the parameters as follows and run the analysis.</p>
+<ul class="simple">
+<li><p>Input Features: <code class="docutils literal notranslate"><span class="pre">Unemployment</span></code></p></li>
+<li><p>Output Features: the name of your output feature class such as <code class="docutils literal notranslate"><span class="pre">UnemploymentRateHotSpots</span></code></p></li>
+<li><p>Analysis Field: <code class="docutils literal notranslate"><span class="pre">2015</span> <span class="pre">Unemployment</span> <span class="pre">Rate</span></code></p></li>
+</ul>
+<figure class="align-default" id="fig-34">
+<img alt="../../_images/fig-34.png" src="../../_images/fig-34.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 67 </span><span class="caption-text">Unemployment rate hot spot map.</span><a class="headerlink" href="#fig-34" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+</ol>
+</section>
+<section id="overlay-the-violent-crime-trend-map-with-the-unemployment-rate-hot-spot-map-to-determine-areas-of-overlap">
+<h3>Overlay the violent crime trend map with the unemployment rate hot spot map to determine areas of overlap<a class="headerlink" href="#overlay-the-violent-crime-trend-map-with-the-unemployment-rate-hot-spot-map-to-determine-areas-of-overlap" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Find and open the <strong>Select Layer By Attribute</strong> tool. You will use it once to select intensifying, persistent, and consecutive hot spots (Pattern Type <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> is <strong>Equal</strong> to <code class="docutils literal notranslate"><span class="pre">Consecutive</span> <span class="pre">Hot</span> <span class="pre">Spot</span></code> Or Pattern Type <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> is <strong>Equal</strong> to <code class="docutils literal notranslate"><span class="pre">Intensifying</span> <span class="pre">Hot</span> <span class="pre">Spot</span></code> Or Pattern Type <code class="docutils literal notranslate"><span class="pre">COUNT</span></code> is <strong>Equal</strong> to <code class="docutils literal notranslate"><span class="pre">Persistent</span> <span class="pre">Hot</span> <span class="pre">Spot</span></code>) and a second time to select the most intense unemployment rate hot spots (Gi_Bin Fixed 4556_FDR is equal to 3).</p>
+<figure class="align-default">
+<img alt="../../_images/fig-35.png" src="../../_images/fig-35.png" />
+</figure>
+<p>Caution:
+Be sure to click the <code class="docutils literal notranslate"><span class="pre">Add</span></code> button after creating the expression, otherwise all the features in the layer will be selected.</p>
+</li>
+<li><p>Next, find and open the <strong>Intersect</strong> tool. Add the violent crime trends and unemployment rate hot spot maps with their active selections, provide a name for the output results such as <code class="docutils literal notranslate"><span class="pre">iCrimeUnemp</span></code>, and run the analysis.</p>
+<figure class="align-default" id="fig-36">
+<img alt="../../_images/fig-36.png" src="../../_images/fig-36.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 68 </span><span class="caption-text">Intersect tool parameters.</span><a class="headerlink" href="#fig-36" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-37">
+<img alt="../../_images/fig-37.png" src="../../_images/fig-37.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 69 </span><span class="caption-text">Overlap of unemployment hot spots with consecutive, persistent and intensifying violent crime trends.</span><a class="headerlink" href="#fig-37" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+</ol>
+</section>
+<section id="finally-select-the-public-high-schools-within-a-quarter-mile-of-the-overlapping-areas">
+<h3>Finally, select the public high schools within a quarter mile of the overlapping areas<a class="headerlink" href="#finally-select-the-public-high-schools-within-a-quarter-mile-of-the-overlapping-areas" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Find and open the <strong>Select Layer By Location</strong> tool.</p></li>
+<li><p>Set the parameters as follows:</p>
+<ul class="simple">
+<li><p>Input Feature Layer: <code class="docutils literal notranslate"><span class="pre">Public</span> <span class="pre">High</span> <span class="pre">Schools</span></code></p></li>
+<li><p>Relationship: <code class="docutils literal notranslate"><span class="pre">Within</span> <span class="pre">a</span> <span class="pre">distance</span></code></p></li>
+<li><p>Selecting Features: <code class="docutils literal notranslate"><span class="pre">iCrimeUnemp</span></code></p></li>
+<li><p>Search Distance: <code class="docutils literal notranslate"><span class="pre">0.25</span> <span class="pre">Miles</span></code></p></li>
+</ul>
+<figure class="align-default" id="fig-38">
+<img alt="../../_images/fig-38.png" src="../../_images/fig-38.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 70 </span><span class="caption-text">Select high schools near overlap areas.</span><a class="headerlink" href="#fig-38" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Use the Copy Features tool to copy the selected high schools to a new feature class (this is optional, but it makes mapping and creating reports a bit easier).</p>
+<ul class="simple">
+<li><p>Input Features: <code class="docutils literal notranslate"><span class="pre">Public</span> <span class="pre">High</span> <span class="pre">Schools</span></code></p></li>
+<li><p>Output Feature Class: the name of your output feature class such as <code class="docutils literal notranslate"><span class="pre">SelectedHighSchools</span></code></p></li>
+</ul>
+</li>
+</ol>
+<div class="note admonition">
+<p class="admonition-title">Question 6</p>
+<p>a. Create your Final Crime Remediation Area with necessary legends and basemap layers. Use proper mapping tools in your map. <em><strong>&lt;6 pt&gt;</strong></em></p>
+</div>
+</section>
+</section>
+<section id="analyze-crime-patterns-in-saint-louis">
+<h2>Analyze Crime Patterns in Saint Louis<a class="headerlink" href="#analyze-crime-patterns-in-saint-louis" title="Link to this heading">#</a></h2>
+<p>You will do a similar analysis like the above for Saint Louis Crime patterns. I want you to slowly familirize yourself with Open-source Python solutions for different data processing tasks. Therefore, the data cleaning steps are already done for you in this notebook. You do not have to run the codes in the notebook, but feel free to familirize with the modules and functions used here to understand the general notion of data processing tasks.</p>
+<section id="data-for-saint-louis">
+<h3>Data for Saint Louis<a class="headerlink" href="#data-for-saint-louis" title="Link to this heading">#</a></h3>
+<p>The data you will need for this portion is already processed as <code class="docutils literal notranslate"><span class="pre">.shp</span></code> files:</p>
+<ol class="arabic simple">
+<li><p><a class="reference download internal" download="" href="../../_downloads/927901921ce61a87254253287c8aecab/crime_data.zip"><span class="xref download myst">Crime Data</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../_downloads/74c81cc284215a750cf34cdf514bc11f/liquors.zip"><span class="xref download myst">Liquor Stores</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../_downloads/f21e8a2ebbd423f4ee37ce17dfdb6f4a/income.zip"><span class="xref download myst">Median household income</span></a></p></li>
+</ol>
+<p>The details about where I collected the data and how I processed it, are well documented in the <a class="reference external" href="https://github.com/souravbhadra/GIS5120/blob/main/labs/lab-2/data-cleaning.ipynb">notebook</a>.</p>
+<p>Follow the steps to <a class="reference internal" href="#create-a-hot-spot-map-of-violent-crime-densities"><span class="xref myst">Create a hot spot map of violent crime densities</span></a> using the <a class="reference download internal" download="" href="../../_downloads/927901921ce61a87254253287c8aecab/crime_data.zip"><span class="xref download myst">Saint Louis crime data</span></a>. Do similar tasks for <a class="reference download internal" download="" href="../../_downloads/74c81cc284215a750cf34cdf514bc11f/liquors.zip"><span class="xref download myst">Liquor Stores</span></a> to <a class="reference internal" href="#create-a-hot-spot-map-of-liquor-vendor-densities"><span class="xref myst">Create a hot spot map of liquor vendor densities</span></a> and <a class="reference download internal" download="" href="../../_downloads/f21e8a2ebbd423f4ee37ce17dfdb6f4a/income.zip"><span class="xref download myst">Median household income</span></a> to <a class="reference internal" href="#create-a-hot-spot-map-of-poverty"><span class="xref myst">Create a hot spot map of poverty</span></a>. <strong>Note that for poverty we are using median household income, not the poverty data. So if you take <code class="docutils literal notranslate"><span class="pre">income</span></code> as your variable, hot spots would represent income hot spots. So for representing poverty hot spots, you would want the cold spots of income.</strong> Finally, <a class="reference internal" href="#overlay-the-hot-spot-maps-to-determine-areas-of-overlap"><span class="xref myst">Overlay the hot spot maps to determine areas of overlap</span></a> and create a map.</p>
+</section>
+<section id="your-task">
+<h3>Your task<a class="headerlink" href="#your-task" title="Link to this heading">#</a></h3>
+<div class="note admonition">
+<p class="admonition-title">Question 7</p>
+<p>a. Create an overlap of crime hot spots, liquor store hot spots and income cold spots. Publish a nice map with necessary attributes and other information. <em><strong>&lt;20 pt&gt;</strong></em></p>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -443,7 +1020,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lab 1: Suitability Analysis</p>
+        <p class="prev-next-title">Lab 1: Fire station suitability analysis (10 pts)</p>
       </div>
     </a>
     <a class="right-next"
@@ -461,6 +1038,52 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#broken-bottles">Broken Bottles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-data-will-you-need">What data will you need?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-are-the-violent-crime-hot-spots-where-are-the-hot-spots-for-businesses-selling-or-serving-alcohol-do-they-overlap">Where are the violent crime hot spots? Where are the hot spots for businesses selling or serving alcohol? Do they overlap?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-are-the-city-s-most-vulnerable-neighborhoods">Where are the City’s most vulnerable neighborhoods?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-areas-should-be-included-in-a-moratorium-on-new-liquor-licenses">Which areas should be included in a moratorium on new liquor licenses?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#has-violent-crime-been-increasing-in-the-city-if-so-where">Has violent crime been increasing in the City? If so, where?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-else-might-be-contributing-to-violent-crime">What else might be contributing to violent crime?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-persistent-intensifying-and-consecutive-hot-spots-overlap-with-unemployment-hot-spots">Where do persistent, intensifying, and consecutive hot spots overlap with unemployment hot spots?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#which-specific-high-schools-should-be-targeted-for-an-expanded-summer-jobs-program">Which specific high schools should be targeted for an expanded summer jobs program?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-recommendations">Final recommendations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-some-exploratory-data-analysis">Do some exploratory data analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hot-spot-map-of-violent-crime-densities">Create a hot spot map of violent crime densities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hot-spot-map-of-liquor-vendor-densities">Create a hot spot map of liquor vendor densities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hot-spot-map-of-poverty">Create a hot spot map of poverty</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-the-hot-spot-maps-to-determine-areas-of-overlap">Overlay the hot spot maps to determine areas of overlap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-space-time-cube-and-analyze-the-crime-trends-within-it">Create a space-time cube and analyze the crime trends within it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-hot-spot-map-of-unemployment-rates">Create a hot spot map of unemployment rates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overlay-the-violent-crime-trend-map-with-the-unemployment-rate-hot-spot-map-to-determine-areas-of-overlap">Overlay the violent crime trend map with the unemployment rate hot spot map to determine areas of overlap</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finally-select-the-public-high-schools-within-a-quarter-mile-of-the-overlapping-areas">Finally, select the public high schools within a quarter mile of the overlapping areas</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-crime-patterns-in-saint-louis">Analyze Crime Patterns in Saint Louis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-for-saint-louis">Data for Saint Louis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-task">Your task</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
