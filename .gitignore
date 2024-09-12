@@ -1,7 +1,6 @@
 lectures/lectures-pptx/*
 lectures/refs/*
 
-*.dbf
 
 .DS_Store
 
