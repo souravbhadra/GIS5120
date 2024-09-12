@@ -8,10 +8,10 @@ Week | Date | Topics | Due
 3    | Sep 3 | [Lec 2: Spatial analysis as a process](lectures/lec-2.md) | [Make a map](labs/lab-0/lab-0.md)
 3    | Sep 5 | [Lab 1: Fire station suitability analysis](labs/lab-1/lab-1.md) | -
 4    | Sep 10 | [Lec 3: Data exploration and spatial statistics (contd.)](lectures/lec-3.md) | [Lab 1: Fire station suitability analysis](labs/lab-1/lab-1.md)
-4    | Sep 12 | [Lab 2: Exploratory data analysis](labs/lab-2/lab-2.md) | -
+4    | Sep 12 | [Lab 2: Analyzing violent crime](labs/lab-2/lab-2.md) | -
 5    | Sep 17 | [Lec 3: Data exploration and spatial statistics (contd.)](lectures/lec-3.md) | -
-5    | Sep 19 | [Lab 2: Exploratory data analysis (contd.)](labs/lab-2/lab-2.md) | -
-6    | Sep 24 | [Lec 4: Surface and field analysis](lectures/lec-4.md) | [Lab 2: Exploratory data analysis](labs/lab-2/lab-2.md)
+5    | Sep 19 | [Lab 2: Analyzing violent crime (contd.)](labs/lab-2/lab-2.md) | -
+6    | Sep 24 | [Lec 4: Surface and field analysis](lectures/lec-4.md) | [Lab 2: Analyzing violent crime](labs/lab-2/lab-2.md)
 6    | Sep 26 | [Lab 3: Surface geometry](labs/lab-3/lab-3.md) | -
 7    | Oct 1 | [Lec 4: Surface and field analysis (contd.)](lectures/lec-4.md) | -
 7    | Oct 3 | [Lab 4: Drainage delineation](labs/lab-4/lab-4.md) | [Lab 3: Surface geometry](labs/lab-3/lab-3.md)
