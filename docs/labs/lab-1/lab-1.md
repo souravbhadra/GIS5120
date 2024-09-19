@@ -512,3 +512,84 @@ Upload the following(s) in Canvas.
 ## Credits
 
 ESRI, Mike Price of Entrada/San Juan Inc. and Elise Fisher of EF Geographic.
+
+## Answers
+
+```{admonition} Question 1
+:class: note
+
+a. *NAD 1983 StatePlane California VI FIPS 0406 (US Feet); EPSG Code is 2230, previously it was 102646*  
+b. *US Feet*  
+c. *Several reasons. Some of the values are straight 0s, and the ACREAGE’s precision scale is really low. We do not get a lot of decimal values. Also the way this was calculated before, maybe the projection was very different. Therefore it is always good to recalculate any area or distance related metrics for your analysis. Either answer is fine to get full point.*
+```
+
+```{admonition} Question 2
+:class: note
+
+a. *15344*  
+b. *0.000361*  
+c. *249.353164 (decimals won’t matter)*
+d. *113*
+```
+
+```{admonition} Question 3
+:class: note
+
+a. *78*  
+```
+
+```{admonition} Question 4
+:class: note
+
+a. *67*  
+```
+
+```{admonition} Question 5
+:class: note
+
+a. *30*  
+```
+
+```{admonition} Question 6
+:class: note
+
+a. *Use automatically calculated FID as the Site_ID in the Field Calculator*  
+```
+
+```{admonition} Question 7
+:class: note
+
+a. *25*  
+```
+
+```{admonition} Question 8
+:class: note
+
+a. *A buffer simply uses a linear distance around a point whereas a service area considers linear features like time needed to travel with a road.*  
+```
+
+```{admonition} Question 9
+:class: note
+
+a. *Because the maximum allowable driving distance was 1500 feet and we need to consider the distance in terms of time needed in roads, not the straight line distance.*  
+```
+
+```{admonition} Question 10
+:class: note
+
+a. *34*  
+```
+
+```{admonition} Question 11
+:class: note
+
+a. *The join would keep all the rows from the target features.*  
+```
+
+```{admonition} Question 12
+:class: note
+
+a. *Check map*  
+b. *Your personal answer.*  
+c. *Population density, built-up area, land use mix, previous records of fire, and so on. Anything that makes sense with the data.*  
+```
