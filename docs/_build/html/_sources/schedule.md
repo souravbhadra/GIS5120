@@ -12,9 +12,9 @@ Week | Date | Topics | Due
 5    | Sep 17 | [Lec 3: Data exploration and spatial statistics (contd.)](lectures/lec-3.md) | -
 5    | Sep 19 | [Lab 2: Analyzing violent crime (contd.)](labs/lab-2/lab-2.md) | -
 6    | Sep 24 | [Lec 4: Surface and field analysis](lectures/lec-4.md) | [Lab 2: Analyzing violent crime](labs/lab-2/lab-2.md)
-6    | Sep 26 | [Lab 3: Surface geometry](labs/lab-3/lab-3.md) | -
+6    | Sep 26 | [Lab 3: Rediscovering Trails in National Parks](labs/lab-3/lab-3.md) | -
 7    | Oct 1 | [Lec 4: Surface and field analysis (contd.)](lectures/lec-4.md) | -
-7    | Oct 3 | [Lab 4: Drainage delineation](labs/lab-4/lab-4.md) | [Lab 3: Surface geometry](labs/lab-3/lab-3.md)
+7    | Oct 3 | [Lab 4: Drainage delineation](labs/lab-4/lab-4.md) | [Lab 3: Rediscovering Trails in National Parks](labs/lab-3/lab-3.md)
 8    | Oct 8 | [Lec 4: Surface and field analysis (contd.)](lectures/lec-4.md) | -
 8    | Oct 10 | [Lab 5: Spatial interpolation](labs/lab-5/lab-5.md) | [Lab 4: Drainage delineation](labs/lab-4/lab-4.md)
 9    | Oct 15 | **Midterm Q&A** | -
