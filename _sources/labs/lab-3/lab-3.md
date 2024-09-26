@@ -11,6 +11,10 @@
 - Upload any additional file(s) required by this instructions in Canvas. You will find specific list of deliverables at the end of this page.
 - You do not have to upload any large ArcGIS Pro Project (`.asprx`) file unless explicitly mentioned in the instructions.
 
+## Due Date
+
+Oct 3, 2024 10:00 PM CDT
+
 ## Background
 
 The natural landscapes of national parks offer a unique blend of topographical diversity and ecological richness. Trails winding through these parks often lead to high vantage points that provide breathtaking views and immersive experiences in nature. Understanding these landscapes requires an integration of various geospatial analyses to assess both the physical terrain and the ecological attributes.
