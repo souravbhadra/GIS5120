@@ -17,6 +17,8 @@ The natural landscapes of national parks offer a unique blend of topographical d
 
 In this lab, you will analyze hiking trails to identify those with the highest average slope and the highest peaks. Slope is a critical factor in assessing trail difficulty, as trails with greater slopes require more physical effort and can be more challenging for hikers. Trails that reach high elevations provide scenic views but may also be more strenuous. By analyzing slope and elevation data along the trails, you will determine which trails are the steepest and which lead to the highest points, helping to evaluate their difficulty and appeal for different types of users.
 
+We will be working with Rocky Mountain National Park in Colorado. One of my personal favorites.
+
 ```{figure} fig-3-1.png
 ---
 name: fig-3-1

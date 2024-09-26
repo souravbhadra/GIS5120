@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 3: Surface geometry &#8212; Geospatial Analytics (GIS4120/5120)</title>
+    <title>Lab 3: Rediscovering Trails in National Parks (10 pts) &#8212; Geospatial Analytics (GIS4120/5120)</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Lab 4: Drainage delineation" href="../lab-4/lab-4.html" />
-    <link rel="prev" title="Lab 2: Exploratory Data Analysis" href="../lab-2/lab-2.html" />
+    <link rel="prev" title="Lab 2: Analyzing violent crime (20 pts)" href="../lab-2/lab-2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -194,9 +194,9 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../labs.html">Labs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../lab-0/lab-0.html">Make a Map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lab-1/lab-1.html">Lab 1: Suitability Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lab-2/lab-2.html">Lab 2: Exploratory Data Analysis</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 3: Surface geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lab-1/lab-1.html">Lab 1: Fire station suitability analysis (10 pts)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lab-2/lab-2.html">Lab 2: Analyzing violent crime (20 pts)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 3: Rediscovering Trails in National Parks (10 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-4/lab-4.html">Lab 4: Drainage delineation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-5/lab-5.html">Lab 5: Spatial interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-6/lab-6.html">Lab 6: Geospatial analysis using python</a></li>
@@ -377,7 +377,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -388,11 +390,31 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 3: Surface geometry</h1>
+    <h1>Lab 3: Rediscovering Trails in National Parks (10 pts)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-arcgis-project">Setup ArcGIS Project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data">Download the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-datasets">Explore the datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clip-the-dem-to-analysis-boundary">Clip the DEM to analysis boundary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-peak-points-within-trail-lines">Find the peak points within trail lines</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-slope-of-the-dem">Calculate slope of the DEM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-which-trails-have-the-highest-mean-slope">Find which trails have the highest mean slope</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -402,9 +424,292 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-3-surface-geometry">
-<h1>Lab 3: Surface geometry<a class="headerlink" href="#lab-3-surface-geometry" title="Link to this heading">#</a></h1>
-<p>Coming soon.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-3-rediscovering-trails-in-national-parks-10-pts">
+<h1>Lab 3: Rediscovering Trails in National Parks (10 pts)<a class="headerlink" href="#lab-3-rediscovering-trails-in-national-parks-10-pts" title="Link to this heading">#</a></h1>
+<section id="read-before-proceeding">
+<h2>Read before proceeding<a class="headerlink" href="#read-before-proceeding" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The questions for this lab are embedded within the instructions.</p></li>
+<li><p>Each question carries specific points, clearly indicated alongside it.</p></li>
+<li><p>The questions might have subsections within them.</p></li>
+<li><p>The total score for this assignment is 10 points. Your final grade will be scaled from the total points you earn out of the maximum possible score to fit within a 0 to 10 scale.</p></li>
+<li><p>When working on a lab, always create a dedicated folder for it and store all related files within that specific folder. For instance, avoid saving intermediate files in the <code class="docutils literal notranslate"><span class="pre">C:/Documents</span></code> directory; keep all materials organized and together.</p></li>
+<li><p>Create a word document and name it as <code class="docutils literal notranslate"><span class="pre">Lab-3-answers-YOURLASTNAME.docx</span></code>. Insert each questions provided in this document and write down your answers for each questions. Upload the <code class="docutils literal notranslate"><span class="pre">.docx</span></code> file in Canvas. Do NOT upload a <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> of the document.</p></li>
+<li><p>Upload any additional file(s) required by this instructions in Canvas. You will find specific list of deliverables at the end of this page.</p></li>
+<li><p>You do not have to upload any large ArcGIS Pro Project (<code class="docutils literal notranslate"><span class="pre">.asprx</span></code>) file unless explicitly mentioned in the instructions.</p></li>
+</ul>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<p>The natural landscapes of national parks offer a unique blend of topographical diversity and ecological richness. Trails winding through these parks often lead to high vantage points that provide breathtaking views and immersive experiences in nature. Understanding these landscapes requires an integration of various geospatial analyses to assess both the physical terrain and the ecological attributes.</p>
+<p>In this lab, you will analyze hiking trails to identify those with the highest average slope and the highest peaks. Slope is a critical factor in assessing trail difficulty, as trails with greater slopes require more physical effort and can be more challenging for hikers. Trails that reach high elevations provide scenic views but may also be more strenuous. By analyzing slope and elevation data along the trails, you will determine which trails are the steepest and which lead to the highest points, helping to evaluate their difficulty and appeal for different types of users.</p>
+<p>We will be working with Rocky Mountain National Park in Colorado. One of my personal favorites.</p>
+<figure class="align-default" id="fig-3-1">
+<img alt="../../_images/fig-3-1.png" src="../../_images/fig-3-1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 71 </span><span class="caption-text">Rocky Mountain National Park Official Map</span><a class="headerlink" href="#fig-3-1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="setup-arcgis-project">
+<h2>Setup ArcGIS Project<a class="headerlink" href="#setup-arcgis-project" title="Link to this heading">#</a></h2>
+<p>Create an ArcGIS Porject file in your lab directory named as <code class="docutils literal notranslate"><span class="pre">Rocky_Mountain</span></code>.</p>
+</section>
+<section id="download-the-data">
+<h2>Download the data<a class="headerlink" href="#download-the-data" title="Link to this heading">#</a></h2>
+<p>You will have to download your own data. Followings are the steps to download your data. We will download Rocky Mountain National Park boundary, trail, and corresponding DEM data.</p>
+<ol class="arabic">
+<li><p>Go to <a class="reference external" href="https://public-nps.opendata.arcgis.com/">https://public-nps.opendata.arcgis.com/</a>, click the search button on the top right corner and type “rocky mountain national park boundary”.</p>
+<figure class="align-default" id="fig-3-2">
+<img alt="../../_images/fig-3-2.png" src="../../_images/fig-3-2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 72 </span><span class="caption-text">NPS website</span><a class="headerlink" href="#fig-3-2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">Rocky</span> <span class="pre">Mountain</span> <span class="pre">National</span> <span class="pre">Park</span> <span class="pre">-</span> <span class="pre">Boundary</span> <span class="pre">Polygon</span></code> and download it as a Shapefile in your Lab 3 <code class="docutils literal notranslate"><span class="pre">data</span></code> directory.</p>
+<figure class="align-default">
+<img alt="../../_images/fig-3-3.png" src="../../_images/fig-3-3.png" />
+</figure>
+<figure class="align-default" id="fig-3-4">
+<img alt="../../_images/fig-3-4.png" src="../../_images/fig-3-4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 73 </span><span class="caption-text">RMNP Boundary shapefile download</span><a class="headerlink" href="#fig-3-4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Go to <a class="reference external" href="https://public-nps.opendata.arcgis.com/">https://public-nps.opendata.arcgis.com/</a> one more time, click the search button on the top right corner and type “rocky mountain national park trails”. You should see a <code class="docutils literal notranslate"><span class="pre">Rocky</span> <span class="pre">Mountain</span> <span class="pre">National</span> <span class="pre">Park</span> <span class="pre">-</span> <span class="pre">Trails</span></code> label and download it as a shapefile.</p>
+<figure class="align-default" id="fig-3-5">
+<img alt="../../_images/fig-3-5.png" src="../../_images/fig-3-5.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 74 </span><span class="caption-text">RMNP Trails shapefile download</span><a class="headerlink" href="#fig-3-5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Go to <a class="reference external" href="https://apps.nationalmap.gov/downloader/">https://apps.nationalmap.gov/downloader/</a>, which is the official site to download USGS open source data. Here you can find a lot of good curated dataset published and/or maintained by USGS. We want to download the Digital Elevation Model (DEM) products from here.</p>
+<figure class="align-default" id="fig-3-6">
+<img alt="../../_images/fig-3-6.png" src="../../_images/fig-3-6.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 75 </span><span class="caption-text">The National Map Downloader</span><a class="headerlink" href="#fig-3-6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>There are multiple ways to download data, i.e., Extent (whatever extent the map is in the right side section), Polygon (you can upload your own polygon), Point, Enter Coords (the extent of your area of interest). We will use the <code class="docutils literal notranslate"><span class="pre">Enter</span> <span class="pre">Coords</span></code> option to insert the RMNP boundary extent information.</p>
+<figure class="align-default" id="fig-3-7">
+<img alt="../../_images/fig-3-7.png" src="../../_images/fig-3-7.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 76 </span><span class="caption-text">Extent window</span><a class="headerlink" href="#fig-3-7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Now go to you ArcGIS Pro project and click the properties of the <code class="docutils literal notranslate"><span class="pre">Boundary_(Polygon)</span></code> (which is the RMNP boundary) layer. To find the Extent of this layer, click <code class="docutils literal notranslate"><span class="pre">Source</span></code> on the left side pane, and then click <code class="docutils literal notranslate"><span class="pre">Extent</span></code>. You will see that the Extent information (Top, Bottom, Left, Right) are available in meters as the layer is in a projected coordinate system. On the other hand, the National Map requires the extent to be in geographic coordinate system or latutide/longitude values rather than meters. Therefore, we need to change the projection of this layer to a geographic coordinate system. Find the <strong>Project</strong> tool in the Geoprocessing tools and create a feature class named as <code class="docutils literal notranslate"><span class="pre">Boundary_Polygon_GCS</span></code> in the project geodatabase with <code class="docutils literal notranslate"><span class="pre">GCS_WGS_1984</span></code> system. Click the little globe icon in the <code class="docutils literal notranslate"><span class="pre">Output</span> <span class="pre">Coordinate</span> <span class="pre">System</span></code> parameter and select <code class="docutils literal notranslate"><span class="pre">WGS</span> <span class="pre">1984</span></code> from the <code class="docutils literal notranslate"><span class="pre">Geographic</span> <span class="pre">Coordinate</span> <span class="pre">System</span></code> options.</p>
+<figure class="align-default" id="fig-3-8">
+<img alt="../../_images/fig-3-8.png" src="../../_images/fig-3-8.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 77 </span><span class="caption-text">Projecting boundary polygon</span><a class="headerlink" href="#fig-3-8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-3-9">
+<img alt="../../_images/fig-3-9.png" src="../../_images/fig-3-9.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 78 </span><span class="caption-text">Finding WGS coordinate system</span><a class="headerlink" href="#fig-3-9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Now open the properties of <code class="docutils literal notranslate"><span class="pre">Boundary_Polygon_GCS</span></code> layer and locate the <code class="docutils literal notranslate"><span class="pre">Extent</span></code>. Make sure it matches with the following information.</p>
+<figure class="align-default" id="fig-3-10">
+<img alt="../../_images/fig-3-10.png" src="../../_images/fig-3-10.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 79 </span><span class="caption-text">RMNP Extent</span><a class="headerlink" href="#fig-3-10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Top: 40.553794
+Bottom: 40.158073
+Left: -105.913724
+Right: -105.493594</p>
+</li>
+<li><p>In your browser, clear the Extent window if it was open. First, select the dataset we need to download. We will be downloading a 10-m resolution DEM from USGS, which is a very common and good DEM data within US. However, the 10-m resolution is an approximation from 1/3 arc second resolution. Check the <code class="docutils literal notranslate"><span class="pre">Elevation</span> <span class="pre">Products</span> <span class="pre">(3DEP)</span></code> in the left side pane on the <code class="docutils literal notranslate"><span class="pre">Data</span></code> section, then select the <code class="docutils literal notranslate"><span class="pre">1/3</span> <span class="pre">arc-second</span> <span class="pre">DEM</span></code> (<code class="docutils literal notranslate"><span class="pre">Current</span></code>).</p>
+<figure class="align-default" id="fig-3-11">
+<img alt="../../_images/fig-3-11.png" src="../../_images/fig-3-11.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 80 </span><span class="caption-text">Selecting data</span><a class="headerlink" href="#fig-3-11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Now, we need to provide the Extent information. Make sure the Extent information of your RMNP Boundary in geographic coordinate system is handy in ArcGIS Pro. Then clicl the <code class="docutils literal notranslate"><span class="pre">Enter</span> <span class="pre">Coords</span></code> button on the <code class="docutils literal notranslate"><span class="pre">Area</span> <span class="pre">of</span> <span class="pre">Interest</span></code> section of the window on the left. Now provide the extent information correctly with absolute precision. The Xmax, Xmin, Ymax, Ymin are actually Right, Left, Top, and Bottom, respectively in terms of ArcGIS Pro’s Extent information. It should look like below and once you are satisfied, click <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">to</span> <span class="pre">Map</span></code>.</p>
+<figure class="align-default" id="fig-3-12">
+<img alt="../../_images/fig-3-12.png" src="../../_images/fig-3-12.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 81 </span><span class="caption-text">Providing extent information</span><a class="headerlink" href="#fig-3-12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>After adding the extent, there will be a AOI drawn on the right side map. If it makes sense, click <code class="docutils literal notranslate"><span class="pre">Search</span> <span class="pre">Products</span></code>.</p>
+<figure class="align-default" id="fig-3-13">
+<img alt="../../_images/fig-3-13.png" src="../../_images/fig-3-13.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 82 </span><span class="caption-text">Showing extent on the map</span><a class="headerlink" href="#fig-3-13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>There should be one product as the result. Make sure it matches with the following. Click ``Download Link (TIF)<code class="docutils literal notranslate"><span class="pre">to</span> <span class="pre">download</span> <span class="pre">it</span> <span class="pre">as</span> <span class="pre">a</span> <span class="pre">tif</span> <span class="pre">file.</span> <span class="pre">You</span> <span class="pre">can</span> <span class="pre">also</span> <span class="pre">clik</span></code>Footprint<code class="docutils literal notranslate"><span class="pre">to</span> <span class="pre">see</span> <span class="pre">the</span> <span class="pre">footprint</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">DEM</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">right</span> <span class="pre">map,</span> <span class="pre">click</span></code>Zoom To<code class="docutils literal notranslate"><span class="pre">to</span> <span class="pre">interact</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">DEM</span> <span class="pre">on</span> <span class="pre">top</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">topographic</span> <span class="pre">basemap.</span> <span class="pre">Download</span> <span class="pre">the</span> <span class="pre">DEM</span> <span class="pre">in</span> <span class="pre">your</span></code>data` directory.</p>
+<figure class="align-default" id="fig-3-14">
+<img alt="../../_images/fig-3-14.png" src="../../_images/fig-3-14.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 83 </span><span class="caption-text">Search results of DEM</span><a class="headerlink" href="#fig-3-14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+</ol>
+</section>
+<section id="workflow-using-arcgis-pro">
+<h2>Workflow using ArcGIS Pro<a class="headerlink" href="#workflow-using-arcgis-pro" title="Link to this heading">#</a></h2>
+<section id="explore-the-datasets">
+<h3>Explore the datasets<a class="headerlink" href="#explore-the-datasets" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Insert the RMNP Boundary shapefile that you downloaded.</p>
+<div class="note admonition">
+<p class="admonition-title">Question 1</p>
+<p>a. What is the total area of the RMNP in Square Kilometers? <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Insert the RMNP Trails shapefile you downloaded.</p>
+<div class="note admonition">
+<p class="admonition-title">Question 2</p>
+<p>a. What is the total length of trails in Miles within RMNP? <em><strong>&lt;1 pt&gt;</strong></em><br />
+b. How many unique trails are within RMNP? (Hint: if you examine the <code class="docutils literal notranslate"><span class="pre">TRLNAME</span></code> column, you will find that there are some Polylines with same <code class="docutils literal notranslate"><span class="pre">TRLNAME</span></code>. Therefore, you need to do <code class="docutils literal notranslate"><span class="pre">Dissolve</span></code> of the <code class="docutils literal notranslate"><span class="pre">TRLNAME</span></code> so any trail with same name will be merged together. While doing so, also calculate the <code class="docutils literal notranslate"><span class="pre">Sum</span></code> statistic of the <code class="docutils literal notranslate"><span class="pre">Length_Mile</span></code> field, so you get the total length of each unique trail in Miles.) <em><strong>&lt;3 pt&gt;</strong></em><br />
+c. Which trail is the longest and what is its length? (Hint: Remember to use the dissolved trail feature) <em><strong>&lt;2 pt&gt;</strong></em><br />
+d. What is the mean and median length of trails in RMNP? (Hint: Remember to use the dissolved trail feature) <em><strong>&lt;2 pt&gt;</strong></em><br />
+e. Is the distribution of trail length normal or skewed? If skewed, positive or negative? (Hint: Remember to use the dissolved trail feature) <em><strong>&lt;2 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Insert the <code class="docutils literal notranslate"><span class="pre">USGS_13_n41w106_20230314.tif</span></code> you downloaded. Explore the DEM. Look at its values in the table of contents which is in Meters. Let’s convert this to Feet. The conversion formula for meter to feet is to multiply the raster data by a constant value of <code class="docutils literal notranslate"><span class="pre">3.28084</span></code>.</p>
+<div class="note admonition">
+<p class="admonition-title">Question 3</p>
+<p>a. Create a DEM where the unit of the elevation is in Feet. Save it in the default geodatabase without mentioning any file extension. This will create a native ESRI Grid format raster data. (Hint: Use Raster Calculator from Spatial Analyst extension) <em><strong>&lt;3 pt&gt;</strong></em><br />
+b. What is the maximum and minimum value of the elevation for this entire raster in Feet?<em><strong>&lt;3 pt&gt;</strong></em></p>
+</div>
+</li>
+</ol>
+</section>
+<section id="clip-the-dem-to-analysis-boundary">
+<h3>Clip the DEM to analysis boundary<a class="headerlink" href="#clip-the-dem-to-analysis-boundary" title="Link to this heading">#</a></h3>
+<p>Since the DEM is quite larger than the RMNP boundary, we do not need the entire DEM for our analysis. Therefore, it is better to clip or mask the DEM by the RMNP boundary extent. To do this, find the <strong>Clip Raster</strong> tool and use the <code class="docutils literal notranslate"><span class="pre">Boundary_(Polygon)</span></code> as the Output Extent to clip the <code class="docutils literal notranslate"><span class="pre">DEM_Feet</span></code> raster. Make sure the output data is saved in the default geodatabase as <code class="docutils literal notranslate"><span class="pre">DEM_Feet_Clip</span></code>. Also check the <code class="docutils literal notranslate"><span class="pre">Maintain</span> <span class="pre">Clipping</span> <span class="pre">Extent</span></code> at the end.</p>
+<figure class="align-default" id="fig-3-15">
+<img alt="../../_images/fig-3-15.png" src="../../_images/fig-3-15.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 84 </span><span class="caption-text">Clip raster</span><a class="headerlink" href="#fig-3-15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="find-the-peak-points-within-trail-lines">
+<h3>Find the peak points within trail lines<a class="headerlink" href="#find-the-peak-points-within-trail-lines" title="Link to this heading">#</a></h3>
+<p>To find the highest/peak points within the trails, we can use many different approaches. Here is a simple approach:</p>
+<ul class="simple">
+<li><p>First, we can generate equal distant points on top of the line(s)</p></li>
+<li><p>Then, we use those points to extract the elevation values from the DEM</p></li>
+<li><p>Once we know the elevation of each points, we can find the maximum value for each trails</p></li>
+<li><p>Then we filter out the top 5 peak points to calculate viewshed.</p></li>
+</ul>
+<ol class="arabic">
+<li><p>Find the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/generate-points-along-lines.htm">Generate Points Along Lines (Data Management Tools)</a>. Use <code class="docutils literal notranslate"><span class="pre">Trail_Dissolve</span></code> as the <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">Features</span></code>, name the <code class="docutils literal notranslate"><span class="pre">Output</span> <span class="pre">Feature</span> <span class="pre">Class</span></code> as <code class="docutils literal notranslate"><span class="pre">Trail_Points</span></code> within the default geodatabase, use <code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">Meters</span></code> as the <code class="docutils literal notranslate"><span class="pre">Distance</span></code> as we know that the USGS DEM is 10 m resolution. Approximating 10 meters interval points will be good enough for our analysis. If you want more precision, you can use smaller number but for this lab, let’s stick to 10 meters. Makse sure to check the <code class="docutils literal notranslate"><span class="pre">Include</span> <span class="pre">end</span> <span class="pre">points</span></code> so the starting and ending points are also included in the results.</p>
+<figure class="align-default" id="fig-3-16">
+<img alt="../../_images/fig-3-16.png" src="../../_images/fig-3-16.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 85 </span><span class="caption-text">Generate points along lines</span><a class="headerlink" href="#fig-3-16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 4</p>
+<p>a. How many points you got? (Hint: it should be 54,070 points, if not, something was wrong in your previous steps) <em><strong>&lt;1 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Find the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/extract-values-to-points.htm">Extract Values to Points (Spatial Analyst Tools)</a>. Use the <code class="docutils literal notranslate"><span class="pre">Trail_Points</span></code> as the <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">point</span> <span class="pre">features</span></code>; <code class="docutils literal notranslate"><span class="pre">DEM_Feet_Clip</span></code> as the <code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">raster</span></code>; name the <code class="docutils literal notranslate"><span class="pre">Output</span> <span class="pre">point</span> <span class="pre">features</span></code> as <code class="docutils literal notranslate"><span class="pre">Trail_Points_Elevation</span></code> in the deafault geodatabase.</p>
+<figure class="align-default" id="fig-3-17">
+<img alt="../../_images/fig-3-17.png" src="../../_images/fig-3-17.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 86 </span><span class="caption-text">Extract values to points</span><a class="headerlink" href="#fig-3-17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Explore the <code class="docutils literal notranslate"><span class="pre">Trail_Points_Elevation</span></code> feature’s attributes. See that there is an attribute called <code class="docutils literal notranslate"><span class="pre">RATERVALU</span></code> which includes the elevation in feet underneath each point. Now we need to find out the highest point within each trail.</p></li>
+<li><p>We can use the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/dissolve.htm">Dissolve (Data Management Tools</a> to aggragte unique <code class="docutils literal notranslate"><span class="pre">TRLNAME</span></code> within each points. Use the following parameters in the <strong>Dissolve</strong> tool. Make sure you are calculating the <code class="docutils literal notranslate"><span class="pre">Maximum</span></code> <code class="docutils literal notranslate"><span class="pre">RASTERVALU</span></code> as the <code class="docutils literal notranslate"><span class="pre">Statistics</span> <span class="pre">Fields</span></code> and the <code class="docutils literal notranslate"><span class="pre">Dissolve</span> <span class="pre">Fields</span></code> is the <code class="docutils literal notranslate"><span class="pre">TRLNAME</span></code>.</p>
+<figure class="align-default" id="fig-3-18">
+<img alt="../../_images/fig-3-18.png" src="../../_images/fig-3-18.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 87 </span><span class="caption-text">Dissolve points</span><a class="headerlink" href="#fig-3-18" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Explore the attribute table of the <code class="docutils literal notranslate"><span class="pre">Trail_Points_Elevat_Dissolve</span></code> feature. See that we have <code class="docutils literal notranslate"><span class="pre">160</span></code> unique trails only, which makes sense. Now we need to find out the 10 meter interval points of each trail that matches with the <code class="docutils literal notranslate"><span class="pre">MAX_RASTERVALU</span></code> values. To do this, we can join the dissolved points’ <code class="docutils literal notranslate"><span class="pre">MAX_RASTERVALU</span></code> attribute to the <code class="docutils literal notranslate"><span class="pre">Trail_Points_Elevation</span></code> attrbute by using the <code class="docutils literal notranslate"><span class="pre">TRLNAME</span></code> as the join field.</p>
+<figure class="align-default" id="fig-3-19">
+<img alt="../../_images/fig-3-19.png" src="../../_images/fig-3-19.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 88 </span><span class="caption-text">Join maximum elevation value</span><a class="headerlink" href="#fig-3-19" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Explore the attribute of the <code class="docutils literal notranslate"><span class="pre">Trail_Points_Elevation</span></code> feature. See that we have <code class="docutils literal notranslate"><span class="pre">RASTERVALU</span></code> which is the actual elevation value for each point, and the <code class="docutils literal notranslate"><span class="pre">MAX_RASTERVALU</span></code>, which is the maximum elevation within each trail. The points where the difference between these two attributes are <code class="docutils literal notranslate"><span class="pre">0</span></code>, are the peak points for each trail. Therefore, create a new field called <code class="docutils literal notranslate"><span class="pre">ELEV_DIFF</span></code> (Elevation difference) and compute the difference between <code class="docutils literal notranslate"><span class="pre">MAX_RASTERVALU</span></code> and <code class="docutils literal notranslate"><span class="pre">ELEV_DIFF</span></code>. The points that has a value of <code class="docutils literal notranslate"><span class="pre">0</span></code> would mean that point is the corresponding peak within that particular trail. Now, select the points that has <code class="docutils literal notranslate"><span class="pre">0</span></code> values in the <code class="docutils literal notranslate"><span class="pre">ELEV_DIFF</span></code> attribute (by using the <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">By</span> <span class="pre">Attributes</span></code>) and export that data to a new feature called <code class="docutils literal notranslate"><span class="pre">Trail_Peak_Points</span></code> in the default geodatabase (Hint: right click the selected layer, click Data, then Export Features).</p>
+<div class="note admonition">
+<p class="admonition-title">Question 5</p>
+<p>a. How many points you got? <em><strong>&lt;1 pt&gt;</strong></em><br />
+b. If you have done the analysis correctly, then the number of peak points you got should be slightly larger than 160, which is the unique number of trails within RMNP. Why you have got more peak points? <em><strong>&lt;2 pt&gt;</strong></em></p>
+</div>
+</li>
+<li><p>Since there are some duplicated trail points in the <code class="docutils literal notranslate"><span class="pre">Trail_Peak_Points</span></code> feature, we can use the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/delete-identical.htm">Delete Identical (Data Management Tools)</a> to remove identical entries from the <code class="docutils literal notranslate"><span class="pre">TRLNAME</span></code> attribute.</p>
+<figure class="align-default" id="fig-3-20">
+<img alt="../../_images/fig-3-20.png" src="../../_images/fig-3-20.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 89 </span><span class="caption-text">Delete identical</span><a class="headerlink" href="#fig-3-20" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Select the top 5 highest peaks from the <code class="docutils literal notranslate"><span class="pre">Trail_Peak_Points</span></code> feature and export it seperately as <code class="docutils literal notranslate"><span class="pre">Top_Five_Peak_Trails</span></code>.</p></li>
+</ol>
+</section>
+<section id="calculate-slope-of-the-dem">
+<h3>Calculate slope of the DEM<a class="headerlink" href="#calculate-slope-of-the-dem" title="Link to this heading">#</a></h3>
+<p>Use the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/slope.htm">Slope (Spatial Analyst)</a> tool to calculate slope of the DEM. Save it as <code class="docutils literal notranslate"><span class="pre">Slope</span></code> in the default geodatabase.</p>
+<figure class="align-default" id="fig-3-21">
+<img alt="../../_images/fig-3-21.png" src="../../_images/fig-3-21.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 90 </span><span class="caption-text">Slope</span><a class="headerlink" href="#fig-3-21" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="find-which-trails-have-the-highest-mean-slope">
+<h3>Find which trails have the highest mean slope<a class="headerlink" href="#find-which-trails-have-the-highest-mean-slope" title="Link to this heading">#</a></h3>
+<p>Find <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/zonal-statistics-as-table.htm">Zonal Statistics as Table (Spatial Analyst)</a> to calculate the mean slope value for each trail (<code class="docutils literal notranslate"><span class="pre">Trails_Dissolve</span></code>).</p>
+<figure class="align-default" id="fig-3-22">
+<img alt="../../_images/fig-3-22.png" src="../../_images/fig-3-22.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 91 </span><span class="caption-text">Zonal Statistics as table</span><a class="headerlink" href="#fig-3-22" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 6</p>
+<p>a. Zonal statistics as table will give you a table within ArcGIS. Join this zonal table with the <code class="docutils literal notranslate"><span class="pre">Trails_Dissolve</span></code> layer and identify the top five trails that has the highest mean slope. <em><strong>&lt;2 pt&gt;</strong></em></p>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Question 7</p>
+<p>Create a map with the following items:<br />
+a. An appropriate basemap of the Rocky Mountain National Park with boundary<br />
+b. 5 Trail lines that has the highest peaks<br />
+c. On top of the 4 highest peak trails, show the corresponding peak points with its elevation as label<br />
+d. Top 5 trails that shows higher average slope<br />
+e. The trails that has highest peak and highest slope should not have same color<br />
+f. Any other necessary items</p>
+<p><em><strong>&lt;10 pt&gt;</strong></em></p>
+</div>
+</section>
+</section>
+<section id="deliverables">
+<h2>Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Your completed <code class="docutils literal notranslate"><span class="pre">Lab-3-answers-YOURLASTNAME.docx</span></code></p></li>
+<li><p>The final map you generated</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -443,7 +748,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lab 2: Exploratory Data Analysis</p>
+        <p class="prev-next-title">Lab 2: Analyzing violent crime (20 pts)</p>
       </div>
     </a>
     <a class="right-next"
@@ -461,6 +766,33 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-arcgis-project">Setup ArcGIS Project</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-the-data">Download the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-datasets">Explore the datasets</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clip-the-dem-to-analysis-boundary">Clip the DEM to analysis boundary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-the-peak-points-within-trail-lines">Find the peak points within trail lines</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-slope-of-the-dem">Calculate slope of the DEM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#find-which-trails-have-the-highest-mean-slope">Find which trails have the highest mean slope</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
