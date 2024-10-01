@@ -520,3 +520,52 @@ Follow the steps to [Create a hot spot map of violent crime densities](#create-a
 
 a. Create an overlap of crime hot spots, liquor store hot spots and income cold spots. Publish a nice map with necessary attributes and other information. ***<20 pt>***  
 ```
+
+
+## Answers
+
+```{admonition} Question 1
+:class: note
+
+a. *Robbery*  
+b. *9642*  
+```
+
+```{admonition} Question 2
+:class: note
+
+a. *Austin, 721 crimes*  
+b. **
+c. **  
+```
+
+```{admonition} Question 3
+:class: note
+
+a. *Fishnet is a uniform or equidistant grid or square structure composed of polylines or polygons. It can be created by providing row column to spacing information. ***<1 pt>***  
+b. Hexagons reduce sampling bias due to edge effects of the grid shape, this is related to the low perimeter-to-area ratio of the shape of the hexagon. A circle has the lowest ratio but cannot tessellate to form a continuous grid. Hexagons are the most circular-shaped polygon that can tessellate to form an evenly spaced grid. Hexagons are preferable when your analysis includes aspects of connectivity or movement paths.*  
+```
+
+```{admonition} Question 4
+:class: note
+
+a. *Using `Count incidents within aggregation polygons` ensured us that the fishnet grids resulted from the liquor vendor data are the same matching polygons from the crime data. If the positions of the points for the two datasets are different (which is very nornal for any two different point features), we should make sure the grid aligns in the hot spot or cold spot shape.*  
+```
+
+```{admonition} Question 5
+:class: note
+
+a. *NetCDF files are multidimensional structured data formats. NetCDFs are extremely useful when we have raster or grid data but at different dimensional level. For example, we can have time series climate data for a location but the temporal dimension is not the only dimension. May be we need to store the different variables like temperature, precipitation, water pressure for the same time series. Now we have several dimensions and NetCDF would be a very efficient way to store this data.*  
+```
+
+```{admonition} Question 6
+:class: note
+
+a. *Create map*  
+```
+
+```{admonition} Question 7
+:class: note
+
+a. *Create map*  
+```
