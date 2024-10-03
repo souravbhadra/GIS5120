@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 4: Drainage delineation &#8212; Geospatial Analytics (GIS4120/5120)</title>
+    <title>Lab 4: Watershed and Drainage Modeling from DEM (10 pts) &#8212; Geospatial Analytics (GIS4120/5120)</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -197,7 +197,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../lab-1/lab-1.html">Lab 1: Fire station suitability analysis (10 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-2/lab-2.html">Lab 2: Analyzing violent crime (20 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-3/lab-3.html">Lab 3: Rediscovering Trails in National Parks (10 pts)</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 4: Drainage delineation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 4: Watershed and Drainage Modeling from DEM (10 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-5/lab-5.html">Lab 5: Spatial interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-6/lab-6.html">Lab 6: Geospatial analysis using python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-7/lab-7.html">Lab 7: Multidimensional climate data analysis</a></li>
@@ -377,7 +377,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -388,11 +390,38 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 4: Drainage delineation</h1>
+    <h1>Lab 4: Watershed and Drainage Modeling from DEM (10 pts)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#watershed-and-drainage-from-dem">Watershed and drainage from DEM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-expectations">Learning expectations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-goals">Overall goals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-workflow-for-watershed-and-drainage-delineation">General workflow for watershed and drainage delineation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydrologic-conditioning-of-dem-or-filling">Hydrologic conditioning of DEM or Filling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-direction">Flow direction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-accumulation">Flow accumulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-raster">Stream raster</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-order">Stream order</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-polyline">Stream polyline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#watershed-delineation">Watershed delineation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#develop-the-deliverables">Develop the deliverables</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -402,9 +431,192 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-4-drainage-delineation">
-<h1>Lab 4: Drainage delineation<a class="headerlink" href="#lab-4-drainage-delineation" title="Link to this heading">#</a></h1>
-<p>Coming soon.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-4-watershed-and-drainage-modeling-from-dem-10-pts">
+<h1>Lab 4: Watershed and Drainage Modeling from DEM (10 pts)<a class="headerlink" href="#lab-4-watershed-and-drainage-modeling-from-dem-10-pts" title="Link to this heading">#</a></h1>
+<section id="read-before-proceeding">
+<h2>Read before proceeding<a class="headerlink" href="#read-before-proceeding" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The questions for this lab are embedded within the instructions.</p></li>
+<li><p>Each question carries specific points, clearly indicated alongside it.</p></li>
+<li><p>The questions might have subsections within them.</p></li>
+<li><p>The total score for this assignment is 10 points. Your final grade will be scaled from the total points you earn out of the maximum possible score to fit within a 0 to 10 scale.</p></li>
+<li><p>When working on a lab, always create a dedicated folder for it and store all related files within that specific folder. For instance, avoid saving intermediate files in the <code class="docutils literal notranslate"><span class="pre">C:/Documents</span></code> directory; keep all materials organized and together.</p></li>
+<li><p>Create a word document and name it as <code class="docutils literal notranslate"><span class="pre">Lab-3-answers-YOURLASTNAME.docx</span></code>. Insert each questions provided in this document and write down your answers for each questions. Upload the <code class="docutils literal notranslate"><span class="pre">.docx</span></code> file in Canvas. Do NOT upload a <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> of the document.</p></li>
+<li><p>Upload any additional file(s) required by this instructions in Canvas. You will find specific list of deliverables at the end of this page.</p></li>
+<li><p>You do not have to upload any large ArcGIS Pro Project (<code class="docutils literal notranslate"><span class="pre">.asprx</span></code>) file unless explicitly mentioned in the instructions.</p></li>
+</ul>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<section id="watershed-and-drainage-from-dem">
+<h3>Watershed and drainage from DEM<a class="headerlink" href="#watershed-and-drainage-from-dem" title="Link to this heading">#</a></h3>
+<p>Watershed and drainage delineation from a Digital Elevation Model (DEM) involves identifying the boundaries of areas where all precipitation flows to a common outlet, such as a river or lake. A DEM represents the elevation of terrain and serves as the basis for determining how water moves across the landscape. By analyzing the flow direction and accumulation within the DEM, it becomes possible to outline watersheds and extract stream networks. This process allows us to understand the natural pathways that water takes over the terrain, highlighting critical areas for resource management.</p>
+<figure class="align-default" id="fig-4-1">
+<img alt="../../_images/fig-4-1.png" src="../../_images/fig-4-1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 92 </span><span class="caption-text">Watershed delineation</span><a class="headerlink" href="#fig-4-1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="learning-expectations">
+<h3>Learning expectations<a class="headerlink" href="#learning-expectations" title="Link to this heading">#</a></h3>
+<p>Learning watershed and drainage delineation from DEM is important for geospatial analytics because it provides key insights into the movement of water across landscapes, which is crucial for environmental planning, agricultural management, and urban development. It enables us to model hydrological processes, identify potential flood zones, and support decision-making in land and water conservation. By learning these methods, you will also be able to perform raster analysis on top of DEMs, applying techniques like flow direction and accumulation to solve real-life problems such as predicting flooding, planning irrigation systems, and managing natural resources more effectively. Understanding these concepts is essential for professionals who want to analyze how natural systems interact with human activities and use spatial data to make informed, sustainable planning decisions.</p>
+</section>
+<section id="overall-goals">
+<h3>Overall goals<a class="headerlink" href="#overall-goals" title="Link to this heading">#</a></h3>
+<p>You will be given a 10-m resolution DEM for an area in Illinois (Robinson Creek in Shelby County) and a corresponding Pour Point or Outlet Point in the lower elevation area of the DEM. Your general tasks are:</p>
+<ol class="arabic simple">
+<li><p>Create stream or drainage lines from the DEM</p></li>
+<li><p>Generate a watershed boundary or catchment area or basin given the Pour Point or Outlet</p></li>
+</ol>
+</section>
+<section id="general-workflow-for-watershed-and-drainage-delineation">
+<h3>General workflow for watershed and drainage delineation<a class="headerlink" href="#general-workflow-for-watershed-and-drainage-delineation" title="Link to this heading">#</a></h3>
+<p>We have learned from the lecture that the general workflow for delineating drainage and watershed involves several tools. The logical workflows include:</p>
+<ol class="arabic simple">
+<li><p><strong>Hydrological conditioning of the DEM</strong>: This is also known as <strong>Fill</strong>, <strong>Pit Filling</strong>, <strong>Sink Filling</strong>, <strong>Depression Removal</strong>, and so on. The objective is to fill up any holes or depressions or sinks in a DEM so water can smoothly flow downstream.</p></li>
+<li><p><strong>Flow Direction</strong>: Calculate the direction of water flow for each cell by utilizing the depressionless DEM.</p></li>
+<li><p><strong>Flow Accumulation</strong>: Calculate the amount of water flow into each cell by utulizing the Flow Direction raster.</p></li>
+<li><p><strong>Streamline or drainage delineation</strong>: This process involves several small tasks. First, we need to find out a stream raster using a condition of threshold, then calculate the stream order (learn more about <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/how-stream-order-works.htm">stream order</a>) raster, and finally convert the stream order raster to a streamline vector.</p></li>
+<li><p><strong>Watershed boundary</strong>: Watershed boundary delineation require a flow direction raster and the location of pour point, which gives us the area from which all the water flows into that outlet.</p></li>
+</ol>
+</section>
+</section>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h2>
+<p>The data for this lab can be downloaded from <a class="reference external" href="https://sluedu-my.sharepoint.com/:u:/g/personal/sourav_bhadra_slu_edu/EeweXogS3m9GlOSqsgTzDuUBKOkhq_qK-LHVGkzMoNHgmw?e=rywEnf">https://sluedu-my.sharepoint.com/:u:/g/personal/sourav_bhadra_slu_edu/EeweXogS3m9GlOSqsgTzDuUBKOkhq_qK-LHVGkzMoNHgmw?e=rywEnf</a>. If you are logged into your SLU account within your browser, you should be able to download the data. This is a zipped folder and it contains two data, i.e., a <code class="docutils literal notranslate"><span class="pre">RobinsonCreek_DEM.tif</span></code> as the DEM at 10m resolution, and a <code class="docutils literal notranslate"><span class="pre">PourPoint.shp</span></code> data as the outlet point location.</p>
+<p><em>Note: The DEM data was downloaded from <a class="reference external" href="https://clearinghouse.isgs.illinois.edu/data">Illinois GIS Data Clearinghouse</a>. There are often state-maintained GIS data clearinghouses where you can get publicly available GIS data in both vector and raster format. These are usually maintained by the corresponding state universities. For example, University of Missouri Columbia maintains the <a class="reference external" href="https://msdis.missouri.edu/">Missouri Spatial Data Information Service (MSDIS)</a>, which is the clearinghouse for the Missouri data. The DEM data I downloaded from the Illinois GIS Data Clearinghouse was derived from the llinois Height Modernization (ILHMP) program. These are LiDAR data at very high-resolution (aroun 3.5 m). However, due to the processing time limitation for our labs, I have reduced the extent of the DEM and resampled the spatial resolution to 10 meters.</em></p>
+<p>Create a lab directory in your local drive and open a new ArcGIS Project within it.</p>
+</section>
+<section id="workflow-using-arcgis-pro">
+<h2>Workflow using ArcGIS Pro<a class="headerlink" href="#workflow-using-arcgis-pro" title="Link to this heading">#</a></h2>
+<section id="hydrologic-conditioning-of-dem-or-filling">
+<h3>Hydrologic conditioning of DEM or Filling<a class="headerlink" href="#hydrologic-conditioning-of-dem-or-filling" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Insert the <code class="docutils literal notranslate"><span class="pre">RobinsonCreek_DEM.tif</span></code> into your map.</p></li>
+<li><p>Find <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/fill.htm">Fill (Spatial Analyst)</a> tool and create an output named <code class="docutils literal notranslate"><span class="pre">Fill</span></code> in the default geodatabase. Since we are saving it in the geodatabase, we can rely on the default ESRI grid as the raster format which does not require an extension within a geodatabase.</p>
+<figure class="align-default" id="fig-4-2">
+<img alt="../../_images/fig-4-2.png" src="../../_images/fig-4-2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 93 </span><span class="caption-text">Fill tool parameters</span><a class="headerlink" href="#fig-4-2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">Environments</span></code> tab on the tool and find the <code class="docutils literal notranslate"><span class="pre">Parallel</span> <span class="pre">Processing</span> <span class="pre">Factor</span></code>. Type <code class="docutils literal notranslate"><span class="pre">100%</span></code> as the parallel processing factor.</p>
+<figure class="align-default" id="fig-4-3">
+<img alt="../../_images/fig-4-3.png" src="../../_images/fig-4-3.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 94 </span><span class="caption-text">Fill tool parallel processing factor</span><a class="headerlink" href="#fig-4-3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><em>Note: The hydrologic tools are very time consuming in nature. For example, the Fill algorithm requires the program to iteratively fit a 2D plane on top of the DEM to find the sinks and properly fill the sinks up. Whenever there are these iterations in the algorithm for a raster data, it becomes highly computationally expensive. Parallel Processing enables us to utilize the multiple threads in our CPU so that it can be slightly faster. Think of it as the use of multiple cores in GPU for graphics in gaming. However, not all the tools have this options. Putting 100% will use all th threads in yout CPU to run this. <strong>From hereon, always try to use 100% as the parallel processing factor</strong> in all other hyfrologic tools if possible. This will make your operations faster.</em></p>
+</li>
+<li><p>Let’s examine which pixels were filled up. To do that, we can use the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/minus.htm">Minus (Spatial Analyst)</a> tool to subtract the original DEM from the filled DEM. Name it <code class="docutils literal notranslate"><span class="pre">Fill_Diff</span></code></p>
+<figure class="align-default" id="fig-4-4">
+<img alt="../../_images/fig-4-4.png" src="../../_images/fig-4-4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 95 </span><span class="caption-text">Fill difference</span><a class="headerlink" href="#fig-4-4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 1</p>
+<p>a. Based on the <code class="docutils literal notranslate"><span class="pre">Fill_Diff</span></code> raster, you can toggle on and off the <code class="docutils literal notranslate"><span class="pre">Fill</span></code> raster to see what type of area was filled out. By doing that and examining that, do you see any pattern of the filled portions? To be specific, why do you think the depressions are created? Is it natural or artificial? (Hint: please do not hesitate to ask questions if you are unsure) <em><strong>&lt;2 pt&gt;</strong></em></p>
+</div>
+</li>
+</ol>
+</section>
+<section id="flow-direction">
+<h3>Flow direction<a class="headerlink" href="#flow-direction" title="Link to this heading">#</a></h3>
+<p>Find <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/flow-direction.htm">Flow Direction (Spatial Analyst)</a> tool and insert the followings as argument. The input would be the <code class="docutils literal notranslate"><span class="pre">Fill</span></code> DEM, and name the output as <code class="docutils literal notranslate"><span class="pre">FlowDir_D8</span></code>. Remember to apply parallel processing factor in the <strong>Environments</strong>.</p>
+<figure class="align-default" id="fig-4-5">
+<img alt="../../_images/fig-4-5.png" src="../../_images/fig-4-5.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 96 </span><span class="caption-text">Flow direction</span><a class="headerlink" href="#fig-4-5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="flow-accumulation">
+<h3>Flow accumulation<a class="headerlink" href="#flow-accumulation" title="Link to this heading">#</a></h3>
+<p>Find <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/flow-accumulation.htm">Flow Accumulation (Spatial Analyst)</a> and use the <code class="docutils literal notranslate"><span class="pre">FlowDir_D8</span></code> as the input. Name the output <code class="docutils literal notranslate"><span class="pre">FlowAcc_D8</span></code> in the geodatabase and remember to use the parallel processing. Flow accumulation might take a while as its a computationally expensive algorithm.</p>
+<figure class="align-default" id="fig-4-6">
+<img alt="../../_images/fig-4-6.png" src="../../_images/fig-4-6.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 97 </span><span class="caption-text">Flow accumulation</span><a class="headerlink" href="#fig-4-6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="stream-raster">
+<h3>Stream raster<a class="headerlink" href="#stream-raster" title="Link to this heading">#</a></h3>
+<p>The flow accumulation raster shows us the number of cells that pours water into each cell. A value of 0 for a cell would mean that no other cell has contributed any water. We can assume that any cell with more that <code class="docutils literal notranslate"><span class="pre">100</span></code> can be a potential cell for a stream. So we can apply a condition to the <code class="docutils literal notranslate"><span class="pre">FlowAcc_D8</span></code> raster that if any cell’s value is &gt;= 100, then it is a stream cell and if it’s not then its a <code class="docutils literal notranslate"><span class="pre">NoData</span></code>.</p>
+<p>Find <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/con-.htm">Con (Spatial Analyst)</a> and use the parameters properly. “Con” stands for condition. Name the output as <code class="docutils literal notranslate"><span class="pre">StreamRaster</span></code>. The true value would be 1, which means if the condition is satisfied for a cell, then the value would be 1, otherwise it would be <code class="docutils literal notranslate"><span class="pre">NoData</span></code>. Since you have not provided any value to the false constant value, it would indicate we want <code class="docutils literal notranslate"><span class="pre">NoData</span></code> for these cells.</p>
+<figure class="align-default" id="fig-4-7">
+<img alt="../../_images/fig-4-7.png" src="../../_images/fig-4-7.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 98 </span><span class="caption-text">Stream raster using Con</span><a class="headerlink" href="#fig-4-7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="note admonition">
+<p class="admonition-title">Question 2</p>
+<p>a. Now that you know how to use the <strong>Con</strong> tool, find out how much area in Square Meters were filled in the <code class="docutils literal notranslate"><span class="pre">Fill</span></code> process? (Hint: Well! Since I have asked the question here instead before, you know which tool to use. Also remember that the resolution is 10 meters for this DEM.) <em><strong>&lt;3 pt&gt;</strong></em><br />
+b. Explain how you calculated it. <em><strong>&lt;3 pt&gt;</strong></em></p>
+</div>
+</section>
+<section id="stream-order">
+<h3>Stream order<a class="headerlink" href="#stream-order" title="Link to this heading">#</a></h3>
+<p>Stream order is a way of classifying the hierarchy of streams in a river system. It starts with the smallest streams, called first-order streams, which have no tributaries. When two first-order streams meet, they form a second-order stream. When two second-order streams meet, they form a third-order stream, and so on. Higher-order streams represent larger and more complex river systems.</p>
+<p>Find <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/stream-order.htm">Stream Order (Spatial Analyst)</a> and use the <code class="docutils literal notranslate"><span class="pre">StreamRaster</span></code> as <strong>Input stream raster</strong> and <code class="docutils literal notranslate"><span class="pre">FlowDir_D8</span></code> as the <strong>Input flow direction raster</strong>. Name the output raster as <code class="docutils literal notranslate"><span class="pre">StreamOrder</span></code></p>
+<figure class="align-default" id="fig-4-8">
+<img alt="../../_images/fig-4-8.png" src="../../_images/fig-4-8.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 99 </span><span class="caption-text">Stream order</span><a class="headerlink" href="#fig-4-8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The output raster should have different color coded values which represents the Strahler stream orders.</p>
+</section>
+<section id="stream-polyline">
+<h3>Stream polyline<a class="headerlink" href="#stream-polyline" title="Link to this heading">#</a></h3>
+<p>We often need stream lines or drainage systems as polylines instead of rasters. Find <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/stream-to-feature.htm">Stream to Feature (Spatial Analyst)</a>. Use the following parameters as input and output. You could also use the <code class="docutils literal notranslate"><span class="pre">StreamRaster</span></code> as input for this tool. But that would not give us the stream order information.</p>
+<figure class="align-default" id="fig-4-9">
+<img alt="../../_images/fig-4-9.png" src="../../_images/fig-4-9.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 100 </span><span class="caption-text">Stream to feature</span><a class="headerlink" href="#fig-4-9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Examine the attribute table of the <code class="docutils literal notranslate"><span class="pre">StreamPolylines</span></code>. Notice that the column <code class="docutils literal notranslate"><span class="pre">grid_code</span></code> is the column that holds the stream order degree information. 1 means 1st order streams, 2 means 2nd order and so on.</p>
+</section>
+<section id="watershed-delineation">
+<h3>Watershed delineation<a class="headerlink" href="#watershed-delineation" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Import the <code class="docutils literal notranslate"><span class="pre">PourPoint</span></code> faeture into the map.</p></li>
+<li><p>We want find the area that contributes all the water downnstream through the <code class="docutils literal notranslate"><span class="pre">PourPoint</span></code></p></li>
+<li><p>Find the <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-analyst/watershed.htm">Watershed (Spatial Analyst)</a> tool. Use the following parameters as input and output. Remember to use the parallel processing factor.</p>
+<figure class="align-default" id="fig-4-10">
+<img alt="../../_images/fig-4-10.png" src="../../_images/fig-4-10.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 101 </span><span class="caption-text">Watershed</span><a class="headerlink" href="#fig-4-10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>This would result in a raster data with <code class="docutils literal notranslate"><span class="pre">0</span></code> values and <code class="docutils literal notranslate"><span class="pre">NoData</span></code> where the areas with 0 values means the watershed for the <code class="docutils literal notranslate"><span class="pre">PourPoint</span></code>. This is vecause we used the <code class="docutils literal notranslate"><span class="pre">Id</span></code> as the <code class="docutils literal notranslate"><span class="pre">Pour</span> <span class="pre">point</span> <span class="pre">field</span></code> in the <strong>Watershed</strong> tool and all the values are 0 as the <code class="docutils literal notranslate"><span class="pre">Id</span></code> was 0 for the point. If we had multiple points, there would be multiple values clustered together within the output raster. Now we can convert the raster to a polygon.</p></li>
+<li><p>Find <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/conversion/raster-to-polygon.htm">Raster to Polygon (Conversion)</a> tool and convert the <code class="docutils literal notranslate"><span class="pre">Watershed</span></code> raster to a polygon feature named <code class="docutils literal notranslate"><span class="pre">Watershed_Polygon</span></code>.</p>
+<figure class="align-default">
+<img alt="../../_images/fig-4-11.png" src="../../_images/fig-4-11.png" />
+</figure>
+</li>
+</ol>
+</section>
+<section id="develop-the-deliverables">
+<h3>Develop the deliverables<a class="headerlink" href="#develop-the-deliverables" title="Link to this heading">#</a></h3>
+<div class="note admonition">
+<p class="admonition-title">Question 3</p>
+<p>a. Clip the <code class="docutils literal notranslate"><span class="pre">StreamPolylines</span></code> using the <code class="docutils literal notranslate"><span class="pre">Watershed_Polygon</span></code> to get only the streams within the delineated watershed. (Hint: Use <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/analysis/clip.htm">Clip (Analysis)</a>. If you are confused about what would be the input feature and clip feature, please read the documentaion in the link or raise question.)  <em><strong>&lt;3 pt&gt;</strong></em><br />
+b. Create a feature class for the streams with the 5th or higher stream order. (Hint: <code class="docutils literal notranslate"><span class="pre">grid_code</span></code> is the column that has the stream order information) <em><strong>&lt;3 pt&gt;</strong></em><br />
+c. Calculate the length of streams (in Kilo Meters) for each stream order class. Create a table with the columns <code class="docutils literal notranslate"><span class="pre">Stream</span> <span class="pre">Order</span></code> and <code class="docutils literal notranslate"><span class="pre">Length</span> <span class="pre">(Kilo</span> <span class="pre">Meters)</span></code>, there should be 5 rows for this table. (Hint: Dissolve) <em><strong>&lt;5 pt&gt;</strong></em><br />
+d. What is the area of the watershed boundary in Sq. Km? (Hint: there could be multiple polygons created, just consider the largest polygon’s area) <em><strong>&lt;1 pt&gt;</strong></em><br />
+d. Create a map of the <strong>Robinson Creek Watershed</strong> with the watershed boundary, streams with order &gt;= 5 (different colors for different streams, use thicker lines for higher order streams and thinner lines for lower order streams), the outlet location. Use other necessary map features.  <em><strong>&lt;5 pt&gt;</strong></em></p>
+</div>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -461,6 +673,40 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#watershed-and-drainage-from-dem">Watershed and drainage from DEM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-expectations">Learning expectations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-goals">Overall goals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-workflow-for-watershed-and-drainage-delineation">General workflow for watershed and drainage delineation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hydrologic-conditioning-of-dem-or-filling">Hydrologic conditioning of DEM or Filling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-direction">Flow direction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flow-accumulation">Flow accumulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-raster">Stream raster</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-order">Stream order</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-polyline">Stream polyline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#watershed-delineation">Watershed delineation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#develop-the-deliverables">Develop the deliverables</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
