@@ -195,6 +195,5 @@ a. Clip the `StreamPolylines` using the `Watershed_Polygon` to get only the stre
 b. Create a feature class for the streams with the 5th or higher stream order. (Hint: `grid_code` is the column that has the stream order information) ***<3 pt>***  
 c. Calculate the length of streams (in Kilo Meters) for each stream order class. Create a table with the columns `Stream Order` and `Length (Kilo Meters)`, there should be 5 rows for this table. (Hint: Dissolve) ***<5 pt>***  
 d. What is the area of the watershed boundary in Sq. Km? (Hint: there could be multiple polygons created, just consider the largest polygon's area) ***<1 pt>***  
-324.549444 sq km
 d. Create a map of the **Robinson Creek Watershed** with the watershed boundary, streams with order >= 5 (different colors for different streams, use thicker lines for higher order streams and thinner lines for lower order streams), the outlet location. Use other necessary map features.  ***<5 pt>***  
 ```
