@@ -16,8 +16,8 @@ Week | Date | Topics | Due
 7    | Oct 1 | [Lec 4: Surface and field analysis (contd.)](lectures/lec-4.md) | -
 7    | Oct 3 | [Lab 4: Drainage delineation](labs/lab-4/lab-4.md) | [Lab 3: Rediscovering Trails in National Parks](labs/lab-3/lab-3.md)
 8    | Oct 8 | [Lec 4: Surface and field analysis (contd.)](lectures/lec-4.md) | -
-8    | Oct 10 | [Lab 5: Spatial interpolation](labs/lab-5/lab-5.md) | [Lab 4: Drainage delineation](labs/lab-4/lab-4.md)
-9    | Oct 15 | **Midterm Q&A** | -
+8    | Oct 10 | **Midterm Q&A; Class Project** | [Lab 4: Drainage delineation](labs/lab-4/lab-4.md)
+9    | Oct 15 | [Lab 5: Spatial interpolation](labs/lab-5/lab-5.md) | -
 9    | Oct 17 | **Midterm Exam** | **Class project abstract**
 10    | Oct 22 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | [Lab 5: Spatial interpolation](labs/lab-5/lab-5.md)
 10    | Oct 24 | **No Class (Fall Break)** | -

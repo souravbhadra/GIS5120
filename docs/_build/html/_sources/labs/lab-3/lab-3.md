@@ -319,3 +319,41 @@ f. Any other necessary items
 
 - Your completed `Lab-3-answers-YOURLASTNAME.docx`
 - The final map you generated
+
+## Answers
+
+```{admonition} Question 1
+:class: note
+
+a. *1080*  
+```
+
+```{admonition} Question 2
+:class: note
+
+a. *334.97*  
+b. *160*
+c. *Beaver Meadows / Moraine Park Complex Trail, 15.07 Miles*
+d. *Mean: 2.08 Miles and Median: 1.51 Miles*
+e. *Not normal, positively skewed.*
+```
+
+```{admonition} Question 3
+:class: note
+
+a. *No Answer*  
+b. *Maximum is 1452.1 feet and minimum is 4837.17 feet.*  
+```
+
+```{admonition} Question 4
+:class: note
+
+a. *54,070*  
+```
+
+```{admonition} Question 5
+:class: note
+
+a. *177*  
+b. *Because of the 10 meters interval during the generate points step. Since we included the end points when generating points along lines, there could be very adjacent points that share the same elevation cell from the DEM. So sometimes more than one points were sharing the maximum elevation cell resulting in more peak points.*  
+```
