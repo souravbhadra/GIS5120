@@ -17,3 +17,63 @@ The class project is a significant component of your learning experience, contri
 - **Short Report:** Along with your presentation, you will submit a short report (3-4 pages) summarizing your project. The report should include an introduction, a detailed explanation of your methods, your findings, and your conclusions. It should be clear, well-organized, and professionally written. More details will follow.
 
 The class project is your chance to demonstrate your mastery of geospatial analytics, so take this opportunity to showcase your skills and insights.
+
+## Rubrics
+
+The overall grade for the class project is 25% of your total grade. Within this 25%, following are the major points totaling to 100, which will be weighted by the 25% weight:
+
+|                                   | Points |
+|-----------------------------------|--------|
+| **Research**                      | 50     |
+| **Oral Presentation**             | 20     |
+| **Short Report**                  | 30     |
+
+### Research
+
+Here is a breakdown of the **Research** component. By **Research**, I am emphasizing the actual work of the class project. Let's say you have provided a great presentation and report, but the research side is weak, this can affect your overall grade. Also this can occur vice-versa. These are breakdown of points which totals to 100:
+
+| Topics                                                                                    | Points |
+|-------------------------------------------------------------------------------------------|--------|
+| Good title                                                                                | 5      |
+| Clear definition of problem                                                               | 5      |
+| Research question(s) / Objective(s)                                                       | 10     |
+| Identification of related research                                                        | 10     |
+| Practicality / scope of the research                                                      | 5      |
+| Data statement (source, processing, ESDA)                                                 | 10     |
+| Use of at least three major geospatial analytics methods (not limited to our lectures)    | 30     |
+| Clear results that address the research question(s)                                       | 15     |
+| Use of quality figures                                                                    | 10     |
+| (Bonus) Discussion of results with other related studies                                  | 10 (Bonus)    |
+| **Total**                                                                                 | **100**|
+
+### Oral Presentation
+
+Here is a breakdown of the **Oral Presentation** component which totals to 100:
+
+| Topics                                                    | Points |
+|-----------------------------------------------------------|--------|
+| Background with problem, scope, objectives                | 20     |
+| Clear methodological workflow                             | 30     |
+| Results                                                   | 20     |
+| Conclusions                                               | 10     |
+| Oral presentation quality                                 | 20     |
+| **Total**                                                 | **100**|
+
+### Short Report
+
+Here is a breakdown of the **Short Report** component which totals to 100:
+
+| Topics                                                    | Points |
+|-----------------------------------------------------------|--------|
+| Section 1: Background                                     | 15     |
+| Section 2: Methods                                        | 30     |
+| Section 3: Results                                        | 20     |
+| Section 4: Conclusions                                    | 10     |
+| Study area map figure                                     | 5     |
+| Workflow figure with                                      | 5     |
+| Formatting                                                | 5     |
+| Proper citations and bibliography                         | 5     |
+| Overall writing quality                                   | 5     |
+| **Total**                                                 | **100**|
+
+**Note: I will provide a template for the short report soon.**

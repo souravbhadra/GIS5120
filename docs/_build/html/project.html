@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -196,7 +196,7 @@
 <li class="toctree-l2"><a class="reference internal" href="labs/lab-1/lab-1.html">Lab 1: Fire station suitability analysis (10 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="labs/lab-2/lab-2.html">Lab 2: Analyzing violent crime (20 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="labs/lab-3/lab-3.html">Lab 3: Rediscovering Trails in National Parks (10 pts)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="labs/lab-4/lab-4.html">Lab 4: Drainage delineation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="labs/lab-4/lab-4.html">Lab 4: Watershed and Drainage Modeling from DEM (10 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="labs/lab-5/lab-5.html">Lab 5: Spatial interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="labs/lab-6/lab-6.html">Lab 6: Geospatial analysis using python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="labs/lab-7/lab-7.html">Lab 7: Multidimensional climate data analysis</a></li>
@@ -400,6 +400,12 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#major-expectations">Major Expectations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics">Rubrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research">Research</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oral-presentation">Oral Presentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#short-report">Short Report</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -434,6 +440,153 @@ document.write(`
 <li><p><strong>Short Report:</strong> Along with your presentation, you will submit a short report (3-4 pages) summarizing your project. The report should include an introduction, a detailed explanation of your methods, your findings, and your conclusions. It should be clear, well-organized, and professionally written. More details will follow.</p></li>
 </ul>
 <p>The class project is your chance to demonstrate your mastery of geospatial analytics, so take this opportunity to showcase your skills and insights.</p>
+</section>
+<section id="rubrics">
+<h2>Rubrics<a class="headerlink" href="#rubrics" title="Link to this heading">#</a></h2>
+<p>The overall grade for the class project is 25% of your total grade. Within this 25%, following are the major points totaling to 100, which will be weighted by the 25% weight:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Points</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Research</strong></p></td>
+<td><p>50</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Oral Presentation</strong></p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Short Report</strong></p></td>
+<td><p>30</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="research">
+<h3>Research<a class="headerlink" href="#research" title="Link to this heading">#</a></h3>
+<p>Here is a breakdown of the <strong>Research</strong> component. By <strong>Research</strong>, I am emphasizing the actual work of the class project. Let’s say you have provided a great presentation and report, but the research side is weak, this can affect your overall grade. Also this can occur vice-versa. These are breakdown of points which totals to 100:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Topics</p></th>
+<th class="head"><p>Points</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Good title</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clear definition of problem</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p>Research question(s) / Objective(s)</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-odd"><td><p>Identification of related research</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Practicality / scope of the research</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Data statement (source, processing, ESDA)</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Use of at least three major geospatial analytics methods (not limited to our lectures)</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clear results that address the research question(s)</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td><p>Use of quality figures</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-odd"><td><p>(Bonus) Discussion of results with other related studies</p></td>
+<td><p>10 (Bonus)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Total</strong></p></td>
+<td><p><strong>100</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="oral-presentation">
+<h3>Oral Presentation<a class="headerlink" href="#oral-presentation" title="Link to this heading">#</a></h3>
+<p>Here is a breakdown of the <strong>Oral Presentation</strong> component which totals to 100:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Topics</p></th>
+<th class="head"><p>Points</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Background with problem, scope, objectives</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clear methodological workflow</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-even"><td><p>Results</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Conclusions</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Oral presentation quality</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Total</strong></p></td>
+<td><p><strong>100</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="short-report">
+<h3>Short Report<a class="headerlink" href="#short-report" title="Link to this heading">#</a></h3>
+<p>Here is a breakdown of the <strong>Short Report</strong> component which totals to 100:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Topics</p></th>
+<th class="head"><p>Points</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Section 1: Background</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-odd"><td><p>Section 2: Methods</p></td>
+<td><p>30</p></td>
+</tr>
+<tr class="row-even"><td><p>Section 3: Results</p></td>
+<td><p>20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Section 4: Conclusions</p></td>
+<td><p>10</p></td>
+</tr>
+<tr class="row-even"><td><p>Study area map figure</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Workflow figure with</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p>Formatting</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Proper citations and bibliography</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-even"><td><p>Overall writing quality</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Total</strong></p></td>
+<td><p><strong>100</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Note: I will provide a template for the short report soon.</strong></p>
+</section>
 </section>
 </section>
 
@@ -493,6 +646,12 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#major-expectations">Major Expectations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rubrics">Rubrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#research">Research</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oral-presentation">Oral Presentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#short-report">Short Report</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
