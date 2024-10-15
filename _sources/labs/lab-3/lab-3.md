@@ -342,7 +342,7 @@ e. *Not normal, positively skewed.*
 :class: note
 
 a. *No Answer*  
-b. *Maximum is 1452.1 feet and minimum is 4837.17 feet.*  
+b. *Maximum is 14252.1 feet and minimum is 4837.17 feet.*  
 ```
 
 ```{admonition} Question 4

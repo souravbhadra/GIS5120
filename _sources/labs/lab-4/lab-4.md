@@ -197,3 +197,31 @@ c. Calculate the length of streams (in Kilo Meters) for each stream order class.
 d. What is the area of the watershed boundary in Sq. Km? (Hint: there could be multiple polygons created, just consider the largest polygon's area) ***<1 pt>***  
 d. Create a map of the **Robinson Creek Watershed** with the watershed boundary, streams with order >= 5 (different colors for different streams, use thicker lines for higher order streams and thinner lines for lower order streams), the outlet location. Use other necessary map features.  ***<5 pt>***  
 ```
+
+## Answers
+
+```{admonition} Question 1
+:class: note
+
+a. *Because of the roads. These are mostly artificial depressions.*  
+```
+
+```{admonition} Question 2
+:class: note
+
+a. *667,643,900 Sq. M.*  
+b. *Use the Con tool on Fill_Diff using the clause VALUE > 0. The cells with 1 would be the number of cells that was filled up. The attribute will tell the number of pixels.*
+```
+
+```{admonition} Question 3
+:class: note
+
+a. *No Answer*  
+b. *No Answer*  
+b. *5th order: 260.067606  
+6th order: 131.35868  
+7th order: 46.625544  
+8th order: 41.132948  
+9th order: 21.993582*  
+d. 324.549444 sq km
+```
