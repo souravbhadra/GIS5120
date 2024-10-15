@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 5: Spatial interpolation &#8212; Geospatial Analytics (GIS4120/5120)</title>
+    <title>Lab 5: Interpolate temperatures using the Geostatistical Wizard (10 pts) &#8212; Geospatial Analytics (GIS4120/5120)</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Lab 6: Geospatial analysis using python" href="../lab-6/lab-6.html" />
-    <link rel="prev" title="Lab 4: Drainage delineation" href="../lab-4/lab-4.html" />
+    <link rel="prev" title="Lab 4: Watershed and Drainage Modeling from DEM (10 pts)" href="../lab-4/lab-4.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -197,13 +197,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../lab-1/lab-1.html">Lab 1: Fire station suitability analysis (10 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-2/lab-2.html">Lab 2: Analyzing violent crime (20 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-3/lab-3.html">Lab 3: Rediscovering Trails in National Parks (10 pts)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lab-4/lab-4.html">Lab 4: Drainage delineation</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 5: Spatial interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lab-4/lab-4.html">Lab 4: Watershed and Drainage Modeling from DEM (10 pts)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 5: Interpolate temperatures using the Geostatistical Wizard (10 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-6/lab-6.html">Lab 6: Geospatial analysis using python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-7/lab-7.html">Lab 7: Multidimensional climate data analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-8/lab-8.html">Lab 8: Google earth engine</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../midterm.html">Mid-Term Exam</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../project.html">Project</a></li>
 </ul>
 
@@ -377,7 +378,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -388,11 +391,30 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 5: Spatial interpolation</h1>
+    <h1>Lab 5: Interpolate temperatures using the Geostatistical Wizard (10 pts)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data">Download data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-histograms-of-data-distribution">Create histograms of data distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-geostatistical-surfaces-using-inverse-distance-weighting">Create geostatistical surfaces using inverse distance weighting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-geostatistical-surfaces-using-kriging">Create geostatistical surfaces using kriging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map-the-standard-error-estimates">Map the standard error estimates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concluding-remarks">Concluding remarks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -402,9 +424,426 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-5-spatial-interpolation">
-<h1>Lab 5: Spatial interpolation<a class="headerlink" href="#lab-5-spatial-interpolation" title="Link to this heading">#</a></h1>
-<p>Coming soon.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-5-interpolate-temperatures-using-the-geostatistical-wizard-10-pts">
+<h1>Lab 5: Interpolate temperatures using the Geostatistical Wizard (10 pts)<a class="headerlink" href="#lab-5-interpolate-temperatures-using-the-geostatistical-wizard-10-pts" title="Link to this heading">#</a></h1>
+<section id="read-before-proceeding">
+<h2>Read before proceeding<a class="headerlink" href="#read-before-proceeding" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The questions for this lab are embedded within the instructions.</p></li>
+<li><p>Each question carries specific points, clearly indicated alongside it.</p></li>
+<li><p>The questions might have subsections within them.</p></li>
+<li><p>The total score for this assignment is 10 points. Your final grade will be scaled from the total points you earn out of the maximum possible score to fit within a 0 to 10 scale.</p></li>
+<li><p>When working on a lab, always create a dedicated folder for it and store all related files within that specific folder. For instance, avoid saving intermediate files in the <code class="docutils literal notranslate"><span class="pre">C:/Documents</span></code> directory; keep all materials organized and together.</p></li>
+<li><p>Create a word document and name it as <code class="docutils literal notranslate"><span class="pre">Lab-5-answers-YOURLASTNAME.docx</span></code>. Insert each questions provided in this document and write down your answers for each questions. Upload the <code class="docutils literal notranslate"><span class="pre">.docx</span></code> file in Canvas. Do NOT upload a <code class="docutils literal notranslate"><span class="pre">.pdf</span></code> of the document.</p></li>
+<li><p>Upload any additional file(s) required by this instructions in Canvas. You will find specific list of deliverables at the end of this page.</p></li>
+<li><p>You do not have to upload any large ArcGIS Pro Project (<code class="docutils literal notranslate"><span class="pre">.asprx</span></code>) file unless explicitly mentioned in the instructions.</p></li>
+</ul>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<p>Many natural phenomena occur continuously across a landscape, for example, the distribution of nutrients in soil, dissolved oxygen in seawater, or rainfall. It is unrealistic to take measurements of these phenomena everywhere; you can only collect measurements at a set of sample locations. Using geostatistics, these sample measurements can be used to predict values at other, unmonitored locations. Many geostatistical methods also allow you to measure the uncertainty of your predictions.</p>
+<p>Geostatistics is used widely for mapping natural phenomena in many fields, including meteorology, oceanography, geology, forestry, and the soil sciences. It is also applied to unnatural phenomena such as pollution. You have likely seen and used many maps that were created with the help of geostatistics.</p>
+<p>In this lab, you’ll learn to do the following:</p>
+<ul class="simple">
+<li><p>Create a continuous temperature map of Africa and the Middle East from a dataset of sample points.</p></li>
+<li><p>Analyze the distribution of the sample data with histograms.</p></li>
+<li><p>Create interpolated surfaces using the inverse distance weighting and kriging methods.</p></li>
+<li><p>Compare the accuracy of different surfaces using cross-validation.</p></li>
+<li><p>Map the standard error of prediction for a chosen surface.</p></li>
+</ul>
+</section>
+<section id="download-data">
+<h2>Download data<a class="headerlink" href="#download-data" title="Link to this heading">#</a></h2>
+<p>First, you’ll download the project package and use the data stored in this package throughout the lab to interpolate temperatures through the Geostatistical Wizard.</p>
+<ol class="arabic">
+<li><p>Download the <a class="reference external" href="https://www.arcgis.com/sharing/rest/content/items/e5eeee4ba65e482ea9f809da5498bc51/data">InterpolateTemperatures project package</a>.</p></li>
+<li><p>Locate the downloaded file on your computer. Double-click <strong>InterpolateTemperatures.ppkx</strong> to open it in ArcGIS Pro.</p></li>
+<li><p>Spend a moment visually exploring the map.</p>
+<figure class="align-default" id="fig-5-1">
+<img alt="../../_images/fig-5-1.png" src="../../_images/fig-5-1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 102 </span><span class="caption-text">Map showing temperature point data across Africa and the Middle East</span><a class="headerlink" href="#fig-5-1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The points on the map represent temperature samples. Each point stores average temperature values for each month. You will examine the data distribution of some of these fields to determine which to use for interpolation.</p>
+<p><em>Note: You can find the full dataset on ArcGIS Living Atlas of the World: <a class="reference external" href="https://www.arcgis.com/home/item.html?id=ed59d3b4a8c44100914458dd722f054f">World Historical Climate – Monthly Averages for GHCN-D Stations for 1981 - 2010</a>.</em></p>
+</li>
+</ol>
+</section>
+<section id="workflow-using-arcgis-pro">
+<h2>Workflow using ArcGIS Pro<a class="headerlink" href="#workflow-using-arcgis-pro" title="Link to this heading">#</a></h2>
+<section id="create-histograms-of-data-distribution">
+<h3>Create histograms of data distribution<a class="headerlink" href="#create-histograms-of-data-distribution" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>In the <strong>Contents</strong> pane, right-click the <strong>Temperature</strong> layer. Point to <strong>Create Chart</strong> and choose <strong>Histogram</strong>.</p>
+<figure class="align-default" id="fig-5-2">
+<img alt="../../_images/fig-5-2.png" src="../../_images/fig-5-2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 103 </span><span class="caption-text">Create Chart Histogram option in the layer’s context menu</span><a class="headerlink" href="#fig-5-2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Both the <strong>Chart Properties</strong> pane and an empty chart view appear.</p>
+</li>
+<li><p>In the <strong>Chart Properties</strong> pane, change <strong>Number</strong> to <strong>Jan Avg. Temp C</strong> (short for January Average Temperature in Celsius) and check the box for <strong>Show Normal distribution</strong>.</p>
+<figure class="align-default" id="fig-5-3">
+<img alt="../../_images/fig-5-3.png" src="../../_images/fig-5-3.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 104 </span><span class="caption-text">Chart Properties pane showing Number variable set to Jan Avg. Temp C</span><a class="headerlink" href="#fig-5-3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The chart view updates to show a histogram representing the maximum temperature values from the point data. You can see that the values range from -10.2 to 30.1° Celsius. The values shown on the axis may vary, depending on the width of the pane.</p>
+<figure class="align-default" id="fig-5-4">
+<img alt="../../_images/fig-5-4.png" src="../../_images/fig-5-4.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 105 </span><span class="caption-text">Histogram of the Distribution of Jan Avg. Temp C showing more data on the higher values</span><a class="headerlink" href="#fig-5-4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The curved blue line represents the normal distribution of the chart. Data with a normal distribution has a bell-shaped curve. You can see that the distribution of average temperatures in January is not normal, but rather it is skewed to the right.</p>
+</li>
+<li><p>In the <strong>Chart Properties</strong> pane, change <strong>Number</strong> to <strong>Aug Avg. Temp C.</strong> The histogram updates to the new field.</p>
+<figure class="align-default" id="fig-5-5">
+<img alt="../../_images/fig-5-5.png" src="../../_images/fig-5-5.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 106 </span><span class="caption-text">Histogram of Distribution of Aug Avg. Temp C showing a normal distribution</span><a class="headerlink" href="#fig-5-5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Temperatures in August have more of a normal distribution. Interpolation methods are most effective when the data is close to a normal (bell-shaped) distribution, and some geostatistical methods require that the data be normally distributed. For this reason, you will use <strong>Aug Avg. Temp C</strong> for the rest of this tutorial.</p>
+<p><em>Note: If your data does not follow a bell curve, you can apply a transformation to make it closer to a normal distribution. Read about this process at <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/help/analysis/geostatistical-analyst/box-cox-arcsine-and-log-transformations.htm">Box-Cox, arcsine, and log transformations</a>.</em></p>
+</li>
+<li><p>Close the chart view.</p></li>
+<li><p>On the <strong>Contents</strong> pane, right-click the <strong>Temperature</strong> layer and choose <strong>Symbology</strong>. The <strong>Symbology</strong> pane appears.</p></li>
+<li><p>Change <strong>Field</strong> to <strong>Aug Avg. Temp C</strong>.</p>
+<figure class="align-default" id="fig-5-6">
+<img alt="../../_images/fig-5-6.png" src="../../_images/fig-5-6.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 107 </span><span class="caption-text">Symbology pane for the Temperature layer with field set to Aug Avg. Temp C</span><a class="headerlink" href="#fig-5-6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The map updates to show temperatures for August.</p>
+</li>
+</ol>
+</section>
+<section id="create-geostatistical-surfaces-using-inverse-distance-weighting">
+<h3>Create geostatistical surfaces using inverse distance weighting<a class="headerlink" href="#create-geostatistical-surfaces-using-inverse-distance-weighting" title="Link to this heading">#</a></h3>
+<p>Next, you’ll create surfaces of predicted temperature values for all of Africa and the Middle East using the sample data.</p>
+<p>In geostatistics, you can make the assumption that things that are closer together are more alike than things that are far apart. Therefore, any unknown location is probably going to have a similar value to the known locations nearest to it.</p>
+<p>The Geostatistical Wizard in ArcGIS Pro offers many different interpolation methods for creating predicted surfaces. Usually, you will not know which one to use until you have tried several and compared their results. The first method you will try is inverse distance weighting, also sometimes called IDW.</p>
+<p>IDW is an exact method. This means that the resulting surface will not vary from the sample values. It is also one of the simpler methods to execute. You can read more about IDW at <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/help/analysis/geostatistical-analyst/how-inverse-distance-weighted-interpolation-works.htm">How inverse distance weighted interpolation works</a>.</p>
+<ol class="arabic">
+<li><p>In the <strong>Contents</strong> pane, right-click the <strong>Temperature</strong> layer and choose <strong>Properties</strong>.
+The <strong>Layers Properties: Temperature</strong> pane appears.</p></li>
+<li><p>Click the <strong>Source</strong> tab.</p></li>
+<li><p>Scroll down and click <strong>Spatial Reference</strong> to expand that section.
+The table’s first parameter is <strong>Projected Coordinate System</strong>.</p>
+<figure class="align-default" id="fig-5-7">
+<img alt="../../_images/fig-5-7.png" src="../../_images/fig-5-7.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 108 </span><span class="caption-text">Layer Properties for the Temperature layer showing Projected Coordinate System as Africa Equidistant Conic</span><a class="headerlink" href="#fig-5-7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Geostatistics relies on distance measurements. To minimize the distortion of these distances, your input data must use a projected (rather than geographic) coordinate system. You can give it one using the <strong>Project</strong> geoprocessing tool.</p>
+<p>This data uses an Equidistant Conic projection centered on Africa. There is no projection that can perfectly preserve all distances on your map, but equidistant projections will do a better job of this than others. The choice of projection is more important when mapping a large area, such as a continent.</p>
+</li>
+<li><p>Click <strong>Cancel</strong> to close the <strong>Layer Properties</strong> window.</p></li>
+<li><p>On the ribbon, on the <strong>Analysis</strong> tab, in the <strong>Workflows</strong> group, click <strong>Geostatistical Wizard</strong>.</p>
+<figure class="align-default" id="fig-5-8">
+<img alt="../../_images/fig-5-8.png" src="../../_images/fig-5-8.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 109 </span><span class="caption-text">Geostatistical Wizard button on the ribbon</span><a class="headerlink" href="#fig-5-8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The <strong>Geostatistical Wizard</strong> appears.</p>
+</li>
+<li><p>Under <strong>Deterministic methods</strong>, choose <strong>Inverse Distance Weighting</strong>. (You may need to scroll down to find this option.)</p></li>
+<li><p>For <strong>Data Field</strong>, choose <strong>Aug Avg. Temp C</strong>.</p>
+<figure class="align-default" id="fig-5-9">
+<img alt="../../_images/fig-5-9.png" src="../../_images/fig-5-9.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 110 </span><span class="caption-text">Inverse Distance Weighting and Aug Avg. Temp C on the Geostatistical Wizard</span><a class="headerlink" href="#fig-5-9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Click <strong>Next</strong>.</p>
+<figure class="align-default" id="fig-5-10">
+<img alt="../../_images/fig-5-10.png" src="../../_images/fig-5-10.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 111 </span><span class="caption-text">Inverse Distance Weighting properties and preview map on the Geostatistical Wizard</span><a class="headerlink" href="#fig-5-10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>On this page you can interactively change the parameters of the IDW method and see how the model responds in the preview map. The <strong>Identify Result</strong> section tells you the predicted value for any location.</p>
+</li>
+<li><p>In the <strong>Geostatistical Wizard</strong>, click some different parts of the preview map to see the predicted temperature for that area in the <strong>Identify Result</strong> section.</p></li>
+<li><p>Under <strong>General Properties</strong>, change <strong>Neighborhood Type</strong> to <strong>Smooth</strong>. The smooth option will generally make the prediction surface smoother and less jagged. The preview map updates. When <strong>Neighborhood Type</strong> is <strong>Standard</strong>, there is only one circle on the preview map. When it is <strong>Smooth</strong>, there are three concentric circles.</p>
+<figure class="align-default" id="fig-5-11">
+<img alt="../../_images/fig-5-11.png" src="../../_images/fig-5-11.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 112 </span><span class="caption-text">Preview map of the Geostatistical Wizard with one circle compared to three</span><a class="headerlink" href="#fig-5-11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The circles on the preview map represent the search neighborhood. To predict a new value, only the sample points that are nearby—within the search neighborhood—are considered. You can read more about this process, including the smooth neighborhood type, at <a class="reference external" href="https://pro.arcgis.com/en/pro-app/latest/help/analysis/geostatistical-analyst/search-neighborhoods.htm">Search neighborhoods</a>.</p>
+</li>
+<li><p>Verify that <strong>Smoothing Factor</strong> is set to <strong>0.2</strong>.</p></li>
+<li><p>Click <strong>Finish</strong>.</p></li>
+<li><p>On the <strong>Method Report</strong>, click <strong>OK</strong>. A new layer is added to the map, representing a surface of maximum temperature for the Africa region.</p></li>
+<li><p>In the <strong>Contents</strong> pane, select <strong>Inverse Distance Weighting</strong> and press F2 on the keyboard to make the name editable.</p></li>
+<li><p>Rename the layer <code class="docutils literal notranslate"><span class="pre">IDW</span> <span class="pre">Smooth</span></code>.</p></li>
+<li><p>Drag <strong>Inverse Distance Weighting</strong> above <strong>Oceans</strong> and expand it.</p>
+<figure class="align-default" id="fig-5-12">
+<img alt="../../_images/fig-5-12.png" src="../../_images/fig-5-12.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 113 </span><span class="caption-text">Pane with IDW Smooth layer selected</span><a class="headerlink" href="#fig-5-12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The map now shows temperature predictions for places that had no temperature data.</p>
+<figure class="align-default" id="fig-5-13">
+<img alt="../../_images/fig-5-13.png" src="../../_images/fig-5-13.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 114 </span><span class="caption-text">Map showing temperature point data and interpolated surface</span><a class="headerlink" href="#fig-5-13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Next, you will create a slightly different surface using the same data and the same method.</p>
+</li>
+<li><p>Open the Geostatistical Wizard. (On the ribbon, on the <strong>Analysis</strong> tab, click <strong>Geostatistical Wizard</strong>.)</p></li>
+<li><p>Confirm that the selected method is <strong>Inverse Distance Weighting</strong> and the selected <strong>Data Field</strong> is <strong>Aug Avg. Temp C</strong>. Click <strong>Next</strong>.</p></li>
+<li><p>For <strong>Neighborhood Type</strong>, choose <strong>Smooth</strong>.</p></li>
+<li><p>Click the <strong>Click to optimize</strong> button in the <strong>Power</strong> parameter.</p>
+<figure class="align-default" id="fig-5-14">
+<img alt="../../_images/fig-5-14.png" src="../../_images/fig-5-14.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 115 </span><span class="caption-text">Optimize button on the Power control under General Properties</span><a class="headerlink" href="#fig-5-14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The <strong>Power</strong> value changes to 3.1076.</p>
+<p>Not all the points in the search neighborhood are considered equal. Those that are nearer to the location being predicted are given more weight in the calculation.</p>
+<p>If <strong>Power</strong> is 0, all points in the neighborhood are weighted equally. The higher the power, the more rapidly the weights decrease with distance. A higher power of 3.1 results in a surface that appears more localized and less general, since points that are farther away have less of an influence.</p>
+</li>
+<li><p>Expand <strong>Weights</strong> and scroll through the list to find weights of different colors. This list represents all of the points within your search radius and includes the weights assigned to them.</p>
+<figure class="align-default" id="fig-5-15">
+<img alt="../../_images/fig-5-15.png" src="../../_images/fig-5-15.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 116 </span><span class="caption-text">Some of the weights in a list of 393 neighbors</span><a class="headerlink" href="#fig-5-15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Click some of the values in the list to see the points selected on the preview map. Red points will exert more influence over the prediction than green ones.</p>
+</li>
+<li><p>Collapse <strong>Weights</strong> and click <strong>Next</strong>. The <strong>Cross validation</strong> window provides information about how reliable your interpolation will be.</p>
+<figure class="align-default" id="fig-5-16">
+<img alt="../../_images/fig-5-16.png" src="../../_images/fig-5-16.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 117 </span><span class="caption-text">Cross validation page of the Geostatistical Wizard, showing a scatter plot and summary values</span><a class="headerlink" href="#fig-5-16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The information on this page allows you to assess the accuracy of the prediction surface. It does this by removing a single point from the dataset and using all remaining points to predict the value of the removed point.</p>
+<p>The scatter plot compares predicted values (on the x-axis) to measured values (on the y-axis) and is considered best when the thin gray line coincides with the thick blue line.</p>
+<p>The <strong>Mean</strong> value tells you if the model is skewed toward predicting values that are too high or too low. It is best when it is closest to 0.</p>
+<p>The <strong>Root-Mean-Square</strong> value is almost 2.5. This indicates that on average, the predicted temperature values differed from the measured values by about 2.5° Celsius.</p>
+</li>
+<li><p>Click <strong>Finish</strong>, and on the <strong>Method Report</strong> window, click <strong>OK</strong>. A new layer is added to the map.</p></li>
+<li><p>Rename the layer <code class="docutils literal notranslate"><span class="pre">IDW</span> <span class="pre">Smooth</span> <span class="pre">Optimized</span></code>.</p></li>
+<li><p>In the <strong>Contents</strong> pane, turn off the <strong>Temperature</strong> point layer.</p></li>
+<li><p>Uncheck and check <strong>IDW Smooth Optimized</strong> to compare it with <strong>IDW Smooth</strong>.</p>
+<figure class="align-default" id="fig-5-17">
+<img alt="../../_images/fig-5-17.png" src="../../_images/fig-5-17.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 118 </span><span class="caption-text">IDW Smooth Optimized (left) is compared to IDW Smooth (right).</span><a class="headerlink" href="#fig-5-17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The two layers are similar, but the newer layer has more red. Which one is better? You can compare the accuracy of the two layers to help you decide.</p>
+</li>
+<li><p>In the <strong>Contents</strong> pane, select both <strong>IDW Smooth</strong> and <strong>IDW Smooth Optimized</strong>. <em>(Note: To select more than one layer, press the Shift key while selecting layers.)</em></p></li>
+<li><p>Right-click and choose <strong>Cross Validation</strong>.</p>
+<figure class="align-default" id="fig-5-18">
+<img alt="../../_images/fig-5-18.png" src="../../_images/fig-5-18.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 119 </span><span class="caption-text">IDW Smooth Optimized and IDW Smooth selected in the Contents pane with Cross Validation selected in their context menu</span><a class="headerlink" href="#fig-5-18" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Two <strong>Cross validation</strong> window for each layer appears. One of them is blocking the other from view.</p>
+</li>
+<li><p>Move the window aside so you can see both at once.</p>
+<figure class="align-default" id="fig-5-19">
+<img alt="../../_images/fig-5-19.png" src="../../_images/fig-5-19.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 120 </span><span class="caption-text">Cross validation windows</span><a class="headerlink" href="#fig-5-19" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>These are the same <strong>Cross validation</strong> windows that were shown in the <strong>Geostatistical Wizard</strong>. You already reviewed one of them, but the results are sometimes more useful when you can compare them between multiple prediction surfaces.</p>
+<p>The <strong>Summary</strong> tab reports numerical errors for each surface. The closer the <strong>Root-Mean-Square</strong> value is to <strong>0</strong>, the more accurate the created surface is.</p>
+<figure class="align-default" id="fig-5-20">
+<img alt="../../_images/fig-5-20.png" src="../../_images/fig-5-20.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 121 </span><span class="caption-text">IDW Smooth Optimized has a Root-Mean-Square value of 2.4998 and IDW Smooth has a value of 2.669.</span><a class="headerlink" href="#fig-5-20" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>IDW Smooth Optimized has the smaller error value and so can be considered the more reliable prediction surface.</p>
+</li>
+<li><p>Close both <strong>Cross validation</strong> windows.</p></li>
+<li><p>In the <strong>Contents</strong> pane, select only <strong>IDW Smooth</strong>. Right-click this layer and choose <strong>Remove</strong>.</p></li>
+<li><p>On the toolbar at the top corner of the ribbon, click the <strong>Save</strong> button.</p></li>
+</ol>
+<p>Inverse distance weighting is considered an easy and fast interpolation method. It is good for getting an initial picture of the phenomenon you are mapping, and sometimes you may need to use it because it will follow measured values exactly. But it can also produce a ring effect around islands in your data.</p>
+</section>
+<section id="create-geostatistical-surfaces-using-kriging">
+<h3>Create geostatistical surfaces using kriging<a class="headerlink" href="#create-geostatistical-surfaces-using-kriging" title="Link to this heading">#</a></h3>
+<p>Next, you’ll try kriging to see if you can get more accurate results. Kriging is a very flexible geostatistical method. This means that you can adapt it in many ways to suit your data, but it also means that there are many more choices that must be made.</p>
+<ol class="arabic">
+<li><p>Open the <strong>Geostatistical Wizard</strong>.</p></li>
+<li><p>Under <strong>Geostatistical methods</strong>, choose <strong>Kriging / CoKriging</strong> and click <strong>Next</strong>.</p></li>
+<li><p>Under <strong>Ordinary Kriging</strong>, choose <strong>Prediction</strong> to create a surface of predicted values similar to the ones you created earlier using IDW.</p>
+<figure class="align-default" id="fig-5-21">
+<img alt="../../_images/fig-5-21.png" src="../../_images/fig-5-21.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 122 </span><span class="caption-text">Prediction option selected under Ordinary Kriging with Dataset #1 options set to None</span><a class="headerlink" href="#fig-5-21" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>For now, you will create a surface with the default parameters for ordinary kriging.</p>
+</li>
+<li><p>Click <strong>Finish</strong> and click <strong>OK</strong>. A new layer is added to the map.</p></li>
+<li><p>Rename the layer <code class="docutils literal notranslate"><span class="pre">Kriging</span> <span class="pre">Default</span></code>.</p></li>
+<li><p>Compare <strong>Kriging Default</strong> to <strong>IDW Smooth Optimized</strong>.</p>
+<figure class="align-default" id="fig-5-22">
+<img alt="../../_images/fig-5-22.png" src="../../_images/fig-5-22.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 123 </span><span class="caption-text">Kriging Default (left) is compared to IDW Smooth Optimized (right).</span><a class="headerlink" href="#fig-5-22" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The new layer is much more general in its pattern. Next, you’ll change some of the parameters to try to create a better geostatistical surface.</p>
+</li>
+<li><p>Open the <strong>Geostatistical Wizard</strong>.</p></li>
+<li><p>Confirm that the selected method is <strong>Kriging / CoKriging</strong> and click <strong>Next</strong>.</p></li>
+<li><p>Under <strong>Ordinary Kriging</strong>, select <strong>Prediction</strong> and click <strong>Next</strong>.</p></li>
+<li><p>On the <strong>Semivariogram/Covariance Modeling</strong> page, click the <strong>Optimize model</strong> button.</p>
+<figure class="align-default" id="fig-5-23">
+<img alt="../../_images/fig-5-23.png" src="../../_images/fig-5-23.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 124 </span><span class="caption-text">The Optimize button is the first option found under General Properties.</span><a class="headerlink" href="#fig-5-23" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The Optimize button finds the parameters that result in the smallest prediction errors. Notice that the semivariogram map and some of the parameters have changed. In this case, the change is minimal.</p>
+</li>
+<li><p>Click <strong>Next</strong>.</p></li>
+<li><p>On the <strong>Searching Neighborhood</strong> page, change <strong>Sector Type</strong> to <strong>8 Sectors</strong>.</p>
+<figure class="align-default" id="fig-5-24">
+<img alt="../../_images/fig-5-24.png" src="../../_images/fig-5-24.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 125 </span><span class="caption-text">Sector Type set to 8 Sectors on the Searching Neighborhood page</span><a class="headerlink" href="#fig-5-24" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Increasing the number of sectors ensures that neighbors are searched for in all directions, and a large cluster of nearby points in only one direction will not have all of the influence over the predicted value.</p>
+</li>
+<li><p>Click <strong>Next</strong> and review the results on the Cross validation window. that kriging provides you with many more values than inverse distance weighting.</p>
+<figure class="align-default" id="fig-5-25">
+<img alt="../../_images/fig-5-25.png" src="../../_images/fig-5-25.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 126 </span><span class="caption-text">Six values shown in the Cross validation window</span><a class="headerlink" href="#fig-5-25" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Click <strong>Finish</strong> and click <strong>OK</strong>. Another layer is added to the map.</p></li>
+<li><p>Rename the layer <code class="docutils literal notranslate"><span class="pre">Kriging</span> <span class="pre">Modified</span></code>.</p></li>
+<li><p>Compare <strong>Kriging Modified</strong> to <strong>Kriging Default</strong>.</p>
+<figure class="align-default" id="fig-5-26">
+<img alt="../../_images/fig-5-26.png" src="../../_images/fig-5-26.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 127 </span><span class="caption-text">Kriging Modified (left) is compared to Kriging Default (right)</span><a class="headerlink" href="#fig-5-26" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>They are very similar.</p>
+</li>
+<li><p>In the <strong>Contents</strong> pane, select <strong>Kriging Default</strong> and <strong>Kriging Modified</strong>. Right-click and choose <strong>Cross Validation</strong>.</p></li>
+<li><p>Arrange the windows so you can see both at once. Analyze the values on the <strong>Summary</strong> tab.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Statistics</p></th>
+<th class="head"><p>Kriging Default</p></th>
+<th class="head"><p>Kriging Modified</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mean</p></td>
+<td><p>-0.013</p></td>
+<td><p>-0.024</p></td>
+</tr>
+<tr class="row-odd"><td><p>Root Mean Square</p></td>
+<td><p>2.294</p></td>
+<td><p>2.283</p></td>
+</tr>
+<tr class="row-even"><td><p>Mean Standardized</p></td>
+<td><p>0.001</p></td>
+<td><p>0.003</p></td>
+</tr>
+<tr class="row-odd"><td><p>Root Mean Square Standerdized</p></td>
+<td><p>0.854</p></td>
+<td><p>0.841</p></td>
+</tr>
+<tr class="row-even"><td><p>Average Standard Error</p></td>
+<td><p>2.740</p></td>
+<td><p>2.775</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Numbers closer to zero indicate better accuracy. The exception is <strong>Root-Mean-Square Standardized</strong>. In this case, values closer to 1 are desired.</p>
+<p>It is not immediately obvious from these values which surface is better. <strong>Kriging Default</strong> has better values for every category except <strong>Root-Mean-Square</strong>. However, this does not necessarily mean it is better.</p>
+<p>If any of these values are too far off, you should eliminate that layer. But in this scenario, both layers show good cross-validation results, so you can use <strong>Root-Mean-Square</strong> as the tie breaker value. It is also desirable that the <strong>Root-Mean-Square</strong> and <strong>Average Standard Error</strong> values be close to one another. If there is a large difference between these values, it may indicate that the prediction is unstable.</p>
+<p>The <strong>Cross validation</strong> report indicates that <strong>Kriging Modified</strong> is slightly more reliable than <strong>Kriging Default</strong>.</p>
+</li>
+<li><p>Open the <strong>Cross validation</strong> window for <strong>IDW Smooth Optimized</strong>. This surface has a <strong>Root-Mean-Square</strong> value of 2.5. It is less reliable than either of the kriging surfaces.</p></li>
+<li><p>Close all three <strong>Cross validation</strong> windows.</p></li>
+<li><p>Remove <strong>IDW Smooth Optimized</strong> and <strong>Kriging Default</strong> from the map.</p></li>
+<li><p>Save the project.</p></li>
+</ol>
+<p>Kriging is a more advanced method than IDW and requires you to make more decisions. But this allows you to experiment with the parameters until you find those that are a good fit for your data and phenomenon. Kriging also gives you more tools to assess the accuracy of your results, such as a map of the standard error estimates, which you will create next.</p>
+</section>
+<section id="map-the-standard-error-estimates">
+<h3>Map the standard error estimates<a class="headerlink" href="#map-the-standard-error-estimates" title="Link to this heading">#</a></h3>
+<p>You have now made four different surfaces of temperature covering Africa and the Middle East. Each was interpolated from the same data, but each showed a different surface. Clearly these predictions are useful, but they cannot be taken as fact. Some parts of the surface (where there are many data points) can be considered more accurate and reliable than others (where the data is scarce). It is useful to map these degrees of uncertainty to aid decision makers.</p>
+<ol class="arabic">
+<li><p>In the <strong>Contents</strong> pane, select <strong>Kriging Modified</strong>.</p></li>
+<li><p>On the ribbon, on the <strong>Geostatistical Layer</strong> tab, change <strong>Display Type</strong> to <strong>Standard Error</strong>.</p>
+<figure class="align-default" id="fig-5-27">
+<img alt="../../_images/fig-5-27.png" src="../../_images/fig-5-27.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 128 </span><span class="caption-text">Display Type set to Standard Error on the Appearance tab of the Geostatistical Layer contextual ribbon</span><a class="headerlink" href="#fig-5-27" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The map changes to become mostly red.</p>
+</li>
+<li><p>In the <strong>Contents</strong> pane, turn on <strong>Temperature</strong>.</p>
+<figure class="align-default" id="fig-5-28">
+<img alt="../../_images/fig-5-28.png" src="../../_images/fig-5-28.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 129 </span><span class="caption-text">Map with temperature points and red standard error surface</span><a class="headerlink" href="#fig-5-28" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Standard errors are measures of uncertainty for the predicted values. The dark-red areas on the map have larger standard error values and therefore lower certainty in the predicted values. Lighter areas are those where you can place more trust in the results. This map suggests that the results have the greatest standard error in the ocean. This makes sense, because there were no sample measurement points in the ocean (although there were some on small islands).</p>
+</li>
+<li><p>For the <strong>Kriging Modified</strong> layer, change the <strong>Display Type</strong> back to <strong>Prediction</strong>. For this map, you are only interested in predicting land temperatures, so the ocean can be masked out.</p></li>
+<li><p>In the <strong>Contents</strong> pane, drag the <strong>Oceans</strong> layer above <strong>Kriging Modified</strong>.</p>
+<figure class="align-default" id="id1">
+<img alt="../../_images/fig-5-28.png" src="../../_images/fig-5-28.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 130 </span><span class="caption-text">Map with interpolated surface partially masked by the oceans layer</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Save the project.</p></li>
+</ol>
+</section>
+<section id="concluding-remarks">
+<h3>Concluding remarks<a class="headerlink" href="#concluding-remarks" title="Link to this heading">#</a></h3>
+<p>Geostatistics can help you map many phenomena as continuous surfaces even though you only have discrete point data. This can be very useful for visualizing patterns and performing analysis. You may not have a weather station in your study area, but a set of weather stations in a wider region can provide the data you need to understand and predict temperatures everywhere.</p>
+<p>The Geostatistical Wizard offers many interpolation methods, and each one has parameters that can be tweaked to produce different results. Why? Depending on the phenomenon you are mapping, and the data you have available, one model may give you more reliable results than another. If you are going to make decisions based on an interpolated surface, finding the most accurate model is critical.</p>
+</section>
+</section>
+<section id="deliverables">
+<h2>Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
+<div class="note admonition">
+<p class="admonition-title">Question 1</p>
+<p>a. Create a map layout with two side by side maps of the interpolated rasters from IDW and Kriging. Note that the two side by side maps should be on one layout with two data frames. On top of the map, show the administrative boundaries of the continents (you need to download that from any source). The two maps should also share the same extent and scale bar. For example, you cannot zoom in too much for the IDW map and zoom out for the Kriging, they have to match at the spatial scale and extent. Other necessary map tools should be there. Submit the final layout as a pdf or jpg. <em><strong>&lt;7 pt&gt;</strong></em><br />
+b. In the word document, right down the major differences you see in the two outputs and which one would you pick as your analysis surface and why?  <em><strong>&lt;3 pt&gt;</strong></em></p>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -443,7 +882,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lab 4: Drainage delineation</p>
+        <p class="prev-next-title">Lab 4: Watershed and Drainage Modeling from DEM (10 pts)</p>
       </div>
     </a>
     <a class="right-next"
@@ -461,6 +900,32 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-before-proceeding">Read before proceeding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data">Download data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-using-arcgis-pro">Workflow using ArcGIS Pro</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-histograms-of-data-distribution">Create histograms of data distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-geostatistical-surfaces-using-inverse-distance-weighting">Create geostatistical surfaces using inverse distance weighting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-geostatistical-surfaces-using-kriging">Create geostatistical surfaces using kriging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map-the-standard-error-estimates">Map the standard error estimates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concluding-remarks">Concluding remarks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

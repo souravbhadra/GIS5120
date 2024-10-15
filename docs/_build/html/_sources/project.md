@@ -24,9 +24,23 @@ The overall grade for the class project is 25% of your total grade. Within this 
 
 |                                   | Points |
 |-----------------------------------|--------|
+| **Abstract**                      | 5      |
 | **Research**                      | 50     |
 | **Oral Presentation**             | 20     |
-| **Short Report**                  | 30     |
+| **Short Report**                  | 25     |
+
+### Abstract
+
+Please submit your project abstract on Canvas by **October 29, 2024, 10:00 PM CDT**. The abstract is worth 5 points and contributes to your overall project grade. Your abstract should be no longer than 250 words and must include a title followed by a concise overview of your project.
+
+Your abstract should follow the structure typically used in scientific publications:
+
+1. **Introduction:** Briefly introduce your topic and define the main problem.
+2. **Research Question and Objective:** State the key research question, the objectives of your project, and explain why this work is important. Highlight who could benefit from the findings.
+3. **Methods and Data:** Describe the methods you will use and the datasets required for your analysis.
+4. **Expected Results and Hypothesis:** Outline the type of results you expect to achieve, and if applicable, mention any hypotheses you are testing.
+
+Please submit your abstract as a Word document.
 
 ### Research
 
