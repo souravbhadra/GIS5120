@@ -1,3 +1,3 @@
-# Lab 7: Multidimensional climate data analysis
+# Lab 7: Google earth engine
 
 Coming soon.

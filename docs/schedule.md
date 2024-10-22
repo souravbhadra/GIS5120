@@ -19,17 +19,17 @@ Week | Date | Topics | Due
 8    | Oct 10 | **Midterm Q&A; Class Project** | [Lab 4: Drainage delineation](labs/lab-4/lab-4.md)
 9    | Oct 15 | [Lab 5: Spatial interpolation](labs/lab-5/lab-5.md) | -
 9    | Oct 17 | **Midterm Exam** | **Class project title**
-10    | Oct 22 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | [Lab 5: Spatial interpolation](labs/lab-5/lab-5.md)
+10    | Oct 22 | **Midterm Performance and Class Project** | [Lab 5: Spatial interpolation](labs/lab-5/lab-5.md)
 10    | Oct 24 | **No Class (Fall Break)** | -
-11    | Oct 29 | [Lec 5: Climate data analysis (Guest Lecture)](lectures/lec-5.md) | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) and **[Class Project Abstract](project.md)**
-11    | Oct 31 | [Lab 7: Multidimensional climate data analysis](labs/lab-7/lab-7.md) | -
-12    | Nov 5 | [Lec 6: Big data in Geospatial Analytics](lectures/lec-6.md) | -
-12    | Nov 7 | [Lab 7: Multidimensional climate data analysis (contd.)](labs/lab-7/lab-7.md) | -
-13    | Nov 12 | [Lab 8: Google earth engine](labs/lab-8/lab-8.md) | [Lab 7: Multidimensional climate data analysis](labs/lab-7/lab-7.md)
-13    | Nov 14 | [Lab 8: Google earth engine (contd.)](labs/lab-8/lab-8.md) | -
+11    | Oct 29 | [Lec 5: Climate data analysis (Guest Lecture)](lectures/lec-5.md) | **[Class Project Abstract](project.md)**
+11    | Oct 31 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | -
+12    | Nov 5 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | -
+12    | Nov 7 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | -
+13    | Nov 12 | [Lab 7: Google earth engine](labs/lab-7/lab7.md) | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md)
+13    | Nov 14 | [Lab 7: Google earth engine (contd.)](labs/lab-7/lab-7.md) | -
 14    | Nov 19 | **Project Q&A** | -
-14    | Nov 21 | [Lab 8: Google earth engine (contd.)](labs/lab-8/lab-8.md) | -
-15    | Nov 26 | [Lec 7: Geocomputational methods](lectures/lec-7.md) | [Lab 8: Google earth engine](labs/lab-8/lab-8.md)
+14    | Nov 21 | [Lab 7: Google earth engine (contd.)](labs/lab-8/lab-8.md) | -
+15    | Nov 26 | [Lec 6: Geocomputational methods](lectures/lec-6.md) | [Lab 7: Google earth engine](labs/lab-7/lab7.md)
 15    | Nov 28 | **No Class (Happy Thanksgiving!)** | -
 16    | Dec 3 | **Project presentation** | **Submit presentation by 8 AM**
 16    | Dec 5 | **Project presentation** | -
