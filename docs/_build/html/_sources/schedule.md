@@ -24,7 +24,7 @@ Week | Date | Topics | Due
 11    | Oct 29 | [Lec 5: Climate data analysis (Guest Lecture)](lectures/lec-5.md) | **[Class Project Abstract](project.md)**
 11    | Oct 31 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | -
 12    | Nov 5 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | -
-12    | Nov 7 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | -
+12    | Nov 7 | Make up test for Midterm | -
 13    | Nov 12 | [Lab 7: Google earth engine](labs/lab-7/lab7.md) | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md)
 13    | Nov 14 | [Lab 7: Google earth engine (contd.)](labs/lab-7/lab-7.md) | -
 14    | Nov 19 | **Project Q&A** | -
