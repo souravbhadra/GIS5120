@@ -1,4 +1,4 @@
-# Lab 2: Analyzing violent crime (20 pts)
+# Lab 2: Analyzing violent crime (9 pts)
 
 ## Read before proceeding
 

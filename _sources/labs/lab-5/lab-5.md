@@ -1,4 +1,4 @@
-# Lab 5: Interpolate temperatures using the Geostatistical Wizard (10 pts)
+# Lab 5: Interpolate temperatures using the Geostatistical Wizard (4.5 pts)
 
 ## Read before proceeding
 
