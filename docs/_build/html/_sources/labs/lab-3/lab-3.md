@@ -1,4 +1,4 @@
-# Lab 3: Rediscovering Trails in National Parks (10 pts)
+# Lab 3: Rediscovering Trails in National Parks (4.5 pts)
 
 ## Read before proceeding
 

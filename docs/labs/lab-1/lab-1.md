@@ -1,4 +1,4 @@
-# Lab 1: Fire station suitability analysis (10 pts)
+# Lab 1: Fire station suitability analysis (4.5 pts)
 
 ## Read before proceeding
 

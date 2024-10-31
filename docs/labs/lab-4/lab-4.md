@@ -1,4 +1,4 @@
-# Lab 4: Watershed and Drainage Modeling from DEM (10 pts)
+# Lab 4: Watershed and Drainage Modeling from DEM (4.5 pts)
 
 ## Read before proceeding
 

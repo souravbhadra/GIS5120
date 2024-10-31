@@ -1,3 +1,3 @@
-# Lab 7: Google earth engine
+# Lab 7: Google earth engine (9 pts)
 
 Coming soon.
