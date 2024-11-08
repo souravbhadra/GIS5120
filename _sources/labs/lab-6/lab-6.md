@@ -1,5 +1,9 @@
 # Lab 6: Geospatial analysis using python (9 pts)
 
+## Due Date
+
+Nov 14, 2024
+
 ## Learning Objectives
 
 - We will explore the capabilities of GDAL-based Python functionalities to develop a Zonal Statistic workflow.
