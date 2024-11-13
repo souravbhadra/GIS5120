@@ -26,10 +26,10 @@ Week | Date | Topics | Due
 12    | Nov 5 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | -
 12    | Nov 7 | Make up test for Midterm | -
 13    | Nov 12 | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md) | -
-13    | Nov 14 | [Lab 7: Google earth engine](labs/lab-7/lab-7.md) | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md)
-14    | Nov 19 | **Project Q&A** | -
-14    | Nov 21 | [Lab 7: Google earth engine (contd.)](labs/lab-8/lab-8.md) | -
-15    | Nov 26 | [Lec 6: Geocomputational methods](lectures/lec-6.md) | [Lab 7: Google earth engine](labs/lab-7/lab7.md)
+13    | Nov 14 | [Lec 6: Geocomputational methods](lectures/lec-6.md) | -
+14    | Nov 19 | **Project Q&A** | [Lab 6: Geospatial analysis using python](labs/lab-6/lab-6.md)
+14    | Nov 21 | [Lab 7: Google earth engine](labs/lab-8/lab-8.md) | -
+15    | Nov 26 | [Lab 7: Google earth engine (contd.)](labs/lab-8/lab-8.md) | [Lab 7: Google earth engine](labs/lab-7/lab7.md)
 15    | Nov 28 | **No Class (Happy Thanksgiving!)** | -
 16    | Dec 3 | **Project presentation** | **Submit presentation by 8 AM**
 16    | Dec 5 | **Project presentation** | -
