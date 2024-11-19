@@ -94,4 +94,4 @@ Here is a breakdown of the **Short Report** component which totals to 100:
 
 Use this template to write your short report.
 
-Download report template from [here](https://github.com/souravbhadra/GIS5120/blob/main/project/docs/Short_Report_Template.docx).
+Download report template from [here](https://github.com/souravbhadra/GIS5120/raw/refs/heads/main/project/docs/Short_Report_Template.docx).
