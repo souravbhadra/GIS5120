@@ -90,4 +90,8 @@ Here is a breakdown of the **Short Report** component which totals to 100:
 | Overall writing quality                                   | 5     |
 | **Total**                                                 | **100**|
 
-**Note: I will provide a template for the short report soon.**
+### Report Template
+
+Use this template to write your short report.
+
+Download report template from [here](https://github.com/souravbhadra/GIS5120/blob/main/project/docs/Short_Report_Template.docx).
