@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 7: Google earth engine (9 pts) &#8212; Geospatial Analytics (GIS4120/5120)</title>
+    <title>Lab 7: Correlation between Vegetation Indices and Soybean Yield using Google Earth Engine &#8212; Geospatial Analytics (GIS4120/5120)</title>
   
   
   
@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'labs/lab-7/lab-7';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Mid-Term Exam" href="../../midterm.html" />
     <link rel="prev" title="Lab 6: Geospatial analysis using python (9 pts)" href="../lab-6/lab-6.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -199,7 +200,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../lab-4/lab-4.html">Lab 4: Watershed and Drainage Modeling from DEM (4.5 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-5/lab-5.html">Lab 5: Interpolate temperatures using the Geostatistical Wizard (4.5 pts)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab-6/lab-6.html">Lab 6: Geospatial analysis using python (9 pts)</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 7: Google earth engine (9 pts)</a></li>
+
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lab 7: Correlation between Vegetation Indices and Soybean Yield using Google Earth Engine</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../midterm.html">Mid-Term Exam</a></li>
@@ -305,7 +308,7 @@
       
       
       
-      <li><a href="../../_sources/labs/lab-7/lab-7.md" target="_blank"
+      <li><a href="../../_sources/labs/lab-7/lab-7.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -315,7 +318,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -376,7 +379,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -387,11 +392,23 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 7: Google earth engine (9 pts)</h1>
+    <h1>Lab 7: Correlation between Vegetation Indices and Soybean Yield using Google Earth Engine</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules-and-initialize-gee">Import modules and initialize GEE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-yield-data">Read Yield Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-county-shape-from-gee">Get County shape from GEE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-modis-ndvi">Extract the MODIS NDVI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -401,9 +418,747 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-7-google-earth-engine-9-pts">
-<h1>Lab 7: Google earth engine (9 pts)<a class="headerlink" href="#lab-7-google-earth-engine-9-pts" title="Link to this heading">#</a></h1>
-<p>Coming soon.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-7-correlation-between-vegetation-indices-and-soybean-yield-using-google-earth-engine">
+<h1>Lab 7: Correlation between Vegetation Indices and Soybean Yield using Google Earth Engine<a class="headerlink" href="#lab-7-correlation-between-vegetation-indices-and-soybean-yield-using-google-earth-engine" title="Link to this heading">#</a></h1>
+<p>In this lab, you will analyze the relationship between county-level soybean yield and various vegetation indices. We will use data from the National Agricultural Statistics Service (NASS), maintained by the USDA, which provides detailed county-level crop statistics such as yield, harvested area, planting area, and much more. You can explore this data yourself at <a class="reference external" href="https://quickstats.nass.usda.gov/">NASS Quick Stats</a>.</p>
+<p>For this lab, I have already downloaded county-level soybean data for Illinois and Missouri for the year 2022. Your task will be to calculate zonal statistics for different vegetation indices derived from MODIS satellite imagery and then investigate their correlation with soybean yield.</p>
+<p>I will guide you with step-by-step instructions, but the final task—creating the scatterplot and interpreting the correlation—will be up to you.</p>
+<section id="import-modules-and-initialize-gee">
+<h2>Import modules and initialize GEE<a class="headerlink" href="#import-modules-and-initialize-gee" title="Link to this heading">#</a></h2>
+<p>Install libraries if needed in Google Earth Engine. If you are working in Anaconda locally, then you should create a separate environment and install packages there.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># install necessary packages</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ee</span>
+<span class="kn">import</span> <span class="nn">geemap</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">ee</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">geemap</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;ee&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Mount the google drive (if working in colab). You will need it since you will have to read the yield data with pandas. The yield data is available in this link:</p>
+<p><a class="reference external" href="https://github.com/souravbhadra/GIS5120/raw/refs/heads/main/labs/lab-7/1BBF98F1-5E9B-3A66-94BA-BCE48188EB1F.csv">Yield data link</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># mount your google drive</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<p>Authenticate and initialize the earthe engine.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># authenticate and initialize earthe engine</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+</section>
+<section id="read-yield-data">
+<h2>Read Yield Data<a class="headerlink" href="#read-yield-data" title="Link to this heading">#</a></h2>
+<p>Read the yield data you just downloaded.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yield_data</span> <span class="o">=</span> <span class="s2">&quot;read the yield data you just uploaded into your google drive&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<p>Examine each columns. Note that, there is are several columns here which you will need later:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">State</span> <span class="pre">ANSI</span></code> is the FIPS code for the state.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">County</span> <span class="pre">ANSI</span></code> is the FIPS code for the county.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Item</span></code> is the the information of the <code class="docutils literal notranslate"><span class="pre">Value</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Value</span></code> is the yield in Bushels/Acre unit.</p></li>
+</ul>
+<p><strong>Question 1:</strong> Create a histogram of the yield values and find the mean and standard deviation of the yield.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a histogram, it should look like below</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div><img alt="../../_images/55b6ee3e26b7f1b71bfd65ea9927ec524c9258275f7b6c727b71b539652f76dc.png" src="../../_images/55b6ee3e26b7f1b71bfd65ea9927ec524c9258275f7b6c727b71b539652f76dc.png" />
+</div>
+</div>
+</section>
+<section id="get-county-shape-from-gee">
+<h2>Get County shape from GEE<a class="headerlink" href="#get-county-shape-from-gee" title="Link to this heading">#</a></h2>
+<p>We can get the US Census TIGER County shapefile directly from Google Earth Engine as FeatureCollection. But know that this is the feature collection for the entire US. So do not try to apply <code class="docutils literal notranslate"><span class="pre">getInfo()</span></code> on top of this as that could significantly take a long time to run.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counties</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">FeatureCollection</span><span class="p">(</span><span class="s1">&#39;TIGER/2018/Counties&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 2:</strong> Visualize the Counties over a map. Use any type of symbologies. (Hint: Use a dictionary to stylize the shape symbology; use <code class="docutils literal notranslate"><span class="pre">addLayer</span></code> to visualize)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># visualize the counties</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you want to examine the contents or attribute information of the feature collection, you have to be little creative to do that. You need to first read the first item and then get the attribute information. Its not like geopandas where you could take a peak into the entire dataframe at once. Since this is hosted in Google Earth Engine, it will take a lot of time to read the contents of an entire shape to your local memory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read the first county</span>
+<span class="n">first_county</span> <span class="o">=</span> <span class="n">counties</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get the properties of the first county</span>
+<span class="n">properties</span> <span class="o">=</span> <span class="n">first_county</span><span class="o">.</span><span class="n">propertyNames</span><span class="p">()</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># you can also see the values of the attributes</span>
+<span class="n">attributes</span> <span class="o">=</span> <span class="n">first_county</span><span class="o">.</span><span class="n">toDictionary</span><span class="p">()</span><span class="o">.</span><span class="n">getInfo</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">attributes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;ALAND&#39;: 159915148,
+ &#39;AWATER&#39;: 11211123,
+ &#39;CBSAFP&#39;: &#39;41180&#39;,
+ &#39;CLASSFP&#39;: &#39;C7&#39;,
+ &#39;COUNTYFP&#39;: &#39;510&#39;,
+ &#39;COUNTYNS&#39;: &#39;00767557&#39;,
+ &#39;CSAFP&#39;: &#39;476&#39;,
+ &#39;FUNCSTAT&#39;: &#39;F&#39;,
+ &#39;GEOID&#39;: &#39;29510&#39;,
+ &#39;INTPTLAT&#39;: &#39;+38.6356988&#39;,
+ &#39;INTPTLON&#39;: &#39;-090.2445816&#39;,
+ &#39;LSAD&#39;: &#39;25&#39;,
+ &#39;METDIVFP&#39;: &#39;&#39;,
+ &#39;MTFCC&#39;: &#39;G4020&#39;,
+ &#39;NAME&#39;: &#39;St. Louis&#39;,
+ &#39;NAMELSAD&#39;: &#39;St. Louis city&#39;,
+ &#39;STATEFP&#39;: &#39;29&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that the <code class="docutils literal notranslate"><span class="pre">STATEFP</span></code> and <code class="docutils literal notranslate"><span class="pre">COUNTYFP</span></code> information are provided in string. Also the <code class="docutils literal notranslate"><span class="pre">COUNTYFP</span></code> information is provided in three digits of string. For example, a FIPS code of 35 would be stored as ‘035’.</p>
+<p>Since we have a limited list of yield data from the <code class="docutils literal notranslate"><span class="pre">yield_data</span></code> dataframe to work with, we can reduce or filter out the <code class="docutils literal notranslate"><span class="pre">counties</span></code> FeatureCollection to match with the counties of the <code class="docutils literal notranslate"><span class="pre">yield_data</span></code>. There are couple of ways to do that. We can use ee’s own Filter methods to filter that. We need a list of state_fips and county_fips that can exactly match with the Feature Collection. Notice that the <code class="docutils literal notranslate"><span class="pre">yield_data</span></code>’s <code class="docutils literal notranslate"><span class="pre">County</span> <span class="pre">ANSI</span></code> codes are in floating data dformat. There is another problem, the <code class="docutils literal notranslate"><span class="pre">yield_data['County</span> <span class="pre">ANSI']</span></code> also contains some np.nan values, which is not desirable.</p>
+<p><strong>Question 3:</strong> Create a list of <code class="docutils literal notranslate"><span class="pre">state_fips</span></code> with the values of [‘29’, ‘17’] since Missouri is 29 and Illinois is 17. Create another list named <code class="docutils literal notranslate"><span class="pre">county_fips</span></code> that only contains the three digits string FIPS code from the <code class="docutils literal notranslate"><span class="pre">County</span> <span class="pre">ANSI</span></code> column. (Hint: Create a for loop that runs through each item of the County ANSI values. Then check if the item is nan or not, you can do that by doing <code class="docutils literal notranslate"><span class="pre">np.isnan()</span></code> method. Then, if it is not nan, convert the float to int and then to a string. If the string’s length is only 2 digits, then add a 0 before it, if it’s length is 1 digit, then add 00 before it.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define state_fips</span>
+<span class="n">state_fips</span> <span class="o">=</span> <span class="s2">&quot;just use a list with the two codes&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert the county fips using the instructions</span>
+<span class="n">county_fips</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># use a for loop</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<p>Use the following codes to filter the FeatureCollection.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter counties by State FIPS codes</span>
+<span class="n">state_filter</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Filter</span><span class="o">.</span><span class="n">inList</span><span class="p">(</span><span class="s1">&#39;STATEFP&#39;</span><span class="p">,</span> <span class="n">state_fips</span><span class="p">)</span>
+
+<span class="c1"># Further filter counties by County FIPS codes</span>
+<span class="n">county_filter</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Filter</span><span class="o">.</span><span class="n">inList</span><span class="p">(</span><span class="s1">&#39;COUNTYFP&#39;</span><span class="p">,</span> <span class="n">county_fips</span><span class="p">)</span>
+
+<span class="c1"># Combine the filters</span>
+<span class="n">combined_filter</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">Filter</span><span class="o">.</span><span class="n">And</span><span class="p">(</span><span class="n">state_filter</span><span class="p">,</span> <span class="n">county_filter</span><span class="p">)</span>
+
+<span class="c1"># Apply the filter to the counties FeatureCollection</span>
+<span class="n">filtered_counties</span> <span class="o">=</span> <span class="n">counties</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">combined_filter</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+</section>
+<section id="extract-the-modis-ndvi">
+<h2>Extract the MODIS NDVI<a class="headerlink" href="#extract-the-modis-ndvi" title="Link to this heading">#</a></h2>
+<p>Now we can use the <code class="docutils literal notranslate"><span class="pre">filtered_counties</span></code> to find the MODIS NDVI data within a given date range and then calculate the average within that time series. For this demonstration, I am selecting only one month from August and aggregating the average NDVI within that time. This would create an <code class="docutils literal notranslate"><span class="pre">ee.Image</span></code> (after doing the <code class="docutils literal notranslate"><span class="pre">mean</span></code>) from the <code class="docutils literal notranslate"><span class="pre">ee.ImageCollection</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter the MODIS NDVI dataset by bounds and date range</span>
+<span class="n">modis_ndvi</span> <span class="o">=</span> <span class="n">ee</span><span class="o">.</span><span class="n">ImageCollection</span><span class="p">(</span><span class="s2">&quot;MODIS/MCD43A4_006_NDVI&quot;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">filterBounds</span><span class="p">(</span><span class="n">filtered_counties</span><span class="o">.</span><span class="n">geometry</span><span class="p">())</span> \
+    <span class="o">.</span><span class="n">filterDate</span><span class="p">(</span><span class="s1">&#39;2022-08-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2022-08-31&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;NDVI&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<p>We have seen before how to create a for loop and use <code class="docutils literal notranslate"><span class="pre">ee.ReduceRegion()</span></code> to perform zonal statistics. Luckily, <code class="docutils literal notranslate"><span class="pre">geemap</span></code> has a <code class="docutils literal notranslate"><span class="pre">zonal_stats</span></code> function that exactly does that within a line. The only drawback is that it must be passed with a output csv file path where the data will be saved. You can provide any path in your google drive with specific name.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_modis_stats</span> <span class="o">=</span> <span class="s2">&quot;your output path&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perform zonal statistics</span>
+<span class="n">geemap</span><span class="o">.</span><span class="n">zonal_stats</span><span class="p">(</span>
+    <span class="n">modis_ndvi</span><span class="p">,</span> <span class="c1"># ee Image</span>
+    <span class="n">filtered_counties</span><span class="p">,</span>  <span class="c1"># Vector data (counties)</span>
+    <span class="n">out_file_path</span><span class="o">=</span><span class="n">out_modis_stats</span><span class="p">,</span>  <span class="c1"># Output file</span>
+    <span class="n">statistics_type</span><span class="o">=</span><span class="s1">&#39;MEAN&#39;</span><span class="p">,</span>  <span class="c1"># Calculate mean NDVI</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>  <span class="c1"># MODIS spatial resolution</span>
+    <span class="n">return_fc</span><span class="o">=</span><span class="kc">False</span>  <span class="c1"># Export as a CSV, not a FeatureCollection</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Computing statistics ...
+Generating URL ...
+Downloading data from https://earthengine.googleapis.com/v1/projects/ee-sbhadra-geoan/tables/ef59de854229004fa018d42643853672-a440ac30af71bb380793b8701903d4f3:getFeatures
+Please wait ...
+Data downloaded to /content/drive/MyDrive/GIS5120/lab-7/zonal_stats.csv
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Question 4:</strong> Read the newly created zonal statistics csv file. See that the <code class="docutils literal notranslate"><span class="pre">mean</span></code> column has the mean NDVI values. Look at its histogram. See that there could be one or multiple outliers in the data. Find those rows and somehow remove those rows from the dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zonal_stat_df</span> <span class="o">=</span> <span class="s2">&quot;read the data&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create the histogram, should look something like this</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div><img alt="../../_images/7e013a887acab0538750af61424dee102e1d15b9989b250a019c178256ae9dcd.png" src="../../_images/7e013a887acab0538750af61424dee102e1d15b9989b250a019c178256ae9dcd.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove the outliers</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div></div>
+</div>
+<p><strong>Question 5:</strong>  See that there are <code class="docutils literal notranslate"><span class="pre">STATEFP</span></code> and <code class="docutils literal notranslate"><span class="pre">COUNTYFP</span></code> columns in the zonal statistics dataframe, whereas the <code class="docutils literal notranslate"><span class="pre">yield_data</span></code> has the <code class="docutils literal notranslate"><span class="pre">State</span> <span class="pre">ANSI</span></code> and <code class="docutils literal notranslate"><span class="pre">County</span> <span class="pre">ANSI</span></code> columns to match. You need to join these two dataframes because we want to calculate the correlation between the yield values and mean NDVI values. The unique ID to join would be the combination of state and county FIPS. (Hint: You can use the <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code> function to do the joining. The left dataframe should be the <code class="docutils literal notranslate"><span class="pre">zonal_stat</span></code> as that is the base and right one can be the <code class="docutils literal notranslate"><span class="pre">yield_data</span></code>. You can also use mutiple ids here to joine the two dataframes. Note that, both state and county FIPS are needed to join because one county FIPs code can be same for the two different states.)</p>
+<p><strong>Question 6:</strong> Create a scatterplot where the mean NDVI values are in the x-axis and the yield values are in the y-axis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># should look like something below</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div><img alt="../../_images/b12cb48e781f6a0e2312ae3e084edefa09007aecf109feb20daa055c967ed0f6.png" src="../../_images/b12cb48e781f6a0e2312ae3e084edefa09007aecf109feb20daa055c967ed0f6.png" />
+</div>
+</div>
+<p><strong>Question 7:</strong> Import the <code class="docutils literal notranslate"><span class="pre">scipy</span></code> packages. Use the <code class="docutils literal notranslate"><span class="pre">scipy.stats.pearsonr</span></code> function to calculate the Pearson’s Correlation Coefficient. This will give you both the correlation coefficient and the p-value. The R should be around 0.82.</p>
+<p><strong>Question 8:</strong> Perform the similar task for the following months of 2022 using the MODIS data. Use May, June, July, August, September, and October NDVI. Remove any outliers if present (You can use some type of condition like any NDVI values less than 0.2 is outlier) and calculate the pearson’s R for each of these months. Show the scatterplot for each of the months and in a text mention which month’s NDVI has the highest correlation with yield.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># should look like something like this</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+            <style>
+                .geemap-dark {
+                    --jp-widgets-color: white;
+                    --jp-widgets-label-color: white;
+                    --jp-ui-font-color1: white;
+                    --jp-layout-color2: #454545;
+                    background-color: #383838;
+                }
+
+                .geemap-dark .jupyter-button {
+                    --jp-layout-color3: #383838;
+                }
+
+                .geemap-colab {
+                    background-color: var(--colab-primary-surface-color, white);
+                }
+
+                .geemap-colab .jupyter-button {
+                    --jp-layout-color3: var(--colab-primary-surface-color, white);
+                }
+            </style>
+            </div><img alt="../../_images/26d6972d4565d4fc36cf485bcf3eceff0ac4baa5a6aa86bc5c60c7b26ec02a74.png" src="../../_images/26d6972d4565d4fc36cf485bcf3eceff0ac4baa5a6aa86bc5c60c7b26ec02a74.png" />
+</div>
+</div>
+</section>
+<section id="deliverables">
+<h2>Deliverables<a class="headerlink" href="#deliverables" title="Link to this heading">#</a></h2>
+<p>Submit this entire notebook in canvas after filling everything up.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -445,12 +1200,40 @@ document.write(`
         <p class="prev-next-title">Lab 6: Geospatial analysis using python (9 pts)</p>
       </div>
     </a>
+    <a class="right-next"
+       href="../../midterm.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mid-Term Exam</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-modules-and-initialize-gee">Import modules and initialize GEE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-yield-data">Read Yield Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#get-county-shape-from-gee">Get County shape from GEE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extract-the-modis-ndvi">Extract the MODIS NDVI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">Deliverables</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
